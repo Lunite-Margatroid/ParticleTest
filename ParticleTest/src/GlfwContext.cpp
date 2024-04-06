@@ -3,23 +3,25 @@
 
 namespace ptt
 {
-	GlfwContext* GlfwContext::s_Instance = nullptr;
 
 	GlfwContext::~GlfwContext()
 	{
 		Terminate();
 	}
 
-	GlfwContext* GlfwContext::GetInstance()
-	{
-		if (s_Instance == nullptr)
-			s_Instance = new GlfwContext();
-		return s_Instance;
-	}
-
 	GLFWwindow* GlfwContext::GetGlfwWindow()
 	{
-		return GetInstance()->m_Window;
+		return m_Window;
+	}
+
+	int GlfwContext::GetHeight() const
+	{
+		return m_Height;
+	}
+
+	int GlfwContext::GetWidth() const
+	{
+		return m_Width;
 	}
 
 	bool GlfwContext::Init(int width, int height, const std::string& title, int majorVersion, int minorVersion )
