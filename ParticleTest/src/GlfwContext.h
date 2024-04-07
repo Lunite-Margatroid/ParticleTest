@@ -1,4 +1,5 @@
 #pragma once
+#include "Input.h"
 
 namespace ptt
 {
@@ -19,6 +20,7 @@ namespace ptt
 		~GlfwContext();
 		bool Init(int width = 1600, int height = 900, const std::string& title = "Particle Test",
 			int majorVersion = 4, int minorVersion = 1);
+		void InitInput();
 		GLFWwindow* GetGlfwWindow();
 
 		int GetHeight()const;

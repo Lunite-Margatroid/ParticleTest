@@ -15,8 +15,6 @@ namespace ptt
 		m_ImGuiCtx->Init(m_Window);
 
 		m_Menu = std::make_unique<MenuScene>();
-
-		m_Menu->RegistDemoScene<DemoScene>("Nothing Scene");
 	}
 	Application::Application()
 	{

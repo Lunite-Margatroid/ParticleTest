@@ -60,10 +60,18 @@ namespace ptt
 
 		// …Ë÷√ ”ø⁄
 		GLCall(glViewport(0, 0, m_Width, m_Height));
+
+		InitInput();
+	}
+
+	void GlfwContext::InitInput()
+	{
+		Input::SetWindow(m_Window);
 	}
 
 	void GlfwContext::Terminate()
 	{
+		Input::FreeInstance();
 		glfwDestroyWindow(m_Window);
 		glfwTerminate();
 	}
