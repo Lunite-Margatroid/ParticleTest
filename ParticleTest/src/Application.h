@@ -21,7 +21,7 @@ namespace ptt
 		bool m_Run;
 
 		void UpdateTime();
-
+		void Update();
 		virtual void Init();
 	public:
 		Application();

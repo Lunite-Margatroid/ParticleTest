@@ -47,6 +47,7 @@ namespace ptt
 		while (m_Run)
 		{
 			m_Run = (glfwWindowShouldClose(m_Window) == 0);
+			Update();
 			glfwPollEvents();
 			Render();
 		}
@@ -66,5 +67,10 @@ namespace ptt
 		m_CurrentTime = glfwGetTime();
 		m_DeltaTime = m_CurrentTime - m_LastTime;
 		m_LastTime = m_CurrentTime;
+	}
+	void Application::Update()
+	{
+		UpdateTime();
+		m_Menu->Update(m_DeltaTime);
 	}
 }

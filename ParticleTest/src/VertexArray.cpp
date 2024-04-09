@@ -73,25 +73,25 @@ void LM::VertexArray::Unbind() const
 void LM::VertexArray::DrawElement(unsigned int count, unsigned int offset) const
 {
 	Bind();
-	glDrawElements(m_MetaType, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(unsigned int)));
+	GLCall(glDrawElements(m_MetaType, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(unsigned int))));
 }
 
 void LM::VertexArray::DrawElement(unsigned int count, unsigned int offset)
 {
 	Bind();
-	glDrawElements(m_MetaType, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(unsigned int)));
+	GLCall(glDrawElements(m_MetaType, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(unsigned int))));
 }
 
 void LM::VertexArray::DrawArray(unsigned int count, unsigned int offset) const
 {
 	Bind();
-	glDrawArrays(m_MetaType, offset, count);
+	GLCall(glDrawArrays(m_MetaType, offset, count));
 }
 
 void LM::VertexArray::DrawArray(unsigned int count, unsigned int offset)
 {
 	Bind();
-	glDrawArrays(m_MetaType, offset, count);
+	GLCall(glDrawArrays(m_MetaType, offset, count));
 }
 
 

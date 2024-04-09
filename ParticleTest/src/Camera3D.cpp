@@ -6,9 +6,13 @@ namespace ptt
 	{
 		static glm::vec3 origin(0.0f, 0.0f, -1.0f);
 		static glm::mat4 trans(1.0f);
-		trans = glm::rotate(glm::mat4(1.0f), m_fov, glm::vec3(0.0f, 1.0f, 0.0f));
-		trans = glm::rotate(trans, m_pitch, glm::vec3(0.0f, 1.0f, 0.0f));
-		trans = glm::rotate(trans, m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+		trans = glm::rotate(glm::mat4(1.0f), m_yaw, glm::vec3(0.0f, 1.0f, 0.0f));
+
+		m_Front = trans * glm::vec4(origin,1.f);
+		m_Front = glm::normalize(m_Front);
+
+		trans = glm::rotate(trans, m_pitch, glm::vec3(1.0f, 0.0f, 0.0f));
+		trans = glm::rotate(trans, m_fov, glm::vec3(0.0f, 0.0f, 1.0f));
 
 		m_Dir = trans * glm::vec4(origin,1.0f);
 		m_Right = glm::cross(m_Dir, m_Up);
@@ -36,11 +40,11 @@ namespace ptt
 		}
 		if (Input::IsKeyPressed(GLFW_KEY_W))
 		{
-			m_Pos += deltaTime * m_SenPos * m_Dir;
+			m_Pos += deltaTime * m_SenPos * m_Front;
 		}
 		if (Input::IsKeyPressed(GLFW_KEY_S))
 		{
-			m_Pos -= deltaTime * m_SenPos * m_Dir;
+			m_Pos -= deltaTime * m_SenPos * m_Front;
 		}
 		if (Input::IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 		{
@@ -55,22 +59,22 @@ namespace ptt
 	void Camera3D::Rotate(float deltaTime)
 	{
 #ifdef IMPL_INPUT
-		if (Input::IsKeyPressed(GLFW_KEY_Q))
+		if (Input::IsKeyPressed(GLFW_KEY_LEFT))
 		{
 			m_yaw += deltaTime * m_SenRad;
 		}
 
-		if (Input::IsKeyPressed(GLFW_KEY_E))
+		if (Input::IsKeyPressed(GLFW_KEY_RIGHT))
 		{
 			m_yaw -= deltaTime * m_SenRad;
 		}
 
-		if (Input::IsKeyPressed(GLFW_KEY_Z))
+		if (Input::IsKeyPressed(GLFW_KEY_DOWN))
 		{
 			m_pitch -= deltaTime * m_SenRad;
 		}
 
-		if (Input::IsKeyPressed(GLFW_KEY_C))
+		if (Input::IsKeyPressed(GLFW_KEY_UP))
 		{
 			m_pitch += deltaTime * m_SenRad;
 		}
@@ -90,6 +94,7 @@ namespace ptt
 		m_Dir(0.f, 0.0f, -1.0f),
 		m_Up(0.0f, 1.0f, 0.0f),
 		m_Right(1.0f, 0.0f, 0.0f),
+		m_Front(0.f, 0.0f, -1.0f),
 		m_yaw(0.0f),
 		m_pitch(0.0f),
 		m_fov(0.0f),

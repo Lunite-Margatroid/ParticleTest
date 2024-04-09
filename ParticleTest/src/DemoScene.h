@@ -29,6 +29,7 @@ namespace ptt
 		~MenuScene();
 		void RenderImGui();
 		void Render();
+		void Update(float deltaTime);
 
 		template<typename T>
 		void RegistDemoScene(const std::string& title)

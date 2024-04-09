@@ -4,7 +4,7 @@ namespace LM
 {
 	class VertexBuffer
 	{
-	private:
+	protected:
 		unsigned int m_id;
 		unsigned int m_uSize;
 	public:
@@ -12,11 +12,10 @@ namespace LM
 		VertexBuffer();
 		virtual ~VertexBuffer();
 
-		void Init(unsigned int size, void* data);
-		void Init(unsigned int size, void* data, GLenum usage);
+		virtual void Init(unsigned int size, void* data, GLenum usage = GL_STATIC_DRAW);
 
-		void Bind() const;
-		void Unbind() const;
+		virtual void Bind() const;
+		virtual void Unbind() const;
 
 		unsigned int GetID() const;
 		unsigned int GetSize() const;

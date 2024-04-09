@@ -8,10 +8,11 @@ namespace ptt
 	class Camera3D :public Camera
 	{
 	protected:
-		glm::vec3 m_Pos;
-		glm::vec3 m_Dir;
-		glm::vec3 m_Up;
-		glm::vec3 m_Right;
+		glm::vec3 m_Pos;			// camera position
+		glm::vec3 m_Dir;			// view ahead
+		glm::vec3 m_Up;				// up for move
+		glm::vec3 m_Right;			// right for move
+		glm::vec3 m_Front;			// front for move
 		
 		float m_yaw;				// 转轴为y轴 左右
 		float m_pitch;				// 转轴为x轴 上下

@@ -21,8 +21,6 @@ namespace ptt
 	}
 	void DemoScene::RenderImGui()
 	{
-		static char buffer[64];
-		ImGui::InputText("Nothing Scene", buffer, 64);
 	}
 	MenuScene::MenuScene()
 	{
@@ -68,5 +66,10 @@ namespace ptt
 	{
 		if (m_CurrentScene)
 			m_CurrentScene->Render();
+	}
+	void MenuScene::Update(float deltaTime)
+	{
+		if(m_CurrentScene)
+			m_CurrentScene->Update(deltaTime);
 	}
 }

@@ -7,7 +7,10 @@ namespace ptt
 	protected:
 		unsigned int m_tfID;
 		std::vector<char*> m_Varyings;
+		
 
+		static bool s_Active;
+		static bool s_Pause;
 
 		virtual void Init();
 	public:
@@ -15,6 +18,7 @@ namespace ptt
 		~Feedback();
 
 		void Bind();
+		void Unbind();
 
 		unsigned int GetTransformFeedbackID() const;
 	
