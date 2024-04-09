@@ -29,7 +29,13 @@ namespace ptt
 	}
 	void Feedback::BindBuffer(unsigned int index, unsigned int buffer)
 	{
+		Bind();
 		GLCall(glTransformFeedbackBufferBase(m_tfID, index, buffer));
+	}
+	void Feedback::BindBufferRange(unsigned int index, unsigned int buffer, int offset, int size)
+	{
+		Bind();
+		GLCall(glTransformFeedbackBufferRange(m_tfID, index, buffer,offset, size));
 	}
 	void Feedback::ApplyVarying(unsigned int program, GLenum bufferMode)
 	{
@@ -44,5 +50,21 @@ namespace ptt
 	{
 		char* str = new char[strlen(varying) + 1];
 		m_Varyings.push_back(str);
+	}
+	void Feedback::BeginTransformFeedback(GLenum primitiveMode)
+	{
+		GLCall(glBeginTransformFeedback(primitiveMode));
+	}
+	void Feedback::EndTransformFeedback()
+	{
+		GLCall(glEndTransformFeedback());
+	}
+	void Feedback::PauseTransformFeedback()
+	{
+		GLCall(glPauseTransformFeedback());
+	}
+	void Feedback::ResumeTransformFeedback()
+	{
+		GLCall(glResumeTransformFeedback());
 	}
 }

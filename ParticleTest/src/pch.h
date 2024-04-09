@@ -26,6 +26,8 @@
 					x;\
 					ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
+#define PI 3.1416f
+
 void GLClearError();
 
 bool GLLogCall(const char* function, const char* file, int line);

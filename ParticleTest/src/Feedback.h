@@ -19,9 +19,19 @@ namespace ptt
 		unsigned int GetTransformFeedbackID() const;
 	
 		virtual void BindBuffer(unsigned int index, unsigned int buffer);
+		virtual void BindBufferRange(unsigned int index, unsigned int buffer, int offset, int size);
 
-		virtual void ApplyVarying(GLenum bufferMode = GL_INTERLEAVED_ATTRIBS);
+		virtual void ApplyVarying(unsigned int program , GLenum bufferMode = GL_INTERLEAVED_ATTRIBS);
 
-		void PushVarying();
+		void PushVarying(const char* varying);
+
+		// Once Begin GL_TRANSFORM_FEEDBACK Can't Be Bind Until the TranformFeedback Object End.
+		// Bind before begin.
+		static void BeginTransformFeedback(GLenum primitiveMode);
+		static void EndTransformFeedback();
+
+		static void PauseTransformFeedback();
+		static void ResumeTransformFeedback();
+
 	};
 }

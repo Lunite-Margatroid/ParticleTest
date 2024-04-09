@@ -65,6 +65,11 @@ namespace LM
 		GLCall(glUseProgram(0));
 	}
 
+	unsigned int Shader::GetShaderID() const
+	{
+		return m_ShaderID;
+	}
+
 	void Shader::SetUniform4f(const std::string& valueName, float v1, float v2, float v3, float v4)
 	{
 		GLCall(glUniform4f(GetUniformLocation(valueName), v1, v2, v3, v4));

@@ -22,7 +22,7 @@ namespace ptt
         ImGui::StyleColorsDark();
         //ImGui::StyleColorsLight();
 
-        const char* glsl_version = "#version 410";
+        const char* glsl_version = "#version 450 core";
         ImGui_ImplOpenGL3_Init(glsl_version);
 
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.

@@ -52,7 +52,7 @@ project "ParticleTest"
 		defines "_LM_WINDOWS"
 		
 	filter "configurations:Debug"
-		runtime "Release"
+		runtime "Debug"
 		symbols "on"
 		defines "_Debug"
 		
@@ -88,7 +88,7 @@ project "ImGui"
 	}
 
 	filter "configurations:Debug"
-		runtime "Release"
+		runtime "Debug"
 		symbols "on"
 		defines "_Debug"
 		

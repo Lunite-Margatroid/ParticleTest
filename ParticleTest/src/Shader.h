@@ -15,6 +15,7 @@ namespace LM
 		void Bind() const;
 		void Unbind() const;
 
+		unsigned int GetShaderID()const;
 
 
 		int GetUniformLocation(const std::string& valueName);

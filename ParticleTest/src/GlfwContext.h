@@ -19,7 +19,7 @@ namespace ptt
 		GlfwContext();
 		~GlfwContext();
 		bool Init(int width = 1600, int height = 900, const std::string& title = "Particle Test",
-			int majorVersion = 4, int minorVersion = 1);
+			int majorVersion = 4, int minorVersion = 5);
 		void InitInput();
 		GLFWwindow* GetGlfwWindow();
 

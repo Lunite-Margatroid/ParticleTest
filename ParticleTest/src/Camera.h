@@ -3,6 +3,8 @@
 
 #ifndef PI
 #define PI 3.14159f
+#else
+
 #endif
 
 namespace ptt

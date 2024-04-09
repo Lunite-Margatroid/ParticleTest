@@ -2,7 +2,7 @@
 #include "VertexArray.h"
 
 LM::VertexArray::VertexArray(GLenum type)
-	:m_stride(0),m_MetaType(type)
+	:m_stride(0),m_MetaType(type), m_vb(0), m_eb(0)
 {
 	GLCall(glGenVertexArrays(1, &m_id));
 	Bind();
@@ -27,9 +27,11 @@ void LM::VertexArray::ApplyLayout()
 {
 	int i = 0;
 	unsigned int offset = 0;
-	if (m_eb)
+	if (m_eb != 0u)
+	{
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eb));
-	if (m_vb)
+	}
+	if (m_vb != 0u)
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vb));
 	Bind();
 	for (auto& attr : m_attribLayout)
