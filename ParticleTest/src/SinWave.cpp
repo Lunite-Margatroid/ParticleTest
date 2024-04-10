@@ -76,11 +76,13 @@ namespace ptt
 		SetShaderUniform();
 		static int frontBuffer = 1;
 		m_Feedback.Bind();
+
 		if (frontBuffer == 1)
 		{
 			m_Feedback.BindBuffer(0, m_VB2.GetID());
 			m_Feedback.BeginTransformFeedback(GL_POINTS);
 			m_VA1.DrawArray(m_VerticeNum);
+			glDrawArrays(GL_POINTS, 0, m_VerticeNum);
 			m_Feedback.EndTransformFeedback();
 			frontBuffer = 2;
 		}
@@ -89,6 +91,7 @@ namespace ptt
 			m_Feedback.BindBuffer(0, m_VB1.GetID());
 			m_Feedback.BeginTransformFeedback(GL_POINTS);
 			m_VA2.DrawArray(m_VerticeNum);
+			glDrawArrays(GL_POINTS, 0, m_VerticeNum);
 			m_Feedback.EndTransformFeedback();
 			frontBuffer = 1;
 		}

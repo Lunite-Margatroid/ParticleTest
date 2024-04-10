@@ -147,6 +147,8 @@
     <ClInclude Include="src\GlfwContext.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\SceneFireLoop.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\SinWave.h" />
     <ClInclude Include="src\VertexArray.h" />
@@ -163,6 +165,8 @@
     <ClCompile Include="src\GlfwContext.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\SceneFireLoop.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\SinWave.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
