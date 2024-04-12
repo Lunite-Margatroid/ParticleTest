@@ -2,12 +2,15 @@
 namespace LM {
 	struct AttribLayout
 	{
-		unsigned int count;
-		unsigned int type;
-		bool bNormalize;
+		unsigned int count;		// dimesion of the attrib
+		unsigned int type;		// data type of the attrib
+		bool bNormalize;		// if normal
+		bool skip;
+
+		static const bool skip_arrtib;
 		
-		AttribLayout(unsigned int c, unsigned int t, bool b)
-			:count(c), type(t),bNormalize(b)
+		AttribLayout(unsigned int c, unsigned int t, bool b,bool s = false)
+			:count(c), type(t),bNormalize(b),skip(s)
 		{}
 
 		static unsigned int GetSizeOfElem(unsigned int typ)
@@ -70,6 +73,7 @@ namespace LM {
 		}
 	
 		void ApplyLayout();
+		void ApplyLayoutSeparate(int numOfVertice);
 
 		unsigned int GetID() const;
 

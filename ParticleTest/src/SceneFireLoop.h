@@ -13,6 +13,14 @@ namespace ptt
 
 		glm::vec3 m_ParticlePos;
 		Camera3D  m_Camera;
+
+		glm::vec3 m_Axis;
+		float m_Radius;
+		float m_AngVel;
+		float m_Angle;
+
+		float m_DeltaTime;
+
 	public:
 		SceneFirLoop();
 		~SceneFirLoop();

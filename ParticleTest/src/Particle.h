@@ -9,12 +9,14 @@ namespace ptt
 	{
 	protected:
 		LM::tfBuffer m_buffer;		// buffer obejct  vertex attrib
-		LM::VertexArray m_VAO;		// vertex array object
+		LM::VertexArray m_VAO[2];	// vertex array object
 		Feedback m_Feedback;		// transform feedback object
 
-		int m_BufferOffset;			// buffer offset when offset    单位:vertex
+		unsigned int m_Program;		// shader program
 
-		int m_ParticleNum;			// number of particle
+		unsigned int m_BufferOffset;			// buffer offset when offset    单位:vertex
+
+		unsigned int m_ParticleNum;			// number of particle
 		bool m_AngleLimite;			// if Angle is limited
 		float m_AngleRangeX[2];		// Angle range for x axis
 		float m_AngleRangeY[2];		// angle range for y axis
@@ -30,6 +32,8 @@ namespace ptt
 		{
 			return GetRandFloat(range[0], range[1]);
 		}
+
+		void SwapTimeBuffer();
 	public:
 		Particle();
 		Particle(int nParticle);
