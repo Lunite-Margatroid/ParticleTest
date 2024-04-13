@@ -29,9 +29,8 @@ namespace ptt
 		static glm::mat4 viewTrans;
 		static glm::mat4 projectionTrans;
 		static glm::mat4 mvpTrans;
-		modelTrans = glm::rotate(glm::mat4(1.0f), m_Angle, glm::vec3(0.0f, 1.0f, 0.0f));
-		modelTrans = glm::translate(modelTrans, glm::vec3(1.0f, 0.0f, 0.0f));
-		
+		modelTrans = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, 0.0f));
 		viewTrans = m_Camera.GetViewTrans();
 		projectionTrans = m_Camera.GetProjectionTrans();
 		mvpTrans = projectionTrans * viewTrans * modelTrans;
@@ -41,15 +40,26 @@ namespace ptt
 	}
 	void SceneFireLoop::Render()
 	{
+		SetUniform();
 		m_Particle.Draw();
 	}
 	void SceneFireLoop::RenderImGui()
 	{
+		const glm::vec3& cameraPos = m_Camera.GetPosition();
+		const glm::vec3& cameraAhead = m_Camera.GetAhead();
 		ImGui::SliderFloat("Angular Velocity", &m_AngVel, 0.0f, PI * 4);
-		ImGui::DragFloat("Radius", &m_Radius, 1.0f, 1.0f, 40.0f);
+		ImGui::SliderFloat("Radius", &m_Radius, 1.0f, 40.0f);
+
+		ImGui::Text("CameraPos: %.2f  %.2f  %.2f", cameraPos.x, cameraPos.y, cameraPos.z);
+		ImGui::Text("CameraAhead: %.2f  %.2f  %.2f", cameraAhead.x, cameraAhead.y, cameraAhead.z);
 	}
 	void SceneFireLoop::Update(float deltaTime)
 	{
+		m_Angle += m_AngVel * deltaTime;
+		m_ParticlePos.x = cos(m_Angle) * m_Radius;
+		m_ParticlePos.z = sin(m_Angle) * m_Radius;
+
 		m_Particle.Update(deltaTime);
+		m_Camera.Update(deltaTime);
 	}
 }

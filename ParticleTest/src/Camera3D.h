@@ -40,6 +40,9 @@ namespace ptt
 
 		float GetViewRange() const;
 		void SetViewRange(float);
+
+		const glm::vec3& GetPosition();
+		const glm::vec3& GetAhead();
 	};
 
 }

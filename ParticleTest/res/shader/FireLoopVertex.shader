@@ -8,15 +8,15 @@ uniform mat4 u_MVPTrans;
 uniform float u_DeltaTime;
 
 uniform vec3 u_Position;
-
-uniform float u_MinVelocity;
-uniform float u_MaxVelocity;
-uniform float u_MinAngleX;
-uniform float u_MinAngleY;
-uniform float u_MaxAngleX;
-uniform float u_MaxAngleY;
-uniform float u_MinTime;
-uniform float u_MaxTime;
+								// default
+uniform float u_MinVelocity;	// 2
+uniform float u_MaxVelocity;	// 5
+uniform float u_MinAngleX;		// 0
+uniform float u_MinAngleY;		// 0
+uniform float u_MaxAngleX;		// 2PI
+uniform float u_MaxAngleY;		// PI
+uniform float u_MinTime;		// 0.2
+uniform float u_MaxTime;		// 0.5
 
 
 out float out_T;
@@ -35,7 +35,7 @@ float Float3ToRandFloat(vec3 value)
 {
 	vec3 smallValue = sin(value);
 	float random = dot(smallValue, vec3(89.786, 31.901, 78.314));
-	random = fract(sin(random) * 14111.234);
+	random = fract(sin(random) * 11345.3984);
 	return random;
 }
 
@@ -82,7 +82,7 @@ void main()
 	gl_Position = u_MVPTrans * pos;	// scr coord
 	if(aT <= 0.0f)	// particle will dispear
 	{	// Gen new particle
-		float random = Float3ToRandFloat(aPos);
+		float random = Float3ToRandFloat(aVel);
 		float angleX;
 		float angleY;
 		float velocity;
@@ -109,7 +109,9 @@ void main()
 		out_T = time;
 		return ;
 	}
-	out_Pos = aPos + aVel;	// Pos update
+	out_Pos = aPos + aVel * u_DeltaTime;	// Pos update
 	out_Vel = aVel;			// vel update
 	out_T = aT - u_DeltaTime;	// time update
+	
+	gl_PointSize = 4.f;
 }

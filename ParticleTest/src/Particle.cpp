@@ -23,16 +23,16 @@ namespace ptt
         size = m_ParticleNum * sizeof(float) * 7;
         if (m_BufferOffset == 0)
         {
-            m_BufferOffset = size;
-            m_VAO[0].Bind();    // front half to draw
-            m_Feedback.BindBufferRange(0, m_buffer.GetID(), m_BufferOffset, size);  // back half to get feedback
+            m_BufferOffset = 1;
+            m_VAO[0].Bind();
+            m_Feedback.BindBufferRange(0, m_buffer[1].GetID(), 0, size);
             return 0;
         }
         else
         {
             m_BufferOffset = 0;
             m_VAO[1].Bind();
-            m_Feedback.BindBufferRange(0, m_buffer.GetID(), m_BufferOffset, size);
+            m_Feedback.BindBufferRange(0, m_buffer[0].GetID(), 0, size);
             return 1;
         }
         return 0;
@@ -86,7 +86,7 @@ namespace ptt
         // position 3
         // velocity 3
         // time     1
-        int nSize = m_ParticleNum * (7 * sizeof(float)) * 2;
+        int nSize = m_ParticleNum * (7 * sizeof(float));
         float* dataTemp = new float[nSize];
         float aVertex[7];
         for (int i = 0; i < m_ParticleNum; i++)
@@ -103,9 +103,10 @@ namespace ptt
             memcpy(dataTemp + i * 7, aVertex, 7 * sizeof(float));
             // dst ptr          res ptr             size
         }
-        memcpy(dataTemp + (nSize >> 1), dataTemp, nSize >> 1);
+        //memcpy(dataTemp + (nSize >> 1), dataTemp, nSize >> 1);
         //memset(dataTemp, 0, nSize);
-        m_buffer.Init(nSize, dataTemp);
+        m_buffer[0].Init(nSize, dataTemp);
+        m_buffer[1].Init(nSize, dataTemp);
         delete[] dataTemp;
 
         // ----------------feedback init-------------------
@@ -115,19 +116,19 @@ namespace ptt
         m_Feedback.ApplyVarying(m_Program);
 
         // ---------------- vertex array init-------------
-        m_VAO[0].SetVB(m_buffer.GetID());
+        m_VAO[0].SetVB(m_buffer[0].GetID());
         m_VAO[0].SetMetaType(GL_POINTS);
         m_VAO[0].PushAttrib<float>(3);      // position
         m_VAO[0].PushAttrib<float>(3);      // velocity
         m_VAO[0].PushAttrib<float>(1);      // time
         m_VAO[0].ApplyLayout();
 
-        m_VAO[1].SetVB(m_buffer.GetID());
+        m_VAO[1].SetVB(m_buffer[1].GetID());
         m_VAO[1].SetMetaType(GL_POINTS);
         m_VAO[1].PushAttrib<float>(3);      // position
         m_VAO[1].PushAttrib<float>(3);      // velocity
         m_VAO[1].PushAttrib<float>(1);      // time
-        m_VAO[1].ApplyLayout(m_ParticleNum * 7 *sizeof(float));
+        m_VAO[1].ApplyLayout();
     }
     void Particle::Update(float DeltaTime)
     {

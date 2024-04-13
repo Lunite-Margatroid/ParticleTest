@@ -132,4 +132,14 @@ namespace ptt
 	{
 		m_ViewRange = rad;
 	}
+	const glm::vec3& Camera3D::GetPosition()
+	{
+		// TODO: insert return statement here
+		return m_Pos;
+	}
+	const glm::vec3& Camera3D::GetAhead()
+	{
+		// TODO: insert return statement here
+		return m_Dir;
+	}
 }

@@ -9,7 +9,7 @@ namespace ptt
 	class Particle
 	{
 	protected:
-		LM::tfBuffer m_buffer;		// buffer obejct  vertex attrib
+		LM::tfBuffer m_buffer[2];		// buffer obejct  vertex attrib
 		LM::VertexArray m_VAO[2];	// vertex array object
 		Feedback m_Feedback;		// transform feedback object
 
