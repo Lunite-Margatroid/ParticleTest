@@ -19,6 +19,9 @@ namespace ptt
 		float m_AngVel;
 		float m_Angle;
 
+		float m_VertexSize;
+		glm::vec3 m_ParticleColor;
+
 		void Init();
 
 	public:

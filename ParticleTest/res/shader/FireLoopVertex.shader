@@ -8,6 +8,8 @@ uniform mat4 u_MVPTrans;
 uniform float u_DeltaTime;
 
 uniform vec3 u_Position;
+
+uniform float u_VertexSize;
 								// default
 uniform float u_MinVelocity;	// 2
 uniform float u_MaxVelocity;	// 5
@@ -78,8 +80,9 @@ vec3 ReNormalized(vec3 value, float minValue, float maxValue)
 
 void main()
 {
-	vec4 pos = vec4(aPos, 1.0f);	
-	gl_Position = u_MVPTrans * pos;	// scr coord
+	vec4 pos = u_MVPTrans * vec4(aPos, 1.0f);	
+	gl_PointSize = (1.0f - pos.z / pos.w) * u_VertexSize;
+	gl_Position = pos;	// scr coord
 	if(aT <= 0.0f)	// particle will dispear
 	{	// Gen new particle
 		float random = Float3ToRandFloat(aVel);
@@ -113,5 +116,5 @@ void main()
 	out_Vel = aVel;			// vel update
 	out_T = aT - u_DeltaTime;	// time update
 	
-	gl_PointSize = 4.f;
+	
 }
