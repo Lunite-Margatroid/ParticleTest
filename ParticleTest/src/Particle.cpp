@@ -2,17 +2,13 @@
 #include "Particle.h"
 namespace ptt
 {
-    
-    Particle::Particle(unsigned int program)
-        :m_ParticleNum(300),
+    Particle::Particle(LM::Shader* shader, int nParticle)
+        :m_ParticleNum(nParticle),
         m_BufferOffset(0),
-        m_Program(program)
+        m_Shader(shader),
+        m_AngleLimite(false)
     {
-        Init();
-    }
-    Particle::Particle(int nParticle)
-        :m_ParticleNum(nParticle)
-    {
+        m_Program = m_Shader->GetShaderID();
         Init();
     }
 
@@ -24,19 +20,19 @@ namespace ptt
     int Particle::BindBufferFeedback()
     {
         static unsigned int size;
-        size = m_ParticleNum * sizeof(float);
+        size = m_ParticleNum * sizeof(float) * 7;
         if (m_BufferOffset == 0)
         {
-            m_VAO[0].Bind();
-            m_Feedback.BindBufferRange(0, m_buffer.GetID(), m_BufferOffset, size);
             m_BufferOffset = size;
+            m_VAO[0].Bind();    // front half to draw
+            m_Feedback.BindBufferRange(0, m_buffer.GetID(), m_BufferOffset, size);  // back half to get feedback
             return 0;
         }
         else
         {
+            m_BufferOffset = 0;
             m_VAO[1].Bind();
             m_Feedback.BindBufferRange(0, m_buffer.GetID(), m_BufferOffset, size);
-            m_BufferOffset = 0;
             return 1;
         }
         return 0;
@@ -86,13 +82,13 @@ namespace ptt
         SetTimeRange(0.2f, 0.5f);
 
         // ------------------buffer init------------------
-        // dimension = 8
+        // dimension = 7
         // position 3
         // velocity 3
-        // time     2
-        int nSize = m_ParticleNum * (8 * sizeof(float));
+        // time     1
+        int nSize = m_ParticleNum * (7 * sizeof(float)) * 2;
         float* dataTemp = new float[nSize];
-        float aVertex[8];
+        float aVertex[7];
         for (int i = 0; i < m_ParticleNum; i++)
         {
             memset(aVertex, 0, 3 * sizeof(float));  // the begining position  0 1 2
@@ -103,33 +99,39 @@ namespace ptt
             aVertex[3] = sinY * cos(randAngleX);            // x velocity   3
             aVertex[4] = cos(randAngleY) * randVelocity;    // y velocity   4
             aVertex[5] = sinY * sin(randAngleX);            // z velocity   5
-            aVertex[6] = GetRandFloat(m_TimeRange);         // time         6
-            aVertex[7] = 0.f;                               // 7
-            memcpy(dataTemp + m_ParticleNum * 8, aVertex, 8 * sizeof(float));
+            aVertex[6] = 0.0f;                              // time         6
+            memcpy(dataTemp + i * 7, aVertex, 7 * sizeof(float));
+            // dst ptr          res ptr             size
         }
+        memcpy(dataTemp + (nSize >> 1), dataTemp, nSize >> 1);
+        //memset(dataTemp, 0, nSize);
         m_buffer.Init(nSize, dataTemp);
         delete[] dataTemp;
 
         // ----------------feedback init-------------------
-        m_Feedback.PushVarying("u_T");
+        m_Feedback.PushVarying("out_Pos");
+        m_Feedback.PushVarying("out_Vel");
+        m_Feedback.PushVarying("out_T");
         m_Feedback.ApplyVarying(m_Program);
 
         // ---------------- vertex array init-------------
         m_VAO[0].SetVB(m_buffer.GetID());
         m_VAO[0].SetMetaType(GL_POINTS);
-        m_VAO[0].PushAttrib<float>(1);      // time
         m_VAO[0].PushAttrib<float>(3);      // position
         m_VAO[0].PushAttrib<float>(3);      // velocity
-        m_VAO[0].ApplyLayoutSeparate(m_ParticleNum);
+        m_VAO[0].PushAttrib<float>(1);      // time
+        m_VAO[0].ApplyLayout();
 
         m_VAO[1].SetVB(m_buffer.GetID());
         m_VAO[1].SetMetaType(GL_POINTS);
-        m_VAO[1].PushAttrib<float>(1, LM::AttribLayout::skip_arrtib);      // time 1
-        m_VAO[1].PushAttrib<float>(1);      // time 2
         m_VAO[1].PushAttrib<float>(3);      // position
         m_VAO[1].PushAttrib<float>(3);      // velocity
-        m_VAO[1].ApplyLayoutSeparate(m_ParticleNum);
-
+        m_VAO[1].PushAttrib<float>(1);      // time
+        m_VAO[1].ApplyLayout(m_ParticleNum * 7 *sizeof(float));
+    }
+    void Particle::Update(float DeltaTime)
+    {
+        m_Shader->SetUniform1f("u_DeltaTime", DeltaTime);
     }
     void Particle::Draw()
     {
@@ -138,5 +140,26 @@ namespace ptt
         m_Feedback.BeginTransformFeedback(GL_POINTS);
         m_VAO[index].DrawArray(m_ParticleNum);
         m_Feedback.EndTransformFeedback();
+    }
+    void Particle::PushAttrib(int dimension)
+    {
+    }
+    void Particle::ApplyAttrib()
+    {
+    }
+    void Particle::BindProgram(unsigned int program)
+    {
+    }
+    void Particle::InitShaderUniform()
+    {
+        // ---------------- shader uniform init----------------
+        m_Shader->SetUniform1f("u_MinVelocity", m_VelocityRange[0]);
+        m_Shader->SetUniform1f("u_MaxVelocity", m_VelocityRange[1]);
+        m_Shader->SetUniform1f("u_MinAngleX", m_AngleRangeX[0]);
+        m_Shader->SetUniform1f("u_MaxAngleX", m_AngleRangeX[1]);
+        m_Shader->SetUniform1f("u_MinAngleY", m_AngleRangeY[0]);
+        m_Shader->SetUniform1f("u_MaxAngleY", m_AngleRangeY[1]);
+        m_Shader->SetUniform1f("u_MinTime", m_TimeRange[0]);
+        m_Shader->SetUniform1f("u_MaxTime", m_TimeRange[1]);
     }
 }

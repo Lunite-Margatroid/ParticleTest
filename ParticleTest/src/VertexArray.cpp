@@ -27,10 +27,10 @@ namespace LM
 		GLCall(glDeleteVertexArrays(1, &m_id));
 	}
 
-	void VertexArray::ApplyLayout()
+	void VertexArray::ApplyLayout(unsigned int bufferOffset)
 	{
 		int i = 0;
-		unsigned int offset = 0;
+		unsigned int offset = bufferOffset;
 		if (m_eb != 0u)
 		{
 			GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eb));

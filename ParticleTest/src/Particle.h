@@ -2,6 +2,7 @@
 #include "tfBuffer.h"
 #include "VertexArray.h"
 #include "Feedback.h"
+#include "Shader.h"
 
 namespace ptt
 {
@@ -12,6 +13,7 @@ namespace ptt
 		LM::VertexArray m_VAO[2];	// vertex array object
 		Feedback m_Feedback;		// transform feedback object
 
+		LM::Shader* m_Shader;
 		unsigned int m_Program;		// shader program
 
 		unsigned int m_BufferOffset;			// buffer offset when offset    µ¥Î»:vertex
@@ -33,10 +35,9 @@ namespace ptt
 			return GetRandFloat(range[0], range[1]);
 		}
 
-		void SwapTimeBuffer();
+		int BindBufferFeedback();
 	public:
-		Particle();
-		Particle(int nParticle);
+		Particle(LM::Shader* shader, int nParticle = 300);
 		~Particle();
 
 		void EnableAngleLimite();
@@ -52,6 +53,8 @@ namespace ptt
 		virtual void PushAttrib(int dimension);
 		virtual void ApplyAttrib();
 		virtual void BindProgram(unsigned int program);
+
+		void InitShaderUniform();
 
 	};
 }

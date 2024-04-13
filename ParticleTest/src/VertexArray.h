@@ -46,33 +46,33 @@ namespace LM {
 
 		// 输入当前属性的维度
 		template<class T>
-		void PushAttrib(int count) {ASSERT(false)};
+		void PushAttrib(int count, bool skip = false) {ASSERT(false)};
 
 		// 输入当前属性的维度
 		template<>
-		void PushAttrib<float>(int count)
+		void PushAttrib<float>(int count, bool skip)
 		{
-			m_attribLayout.push_back(AttribLayout(count, GL_FLOAT, GL_FALSE));
+			m_attribLayout.push_back(AttribLayout(count, GL_FLOAT, GL_FALSE,skip));
 			m_stride += count * 4;
 		}
 
 		// 输入当前属性的维度
 		template<>
-		void PushAttrib<unsigned int>(int count)
+		void PushAttrib<unsigned int>(int count, bool skip)
 		{
-			m_attribLayout.push_back(AttribLayout(count, GL_UNSIGNED_INT, GL_FALSE ));
+			m_attribLayout.push_back(AttribLayout(count, GL_UNSIGNED_INT, GL_FALSE ,skip));
 			m_stride += count * 4;
 		}
 
 		// 输入当前属性的维度
 		template<>
-		void PushAttrib<unsigned char>(int count)
+		void PushAttrib<unsigned char>(int count, bool skip)
 		{
-			m_attribLayout.push_back(AttribLayout(count, GL_UNSIGNED_BYTE, GL_TRUE ));
+			m_attribLayout.push_back(AttribLayout(count, GL_UNSIGNED_BYTE, GL_TRUE ,skip));
 			m_stride += count;
 		}
 	
-		void ApplyLayout();
+		void ApplyLayout(unsigned int bufferOffset = 0u);
 		void ApplyLayoutSeparate(int numOfVertice);
 
 		unsigned int GetID() const;

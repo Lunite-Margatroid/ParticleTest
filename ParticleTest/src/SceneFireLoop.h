@@ -5,7 +5,7 @@
 #include "Camera3D.h"
 namespace ptt
 {
-	class SceneFirLoop :public DemoScene
+	class SceneFireLoop :public DemoScene
 	{
 	private:
 		LM::Shader m_Shader;
@@ -19,11 +19,11 @@ namespace ptt
 		float m_AngVel;
 		float m_Angle;
 
-		float m_DeltaTime;
+		void Init();
 
 	public:
-		SceneFirLoop();
-		~SceneFirLoop();
+		SceneFireLoop();
+		~SceneFireLoop();
 
 		void SetUniform();
 		void Render() override;
