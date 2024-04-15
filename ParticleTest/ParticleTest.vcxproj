@@ -148,6 +148,7 @@
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\QuadMeshScene.h" />
     <ClInclude Include="src\SceneFireLoop.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\SinWave.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\QuadMeshScene.cpp" />
     <ClCompile Include="src\SceneFireLoop.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\SinWave.cpp" />
