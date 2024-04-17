@@ -91,6 +91,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-x86_64\ParticleTest\ParticleTest.exe\ (xcopy /Q /E /Y /I ..\bin\Debug-x86_64\ParticleTest\ParticleTest.exe ..\bin\Debug-x86_64\MyApp &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-x86_64\ParticleTest\ParticleTest.exe ..\bin\Debug-x86_64\MyApp &gt; nul)
+IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Debug-x86_64\MyApp\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Debug-x86_64\MyApp\res &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -114,6 +118,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-x86_64\ParticleTest\ParticleTest.exe\ (xcopy /Q /E /Y /I ..\bin\Release-x86_64\ParticleTest\ParticleTest.exe ..\bin\Release-x86_64\MyApp &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-x86_64\ParticleTest\ParticleTest.exe ..\bin\Release-x86_64\MyApp &gt; nul)
+IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -137,6 +145,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Dist-x86_64\ParticleTest\ParticleTest.exe\ (xcopy /Q /E /Y /I ..\bin\Dist-x86_64\ParticleTest\ParticleTest.exe ..\bin\Dist-x86_64\MyApp &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-x86_64\ParticleTest\ParticleTest.exe ..\bin\Dist-x86_64\MyApp &gt; nul)
+IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Dist-x86_64\MyApp\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Dist-x86_64\MyApp\res &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />

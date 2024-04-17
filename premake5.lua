@@ -47,6 +47,13 @@ project "ParticleTest"
 		"ImGui"
 	}
 	
+	postbuildcommands
+		{
+			"{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/MyApp",
+			"{COPY} ./res ../bin/" ..outputdir.. "/MyApp/res"
+		}
+	
+	
 	filter "system:windows"
 		cppdialect "c++17"
 		defines "_LM_WINDOWS"
@@ -60,7 +67,7 @@ project "ParticleTest"
 		runtime "Release"
 		optimize "on"
 		defines "_RELEASE"
-	
+		
 	filter "configurations:Dist"
 		defines "_DIST"
 		optimize "on"
