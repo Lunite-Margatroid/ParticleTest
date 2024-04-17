@@ -44,7 +44,7 @@ void main()
 	float samRate = abs(dot(normalize(vec3(FragCoord)),NormalVec));
 	samRate = samRate * 0.99f + 0.01f;
 	
-	fuzz = clamp((dist / 750.f) / samRate, c_fuzz, 0.5f);
+	fuzz = clamp((dist / 750.f) / samRate, c_fuzz, 1.0f);
 	
 	float lightRate = c_fuzz / fuzz;
 	lightRate = 1.1f * lightRate / (0.1f + lightRate);
