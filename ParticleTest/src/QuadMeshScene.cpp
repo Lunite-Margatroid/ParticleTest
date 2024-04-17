@@ -5,7 +5,7 @@ namespace ptt
 {
 	void QuadMeshScene::Init()
 	{
-		const float tt = 100.0f;
+		const float tt = 1000.0f;
 		float vertice[] =
 		{
 			// x      z
@@ -30,6 +30,7 @@ namespace ptt
 		m_Shader.Bind();
 		m_Shader.SetUniformMatrix4f("u_VPTrans", false, glm::value_ptr(vpTrans));
 		m_Shader.SetUniform4f("u_MeshColor", m_MeshColor.r, m_MeshColor.g, m_MeshColor.b, m_MeshColor.a);
+		m_Shader.SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(viewTrans));
 	}
 	QuadMeshScene::QuadMeshScene()
 		:m_Shader("./res/shader/QuadMeshVertex.shader", "./res/shader/QuadMeshFrag.shader"),
