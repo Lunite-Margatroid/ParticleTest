@@ -47,11 +47,7 @@ project "ParticleTest"
 		"ImGui"
 	}
 	
-	postbuildcommands
-		{
-			"{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/MyApp",
-			"{COPY} ./res ../bin/" ..outputdir.. "/MyApp/res"
-		}
+	
 	
 	
 	filter "system:windows"
@@ -67,6 +63,11 @@ project "ParticleTest"
 		runtime "Release"
 		optimize "on"
 		defines "_RELEASE"
+		postbuildcommands
+		{
+			"{COPY} %{cfg.buildtarget.relpath} ../bin/" ..outputdir.. "/MyApp",
+			"{COPY} ./res ../bin/" ..outputdir.. "/MyApp/res"
+		}
 		
 	filter "configurations:Dist"
 		defines "_DIST"

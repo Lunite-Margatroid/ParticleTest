@@ -74,11 +74,12 @@ void main()
 			);
 		}
 	sum /= 9.0f;
+	vec3 temp = vec3(u_MeshColor);
 	FragColor = mix(
-		vec4(0.0f, 0.0f, 0.0f, 0.0f),
-		u_MeshColor * lightRate,
+		vec4(temp, 0.0f),
+		u_MeshColor,
 		sum
-	);
+	) * lightRate;
 	
 	//FragColor = vec4(1.0f ,1.0f, 1.0f ,1.0f);
 }
