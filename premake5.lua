@@ -31,7 +31,8 @@ project "ParticleTest"
 	includedirs
 	{
 		"Dependence/include",
-		"ImGui/src"
+		"ImGui/src",
+		"ParticleTest/src"
 	}
 	
 	defines

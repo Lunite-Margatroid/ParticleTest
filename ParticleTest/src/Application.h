@@ -1,7 +1,7 @@
 #pragma once
 #include "ImGuiContext.h"
 #include "GlfwContext.h"
-#include "DemoScene.h"
+#include "demoscene/DemoScene.h"
 namespace ptt
 {
 	class Application

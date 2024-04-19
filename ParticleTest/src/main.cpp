@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Application.h"
-#include "DemoScene.h"
-#include "SinWave.h"
-#include "SceneFireLoop.h"
-#include "QuadMeshScene.h"
+#include "demoscene/DemoScene.h"
+#include "demoscene/SinWave.h"
+#include "demoscene/SceneFireLoop.h"
+#include "demoscene/QuadMeshScene.h"
 class MyApp :public ptt::Application
 {
 public:

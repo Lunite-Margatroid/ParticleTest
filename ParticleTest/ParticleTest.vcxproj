@@ -79,7 +79,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_LM_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -98,7 +98,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_LM_WINDOWS;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -125,7 +125,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_LM_WINDOWS;_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -146,18 +146,21 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Camera3D.h" />
-    <ClInclude Include="src\DemoScene.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Particle.h" />
-    <ClInclude Include="src\QuadMeshScene.h" />
-    <ClInclude Include="src\SceneFireLoop.h" />
+    <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\SceneObj\SceneObj.h" />
     <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\SinWave.h" />
+    <ClInclude Include="src\Sprite\Sprite.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
+    <ClInclude Include="src\demoscene\DemoScene.h" />
+    <ClInclude Include="src\demoscene\QuadMeshScene.h" />
+    <ClInclude Include="src\demoscene\SceneFireLoop.h" />
+    <ClInclude Include="src\demoscene\SinWave.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\tfBuffer.h" />
   </ItemGroup>
@@ -165,18 +168,21 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Camera3D.cpp" />
-    <ClCompile Include="src\DemoScene.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Particle.cpp" />
-    <ClCompile Include="src\QuadMeshScene.cpp" />
-    <ClCompile Include="src\SceneFireLoop.cpp" />
+    <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\SceneObj\SceneObj.cpp" />
     <ClCompile Include="src\Shader.cpp" />
-    <ClCompile Include="src\SinWave.cpp" />
+    <ClCompile Include="src\Sprite\Sprite.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
+    <ClCompile Include="src\demoscene\DemoScene.cpp" />
+    <ClCompile Include="src\demoscene\QuadMeshScene.cpp" />
+    <ClCompile Include="src\demoscene\SceneFireLoop.cpp" />
+    <ClCompile Include="src\demoscene\SinWave.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

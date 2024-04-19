@@ -22,9 +22,14 @@
 
 
 #define ASSERT(x)	if(!(x)) __debugbreak();
+
+#ifdef _DEBUG
 #define GLCall(x)	GLClearError();\
 					x;\
 					ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+#else
+#define GLCall(x)	x
+#endif
 
 #define PI 3.1416f
 
