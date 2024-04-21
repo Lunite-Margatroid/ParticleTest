@@ -15,6 +15,7 @@ namespace ptt
 		m_ImGuiCtx->Init(m_Window);
 
 		m_Menu = std::make_unique<MenuScene>();
+		m_Renderer = std::make_unique<Renderer>();
 	}
 	Application::Application()
 	{

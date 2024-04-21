@@ -35,6 +35,8 @@ namespace ptt
 			EulerTrans(modelTrans, rad[0], rad[1], rad[2]);
 		}
 
+		void PushChild(SceneObj* child);
+
 		const glm::vec3& GetPosition() const;
 		float GetYaw() const;
 		float GetPitch() const;

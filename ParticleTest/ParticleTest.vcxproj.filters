@@ -34,6 +34,7 @@
     <ClInclude Include="src\SceneObj\SceneObj.h" />
     <ClInclude Include="src\Sprite\Sprite.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\demoscene\SpriteTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -65,5 +66,6 @@
     <ClCompile Include="src\SceneObj\SceneObj.cpp" />
     <ClCompile Include="src\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\demoscene\SpriteTest.cpp" />
   </ItemGroup>
 </Project>

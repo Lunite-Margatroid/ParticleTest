@@ -12,9 +12,17 @@ namespace ptt
 	}
 	ptt::SceneObj::SceneObj(SceneObj* parent , Sprite* sprite)
 		:m_ParentObj(parent),
-		m_Sprite(sprite)
+		m_Sprite(sprite),
+		m_Yaw(0.0f),
+		m_Pitch(0.0f),
+		m_Roll(0.0f),
+		m_ModelTrans(1.0f),
+		m_Position(0.0f)
 	{
-		
+		if (m_ParentObj != nullptr)
+		{
+			m_ParentObj->m_ChildObj.push_back(this);
+		}
 	}
 
 	SceneObj::~SceneObj()
@@ -40,6 +48,12 @@ namespace ptt
 		{
 			child->Render();
 		}
+	}
+	void SceneObj::PushChild(SceneObj* child)
+	{
+		ASSERT(child->m_ParentObj != nullptr);
+		child->m_ParentObj = this;
+		m_ChildObj.push_back(child);
 	}
 	const glm::vec3& SceneObj::GetPosition() const
 	{

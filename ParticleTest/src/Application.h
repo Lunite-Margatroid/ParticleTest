@@ -2,6 +2,7 @@
 #include "ImGuiContext.h"
 #include "GlfwContext.h"
 #include "demoscene/DemoScene.h"
+#include "Renderer/Renderer.h"
 namespace ptt
 {
 	class Application
@@ -13,6 +14,8 @@ namespace ptt
 		std::unique_ptr<GlfwContext> m_GlfwCtx;
 
 		std::unique_ptr<MenuScene> m_Menu;
+
+		std::unique_ptr<Renderer> m_Renderer;
 
 		float m_LastTime;
 		float m_CurrentTime;
