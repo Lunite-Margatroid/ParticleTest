@@ -15,7 +15,7 @@ namespace ptt
 
 		std::unique_ptr<MenuScene> m_Menu;
 
-		std::unique_ptr<Renderer> m_Renderer;
+		Renderer* m_Renderer;
 
 		float m_LastTime;
 		float m_CurrentTime;

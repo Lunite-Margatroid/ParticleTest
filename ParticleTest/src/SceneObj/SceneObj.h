@@ -41,12 +41,14 @@ namespace ptt
 		float GetYaw() const;
 		float GetPitch() const;
 		float GetRoll() const;
+		Sprite* GetSprite()const;
 
 		void SetPosition(const glm::vec3& position);
 		void SetYaw(float yaw);
 		void SetPitch(float pitch);
 		void SetRoll(float roll);
 		void SetEulerAngle(float yaw, float pitch, float roll);
+		void SetEulerAngle(float* eulerAngle);
 
 		void Move(const glm::vec3& vec);
 		void EulerRotate(float yaw, float pitch, float roll);

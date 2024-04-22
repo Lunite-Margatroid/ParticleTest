@@ -25,9 +25,12 @@ namespace ptt
 		void SetModelTrans(const glm::mat4& modelTrans);
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
 
-		void SetCurrentShader(LM::Shader* shader);
+		static void SetCurrentShader(LM::Shader* shader);
+		static void SetCurrentCamera(Camera* camera);
 
 		static Renderer* GetInstance();
+
 		static LM::Shader* GetCurrentShader();
+		static Camera* GetCurrentCamera();
 	};
 }

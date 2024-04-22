@@ -28,6 +28,15 @@ namespace ptt
 	void Renderer::SetProjectionTrans(const glm::mat4& projectionTrans)
 	{
 	}
+	void Renderer::SetCurrentShader(LM::Shader* shader)
+	{
+		GetInstance()->m_CurrentShader = shader;
+		shader->Bind();
+	}
+	void Renderer::SetCurrentCamera(Camera* camera)
+	{
+		GetInstance()->m_CurrentCamera = camera;
+	}
 	Renderer* Renderer::GetInstance()
 	{
 		if (s_Instance == nullptr)
@@ -40,5 +49,9 @@ namespace ptt
 	LM::Shader* Renderer::GetCurrentShader()
 	{
 		return GetInstance()->m_CurrentShader;
+	}
+	Camera* Renderer::GetCurrentCamera()
+	{
+		return GetInstance()->m_CurrentCamera;
 	}
 }

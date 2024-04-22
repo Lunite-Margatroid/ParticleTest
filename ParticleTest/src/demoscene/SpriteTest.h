@@ -6,6 +6,7 @@
 #include "Camera3D.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
+#include "Renderer/Renderer.h"
 namespace ptt
 {
 	class QuadMeshSprite :public Sprite
@@ -21,6 +22,8 @@ namespace ptt
 		QuadMeshSprite();
 		~QuadMeshSprite();
 
+		void SetMeshColor(const glm::vec4& color);
+
 		virtual void Render(glm::mat4& modelTrans) override;
 	};
 
@@ -31,6 +34,13 @@ namespace ptt
 		std::unique_ptr<LM::Shader> m_Shader;
 		std::unique_ptr<Camera3D> m_Camera;
 		SceneObj* m_SelectedObj;
+
+		glm::vec3 m_Position;
+		float m_Yaw;
+		float m_Pitch;
+		float m_Roll;
+
+		glm::vec4 m_Color;
 	public:
 		SpriteTest();
 		virtual ~SpriteTest();

@@ -4,6 +4,7 @@
 #include "demoscene/SinWave.h"
 #include "demoscene/SceneFireLoop.h"
 #include "demoscene/QuadMeshScene.h"
+#include "demoscene/SpriteTest.h"
 class MyApp :public ptt::Application
 {
 public:
@@ -13,6 +14,7 @@ public:
 		m_Menu->RegistDemoScene<ptt::SinWave>("Sin wave Scene");
 		m_Menu->RegistDemoScene<ptt::SceneFireLoop>("Fire Loop Scene");
 		m_Menu->RegistDemoScene<ptt::QuadMeshScene>("Quad Mesh Scene");
+		m_Menu->RegistDemoScene<ptt::SpriteTest>("Quad Mest Sprite Scene");
 	}
 	~MyApp() {}
 };

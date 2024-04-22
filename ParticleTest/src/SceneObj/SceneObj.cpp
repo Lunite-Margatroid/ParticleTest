@@ -51,7 +51,7 @@ namespace ptt
 	}
 	void SceneObj::PushChild(SceneObj* child)
 	{
-		ASSERT(child->m_ParentObj != nullptr);
+		ASSERT(child->m_ParentObj == nullptr);
 		child->m_ParentObj = this;
 		m_ChildObj.push_back(child);
 	}
@@ -70,6 +70,10 @@ namespace ptt
 	float SceneObj::GetRoll() const
 	{
 		return m_Roll;
+	}
+	Sprite* SceneObj::GetSprite() const
+	{
+		return m_Sprite.get();
 	}
 	void SceneObj::SetPosition(const glm::vec3& position)
 	{
@@ -92,6 +96,12 @@ namespace ptt
 		m_Yaw = yaw;
 		m_Pitch = pitch;
 		m_Roll = roll;
+	}
+	void SceneObj::SetEulerAngle(float* eulerAngle)
+	{
+		m_Yaw = eulerAngle[0];
+		m_Pitch = eulerAngle[1];
+		m_Roll = eulerAngle[2];
 	}
 	void SceneObj::Move(const glm::vec3& vec)
 	{
