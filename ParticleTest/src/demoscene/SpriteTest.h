@@ -1,32 +1,12 @@
 #pragma once
 #include "DemoScene.h"
 #include "SceneObj/SceneObj.h"
-#include "Sprite/Sprite.h"
 #include "Shader.h"
 #include "Camera3D.h"
-#include "VertexArray.h"
-#include "VertexBuffer.h"
 #include "Renderer/Renderer.h"
+#include "Sprite/QuadMeshSprite.h"
 namespace ptt
 {
-	class QuadMeshSprite :public Sprite
-	{
-	private:
-		LM::VertexBuffer m_Buffer;
-		LM::VertexArray m_VAO;
-
-		glm::vec4 m_MeshColor;
-
-		void Init();
-	public:
-		QuadMeshSprite();
-		~QuadMeshSprite();
-
-		void SetMeshColor(const glm::vec4& color);
-
-		virtual void Render(glm::mat4& modelTrans) override;
-	};
-
 	class SpriteTest:public DemoScene
 	{
 	protected:
