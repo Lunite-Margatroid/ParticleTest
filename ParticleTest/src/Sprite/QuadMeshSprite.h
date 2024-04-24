@@ -21,6 +21,6 @@ namespace ptt
 
 		void SetMeshColor(const glm::vec4& color);
 
-		virtual void Render(glm::mat4& modelTrans) override;
+		virtual void Render(const glm::mat4& modelTrans) override;
 	};
 }

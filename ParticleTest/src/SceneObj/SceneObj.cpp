@@ -10,6 +10,10 @@ namespace ptt
 			delete child;
 		}
 	}
+	void SceneObj::UpdateQuaternion()
+	{
+		m_Qua = glm::qua<float>(glm::vec3(m_Pitch, m_Yaw, m_Roll));
+	}
 	ptt::SceneObj::SceneObj(SceneObj* parent , Sprite* sprite)
 		:m_ParentObj(parent),
 		m_Sprite(sprite),
@@ -17,8 +21,10 @@ namespace ptt
 		m_Pitch(0.0f),
 		m_Roll(0.0f),
 		m_ModelTrans(1.0f),
-		m_Position(0.0f)
+		m_Position(0.0f),
+		m_Qua(glm::vec3(0.0f, 0.0f, 0.0f))
 	{
+
 		if (m_ParentObj != nullptr)
 		{
 			m_ParentObj->m_ChildObj.push_back(this);
@@ -32,6 +38,11 @@ namespace ptt
 
 	void SceneObj::Update(float deltaTime)
 	{
+		for (SceneObj* child : m_ChildObj)
+		{
+			child->Update(deltaTime);
+		}
+		UpdateQuaternion();
 	}
 
 	void ptt::SceneObj::Render()
@@ -41,7 +52,8 @@ namespace ptt
 		else
 			m_ModelTrans = glm::mat4(1.0f);
 		m_ModelTrans = glm::translate(m_ModelTrans, m_Position);
-		EulerTrans(m_ModelTrans, m_Yaw, m_Pitch, m_Roll);
+		// EulerTrans(m_ModelTrans, m_Yaw, m_Pitch, m_Roll);
+		QuaternionRotate(m_ModelTrans, m_Qua);
 		if (m_Sprite)
 			m_Sprite->Render(m_ModelTrans);
 		for (auto child : m_ChildObj)

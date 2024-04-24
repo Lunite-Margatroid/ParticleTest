@@ -9,6 +9,6 @@ namespace ptt
 	public:
 		Sprite();
 		virtual ~Sprite();
-		virtual void Render(glm::mat4& modelTrans);
+		virtual void Render(const glm::mat4& modelTrans);
 	};
 }

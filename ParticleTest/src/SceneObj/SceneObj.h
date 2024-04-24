@@ -15,8 +15,10 @@ namespace ptt
 		float m_Roll;
 
 		glm::mat4 m_ModelTrans;
+		glm::qua<float> m_Qua;
 
 		void Clear();
+		void UpdateQuaternion();
 	public:
 		SceneObj(SceneObj* parent = nullptr, Sprite* sprite = nullptr);
 		virtual ~SceneObj();
@@ -30,9 +32,16 @@ namespace ptt
 			modelTrans = glm::rotate(modelTrans, pitch, glm::vec3(1.0f, 0.0f, 0.0f));
 			modelTrans = glm::rotate(modelTrans, yaw, glm::vec3(0.0f, 1.0f, 0.0f));
 		}
-		inline static void EulerTrans(glm::mat4& modelTrans, float* rad)
+		inline static void EulerTrans(glm::mat4& modelTrans, const float* rad)
 		{
 			EulerTrans(modelTrans, rad[0], rad[1], rad[2]);
+		}
+
+		inline static void QuaternionRotate(glm::mat4& modelTrans, const glm::qua<float>& qua)
+		{
+			glm::vec3 axis = glm::axis(qua);
+			float angle = glm::angle(qua);
+			modelTrans = glm::rotate(modelTrans, angle, axis);
 		}
 
 		void PushChild(SceneObj* child);

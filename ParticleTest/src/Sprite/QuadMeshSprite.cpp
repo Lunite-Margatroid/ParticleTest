@@ -36,7 +36,7 @@ namespace ptt
 	{
 		m_MeshColor = color;
 	}
-	void QuadMeshSprite::Render(glm::mat4& modelTrans)
+	void QuadMeshSprite::Render(const glm::mat4& modelTrans)
 	{
 		LM::Shader* shader = Renderer::GetCurrentShader();
 		ASSERT(shader != nullptr);

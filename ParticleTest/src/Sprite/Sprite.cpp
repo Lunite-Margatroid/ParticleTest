@@ -9,7 +9,7 @@ namespace ptt
 	Sprite::~Sprite()
 	{
 	}
-	void Sprite::Render(glm::mat4& modelTrans)
+	void Sprite::Render(const glm::mat4& modelTrans)
 	{
 	}
 }
