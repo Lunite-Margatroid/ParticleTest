@@ -1,5 +1,5 @@
 #pragma once
-#include "Shader.h"
+#include "Shader/Shader.h"
 #include "Camera.h"
 #include "Camera3D.h"
 namespace ptt

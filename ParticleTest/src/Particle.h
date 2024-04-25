@@ -2,7 +2,7 @@
 #include "tfBuffer.h"
 #include "VertexArray.h"
 #include "Feedback.h"
-#include "Shader.h"
+#include "Shader/Shader.h"
 
 namespace ptt
 {

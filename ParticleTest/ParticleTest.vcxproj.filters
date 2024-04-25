@@ -14,7 +14,7 @@
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Particle.h" />
-    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\demoscene\DemoScene.h">
@@ -37,6 +37,9 @@
     <ClInclude Include="src\demoscene\SpriteTest.h" />
     <ClInclude Include="src\Sprite\QuadMeshSprite.h" />
     <ClInclude Include="src\Sprite\FireWork.h" />
+    <ClInclude Include="src\Rand\Rand.h" />
+    <ClInclude Include="src\Sprite\ColoredSprite.h" />
+    <ClInclude Include="src\Shader\tfbShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -47,7 +50,7 @@
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Particle.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\demoscene\DemoScene.cpp">
@@ -71,5 +74,8 @@
     <ClCompile Include="src\demoscene\SpriteTest.cpp" />
     <ClCompile Include="src\Sprite\QuadMeshSprite.cpp" />
     <ClCompile Include="src\Sprite\FireWork.cpp" />
+    <ClCompile Include="src\Rand\Rand.cpp" />
+    <ClCompile Include="src\Sprite\ColoredSprite.cpp" />
+    <ClCompile Include="src\Shader\tfbShader.cpp" />
   </ItemGroup>
 </Project>

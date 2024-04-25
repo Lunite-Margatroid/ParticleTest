@@ -41,7 +41,7 @@ void main()
 	float lightRate = c_fuzz / fuzz;
 	
 	lightRate = 1.1f * lightRate / (0.1f + lightRate);
-	
+	lightRate = lightRate * 0.9f + 0.1f;
 	float u = TexCoord.x;
 	float v = TexCoord.y;
 	float sum = CoordToStrength2D(u,v);

@@ -3,14 +3,14 @@ namespace LM
 {
 	class Shader
 	{
-	private:
+	protected:
 		unsigned int m_ShaderID;
 		std::unordered_map<std::string, int> m_UniformMapLocation;
 	public:
 		Shader(const std::string& vertexShader, const std::string& fragmentShader);
 		Shader(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader);
 		
-		~Shader();
+		virtual ~Shader();
 
 		void Bind() const;
 		void Unbind() const;
@@ -62,7 +62,7 @@ namespace LM
 		void SetUniformProjectionTrans(glm::mat4&);
 		void SetUniformNormalMat(glm::mat3&);
 		void SetUniformCameraPos(glm::vec3&);
-	private:
+	protected:
 		
 		static void GetShaderSource(const std::string& path, std::string& shaderCode);
 		static unsigned int CompileShader(const std::string& path, GLenum typeShader);

@@ -1,7 +1,7 @@
 #pragma once
 #include "DemoScene.h"
 #include "Particle.h"
-#include "Shader.h"
+#include "Shader/Shader.h"
 #include "Camera3D.h"
 namespace ptt
 {
