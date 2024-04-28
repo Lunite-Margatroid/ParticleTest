@@ -1,18 +1,34 @@
 #pragma once
 #include "Shader/Shader.h"
+#include "Shader/tfbShader.h"
 #include "Camera.h"
 #include "Camera3D.h"
 namespace ptt
 {
 	class Renderer
 	{
+	public:
+		enum class Shaders
+		{
+			FireWork
+		};
+		enum class Cameras
+		{
+			Camera3D_Alpha
+		};
 	protected:
 		glm::mat4 m_ViewTrans;
 		glm::mat4 m_ModelTrans;
 		glm::mat4 m_ProjectionTrans;
 
+		glm::mat4 m_MVPTrans;
+		glm::mat4 m_MVTrans;
+
 		LM::Shader* m_CurrentShader;
 		Camera* m_CurrentCamera;
+
+		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
+		std::unordered_map<Cameras, Camera*> m_CameraMap;
 		Renderer();
 
 		static Renderer* s_Instance;
@@ -25,6 +41,13 @@ namespace ptt
 		void SetModelTrans(const glm::mat4& modelTrans);
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
 
+		static LM::Shader* GetShader(Shaders shaderName);
+		static void LoadShader(Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
+		static void LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath);
+
+		static Camera* GetCamera(Cameras cameraName);
+		static void LoadCamera(Cameras cameraName, Camera* camera);
+
 		static void SetCurrentShader(LM::Shader* shader);
 		static void SetCurrentCamera(Camera* camera);
 
@@ -32,5 +55,12 @@ namespace ptt
 
 		static LM::Shader* GetCurrentShader();
 		static Camera* GetCurrentCamera();
+
+		static glm::mat4& GetViewTrans();
+		static glm::mat4& GetModelTrans();
+		static glm::mat4& GetProjectionTrans();
+
+		static glm::mat4& GetMVPTrans();
+		static glm::mat4& GetMVTrans();
 	};
 }

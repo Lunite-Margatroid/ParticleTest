@@ -80,6 +80,16 @@ namespace LM
 		GLCall(glUniform3f(GetUniformLocation(valueName), v1, v2, v3));
 	}
 
+	void Shader::SetUniform4f(const std::string& valueName, float* v)
+	{
+		SetUniform4f(valueName, v[0], v[1], v[2], v[4]);
+	}
+
+	void Shader::SetUniform3f(const std::string& valueName, float* v)
+	{
+		SetUniform3f(valueName, v[0], v[1], v[2]);
+	}
+
 	void Shader::SetUniform1i(const std::string& valueName, int v1)
 	{
 		GLCall(glUniform1i(GetUniformLocation(valueName), v1));
@@ -120,7 +130,8 @@ namespace LM
 	void Shader::UniformBlockBinding(const char* blockName, unsigned int index)
 	{
 		// Bind();
-		GLCall(unsigned int uniformIndex = glGetUniformBlockIndex(m_ShaderID, blockName));
+		unsigned int uniformIndex;
+		GLCall(uniformIndex = glGetUniformBlockIndex(m_ShaderID, blockName));
 		GLCall(glUniformBlockBinding(m_ShaderID , uniformIndex, index));
 	}
 
@@ -153,8 +164,8 @@ namespace LM
 	{
 		if (m_UniformMapLocation.find(valueName) != m_UniformMapLocation.end())
 			return m_UniformMapLocation[valueName];
-
-		GLCall(int location = glGetUniformLocation(m_ShaderID, valueName.c_str()));
+		int location = -1;
+		GLCall(location = glGetUniformLocation(m_ShaderID, valueName.c_str()));
 		if (location == -1)
 		{
 			std::cout << "Can't find uniform value '" << valueName << "' !" << std::endl;

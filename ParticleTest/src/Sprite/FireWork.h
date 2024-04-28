@@ -5,6 +5,8 @@
 #include "Feedback.h"
 #include "ColoredSprite.h"
 #include "Rand/Rand.h"
+#include "Renderer/Renderer.h"
+#include "Shader/tfbShader.h"
 namespace ptt
 {
 	class FireWork :public ColoredSprite<1>
@@ -16,15 +18,18 @@ namespace ptt
 	protected:
 		LM::tfBuffer m_buffer[2];		// buffer obejct  vertex attrib
 		LM::VertexArray m_VAO[2];		// vertex array object
-		Feedback m_Feedback;			// transform feedback object
 
-		glm::vec3 m_Acc;
+		glm::vec3 m_Acc;				// accelerate
 		float m_VelRange[2];
 		float m_TimeRange[2];
 		unsigned int m_Count;
 		Distribution m_Distribution;
 
 		float m_DeltaTime;
+
+		bool m_BufferFlag;
+
+		float m_VertexSize;
 
 		void Init();
 	public:
@@ -38,7 +43,6 @@ namespace ptt
 
 		virtual void Reset();
 
-		void SetCount();
 		void SetVelocityRange(float low, float high);
 		void SetVelocityRange(const float* range);
 

@@ -14,7 +14,7 @@ namespace LM
 
 		virtual void Init(unsigned int size, void* data = NULL, GLenum usage = GL_DYNAMIC_COPY)override;
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		virtual void BindTotfb();
+		virtual void Unbindtfb();
 	};
 }

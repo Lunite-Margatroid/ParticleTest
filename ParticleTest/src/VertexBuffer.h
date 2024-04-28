@@ -20,5 +20,7 @@ namespace LM
 		unsigned int GetID() const;
 		unsigned int GetSize() const;
 
+		void SetData(unsigned int offset, unsigned int size, void*data);
+
 	};
 }

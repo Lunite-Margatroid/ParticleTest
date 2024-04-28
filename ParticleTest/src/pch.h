@@ -30,9 +30,11 @@
 #define ASSERT(x)	if(!(x)) __debugbreak();
 
 #ifdef _DEBUG
-#define GLCall(x)	GLClearError();\
+#define GLCall(x)	do {\
+					GLClearError();\
 					x;\
-					ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+					ASSERT(GLLogCall(#x, __FILE__, __LINE__))\
+					} while(false)
 #else
 #define GLCall(x)	x
 #endif

@@ -16,9 +16,8 @@ namespace ptt
 		LM::VertexArray m_VAO;
 
 		glm::vec4 m_MeshColor;
-
+	private:
 		void Init();
-
 		void SetUnifrom();
 	public:
 		QuadMeshScene();

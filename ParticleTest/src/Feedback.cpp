@@ -37,12 +37,14 @@ namespace ptt
 	void Feedback::BindBuffer(unsigned int index, unsigned int buffer)
 	{
 		Bind();
-		GLCall(glTransformFeedbackBufferBase(m_tfID, index, buffer));
+		// GLCall(glTransformFeedbackBufferBase(m_tfID, index, buffer));
+		GLCall(glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, index, buffer));
 	}
 	void Feedback::BindBufferRange(unsigned int index, unsigned int buffer, int offset, int size)
 	{
 		Bind();
-		GLCall(glTransformFeedbackBufferRange(m_tfID, index, buffer,offset, size));
+		// GLCall(glTransformFeedbackBufferRange(m_tfID, index, buffer,offset, size));
+		GLCall(glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, index, buffer, offset, size));
 	}
 	void Feedback::ApplyVarying(unsigned int program, GLenum bufferMode)
 	{

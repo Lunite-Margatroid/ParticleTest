@@ -44,3 +44,9 @@ unsigned int LM::VertexBuffer::GetSize() const
 {
 	return m_uSize;
 }
+
+void LM::VertexBuffer::SetData(unsigned int offset, unsigned int size, void* data)
+{
+	Bind();
+	GLCall(glBufferSubData(GL_ARRAY_BUFFER, offset, size, data));
+}

@@ -3,6 +3,7 @@
 #include "GlfwContext.h"
 #include "demoscene/DemoScene.h"
 #include "Renderer/Renderer.h"
+
 namespace ptt
 {
 	class Application
