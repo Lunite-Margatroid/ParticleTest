@@ -152,6 +152,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\GlfwContext.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Interface\ImGuiInterface.h" />
     <ClInclude Include="src\Particle.h" />
     <ClInclude Include="src\Rand\Rand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
@@ -181,6 +182,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\GlfwContext.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Interface\ImGuiInterface.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Rand\Rand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />

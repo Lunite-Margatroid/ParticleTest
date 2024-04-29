@@ -41,30 +41,33 @@ namespace ptt
 		delete[] buffer;
 
 		m_VAO[0].SetVB(m_buffer[0].GetID());
+		m_VAO[0].SetMetaType(GL_POINTS);
 		m_VAO[0].PushAttrib<float>(3);
 		m_VAO[0].PushAttrib<float>(3);
 		m_VAO[0].PushAttrib<float>(1);
 		m_VAO[0].ApplyLayout();
 
 		m_VAO[1].SetVB(m_buffer[1].GetID());
+		m_VAO[1].SetMetaType(GL_POINTS);
 		m_VAO[1].PushAttrib<float>(3);
 		m_VAO[1].PushAttrib<float>(3);
 		m_VAO[1].PushAttrib<float>(1);
 		m_VAO[1].ApplyLayout();
 	}
-	FireWork::FireWork()
+	FireWork::FireWork(unsigned int count)
 		:m_Acc(0.f),
-		m_Count(100),
+		m_Count(count),
 		m_Distribution(Distribution::uniform),
 		m_DeltaTime(0.0f),
 		m_BufferFlag(true),
-		m_VertexSize(1.0f)
+		m_VertexSize(10.0f)
 	{
 		m_VelRange[0] = 4.9f;
 		m_VelRange[1] = 5.f;
 		m_TimeRange[0] = 1.9f;
 		m_TimeRange[1] = 2.0f;
 		m_Color[0] = glm::vec4(1.0f);
+		Init();
 	}
 	FireWork::~FireWork()
 	{
@@ -97,14 +100,16 @@ namespace ptt
 		{
 			shader->BindBuffer(0, m_buffer[0].GetID());
 			shader->BeginTransformFeedback(GL_POINTS);
-			m_VAO[0].DrawArray(m_Count, GL_POINTS);
+			m_buffer[1].Bind();
+			m_VAO[1].DrawArray(m_Count);
 			
 		}
 		else
 		{
 			shader->BindBuffer(0, m_buffer[1].GetID());
+			m_buffer[0].Bind();
 			shader->BeginTransformFeedback(GL_POINTS);
-			m_VAO[1].DrawArray(m_Count, GL_POINTS);
+			m_VAO[0].DrawArray(m_Count);
 		}
 		shader->EndTransformFeedback();
 		m_BufferFlag = !m_BufferFlag;
@@ -180,5 +185,11 @@ namespace ptt
 	void FireWork::SetParticleCount(unsigned int count)
 	{
 		m_Count = count;
+	}
+	void FireWork::RenderImGui()
+	{
+		if(ImGui::Button("Firework Reset", ImVec2(50.f, 25.0f)))
+			Reset();
+		ImGui::ColorEdit4("Firework Color", &(m_Color[0].r));
 	}
 }

@@ -7,9 +7,10 @@
 #include "Rand/Rand.h"
 #include "Renderer/Renderer.h"
 #include "Shader/tfbShader.h"
+#include "Interface/ImGuiInterface.h"
 namespace ptt
 {
-	class FireWork :public ColoredSprite<1>
+	class FireWork :public ColoredSprite<1>, public ImGuiInterface
 	{
 	public:
 		// random 均匀随机分布
@@ -33,9 +34,7 @@ namespace ptt
 
 		void Init();
 	public:
-		
-
-		FireWork();
+		FireWork(unsigned int count = 100);
 		~FireWork();
 
 		virtual void Update(float deltaTime);
@@ -54,6 +53,8 @@ namespace ptt
 		void SetDistribution(Distribution dtb);
 
 		void SetParticleCount(unsigned int count);
+
+		void RenderImGui() override;
 	};
 
 

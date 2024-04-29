@@ -33,6 +33,8 @@ namespace ptt
 
 	SceneObj::~SceneObj()
 	{
+		if(m_Sprite)
+			delete m_Sprite;
 		this->Clear();
 	}
 
@@ -83,9 +85,13 @@ namespace ptt
 	{
 		return m_Roll;
 	}
-	Sprite* SceneObj::GetSprite() const
+	const Sprite* SceneObj::GetSprite() const
 	{
-		return m_Sprite.get();
+		return m_Sprite;
+	}
+	Sprite* SceneObj::GetSprite()
+	{
+		return m_Sprite;
 	}
 	void SceneObj::SetPosition(const glm::vec3& position)
 	{

@@ -1,4 +1,5 @@
 #pragma once
+#include "Interface/ImGuiInterface.h"
 namespace ptt
 {
 	class DemoScene

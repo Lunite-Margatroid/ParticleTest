@@ -41,6 +41,7 @@
     <ClInclude Include="src\Sprite\ColoredSprite.h" />
     <ClInclude Include="src\Shader\tfbShader.h" />
     <ClInclude Include="src\demoscene\FireworkScene.h" />
+    <ClInclude Include="src\Interface\ImGuiInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -79,5 +80,6 @@
     <ClCompile Include="src\Sprite\ColoredSprite.cpp" />
     <ClCompile Include="src\Shader\tfbShader.cpp" />
     <ClCompile Include="src\demoscene\FireworkScene.cpp" />
+    <ClCompile Include="src\Interface\ImGuiInterface.cpp" />
   </ItemGroup>
 </Project>

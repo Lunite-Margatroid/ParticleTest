@@ -5,6 +5,9 @@ namespace ptt
 {
 	class FireworkScene :public SpriteTest
 	{
+	protected:
+		SceneObj* m_FW;
+
 	public:
 		FireworkScene();
 		virtual ~FireworkScene();

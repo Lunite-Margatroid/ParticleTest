@@ -7,7 +7,7 @@ namespace ptt
 	{
 	protected:
 		SceneObj* m_ParentObj;
-		std::unique_ptr<Sprite> m_Sprite;
+		Sprite* m_Sprite;
 		std::vector<SceneObj*> m_ChildObj;
 		glm::vec3 m_Position;
 		float m_Yaw;
@@ -50,7 +50,8 @@ namespace ptt
 		float GetYaw() const;
 		float GetPitch() const;
 		float GetRoll() const;
-		Sprite* GetSprite()const;
+		const Sprite* GetSprite()const;
+		Sprite* GetSprite();
 
 		void SetPosition(const glm::vec3& position);
 		void SetYaw(float yaw);
