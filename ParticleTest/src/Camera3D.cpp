@@ -142,4 +142,26 @@ namespace ptt
 		// TODO: insert return statement here
 		return m_Dir;
 	}
+	void Camera3D::SetPos(const glm::vec3& pos)
+	{
+		m_Pos = pos;
+	}
+	void Camera3D::SetYaw(float yaw)
+	{
+		m_yaw;
+	}
+	void Camera3D::SetPitch(float pitch)
+	{
+		m_pitch = pitch;
+	}
+	void Camera3D::SetFov(float fov)
+	{
+		m_fov = fov;
+	}
+	void Camera3D::SetEulerAngle(float pitch, float yaw, float fov)
+	{
+		m_pitch = pitch;
+		m_yaw = yaw;
+		m_fov = fov;
+	}
 }

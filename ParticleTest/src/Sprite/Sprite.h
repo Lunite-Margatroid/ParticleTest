@@ -5,7 +5,7 @@ namespace ptt
 	class Sprite
 	{
 	protected:
-		LM::Shader* m_Shader;
+		LM::Shader* m_Shader;	// 冗余 迁移的时候记得删掉
 	public:
 		Sprite();
 		virtual ~Sprite();

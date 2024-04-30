@@ -36,15 +36,17 @@ namespace LM
 			GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eb));
 		}
 		if (m_vb != 0u)
+		{
 			GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vb));
+		}
 		Bind();
 		for (auto& attr : m_attribLayout)
 		{
 			if (!attr.skip)
 			{
-				glVertexAttribPointer(i, attr.count, attr.type, attr.bNormalize, \
-					m_stride, (void*)offset);
-				glEnableVertexAttribArray(i);
+				GLCall(glVertexAttribPointer(i, attr.count, attr.type, attr.bNormalize, \
+					m_stride, (void*)offset));
+				GLCall(glEnableVertexAttribArray(i));
 				i++;
 			}
 			offset += AttribLayout::GetSizeOfElem(attr.type) * attr.count;
@@ -60,7 +62,9 @@ namespace LM
 			GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_eb));
 		}
 		if (m_vb != 0u)
+		{
 			GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vb));
+		}
 		Bind();
 		for (auto& attr : m_attribLayout)
 		{

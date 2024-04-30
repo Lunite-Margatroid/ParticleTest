@@ -29,6 +29,8 @@ namespace ptt::myrand
 	void GetUniformUnitSphere(float* vec, int i, int N)
 	{
 		float u = float(2 * i - 1) / N - 1;
+		u = u > 1.0f ? 1.0f : u;
+		u = u < -1.0f ? -1.0f : u;
 		double theta = 2 * PI * i * 0.618;
 		vec[2] = u;		// z
 		u = sqrtf(1 - u*u);

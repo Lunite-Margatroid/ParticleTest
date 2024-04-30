@@ -6,6 +6,7 @@
 #include "demoscene/QuadMeshScene.h"
 #include "demoscene/SpriteTest.h"
 #include "demoscene/FireworkScene.h"
+#include "Rand/Rand.h"
 class MyApp :public ptt::Application
 {
 public:

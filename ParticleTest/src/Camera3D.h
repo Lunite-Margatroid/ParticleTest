@@ -43,6 +43,12 @@ namespace ptt
 
 		const glm::vec3& GetPosition();
 		const glm::vec3& GetAhead();
+
+		void SetPos(const glm::vec3& pos);
+		void SetYaw(float yaw);
+		void SetPitch(float pitch);
+		void SetFov(float fov);
+		void SetEulerAngle(float pitch, float yaw, float fov);
 	};
 
 }

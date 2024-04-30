@@ -1,13 +1,13 @@
 #version 450 core
 
 out vec4 FragColor;
-in float out_T;
+in float ExistTime;
 
 uniform vec4 u_VertexColor;
 
 void main()
 {
-	if(out_T <= 0)
+	if(ExistTime <= 0)
 		discard;
 	vec2 temp = gl_PointCoord - vec2(0.5f);
 	float f = dot(temp, temp);

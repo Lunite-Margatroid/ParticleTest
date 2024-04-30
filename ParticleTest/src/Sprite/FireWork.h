@@ -8,9 +8,10 @@
 #include "Renderer/Renderer.h"
 #include "Shader/tfbShader.h"
 #include "Interface/ImGuiInterface.h"
+#include "udSprite.h"
 namespace ptt
 {
-	class FireWork :public ColoredSprite<1>, public ImGuiInterface
+	class FireWork :public ColoredSprite<1>, public ImGuiInterface,public udSprite
 	{
 	public:
 		// random 均匀随机分布
@@ -21,7 +22,8 @@ namespace ptt
 		LM::VertexArray m_VAO[2];		// vertex array object
 
 		glm::vec3 m_Acc;				// accelerate
-		float m_VelRange[2];
+		float m_Vel;					// 速度
+		float m_VelDisturbance;			// 速度扰动
 		float m_TimeRange[2];
 		unsigned int m_Count;
 		Distribution m_Distribution;
@@ -31,19 +33,20 @@ namespace ptt
 		bool m_BufferFlag;
 
 		float m_VertexSize;
+		float m_kDF;		// 阻力系数
 
 		void Init();
 	public:
-		FireWork(unsigned int count = 100);
+		FireWork(unsigned int count = 100, Distribution distribution = Distribution::uniform);
 		~FireWork();
 
-		virtual void Update(float deltaTime);
+		virtual void Update(float deltaTime) override;
 		virtual void Render(const glm::mat4& modelTrans) override;
 
 		virtual void Reset();
 
-		void SetVelocityRange(float low, float high);
-		void SetVelocityRange(const float* range);
+		void SetVelocityRange(float vel, float disturbance);
+		void SetVelocityRange(const float* vel);
 
 		void SetTimeRange(float low, float high);
 		void SetTimeRange(const float* range);

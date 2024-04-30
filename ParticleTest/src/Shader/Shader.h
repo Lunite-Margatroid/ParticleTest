@@ -23,8 +23,8 @@ namespace LM
 
 		void SetUniform4f(const std::string& valueName, float v1, float v2, float v3, float v4);
 		void SetUniform3f(const std::string& valueName, float v1, float v2, float v3);
-		void SetUniform4f(const std::string& valueName, float* v);
-		void SetUniform3f(const std::string& valueName, float* v);
+		void SetUniform4f(const std::string& valueName, const float* v);
+		void SetUniform3f(const std::string& valueName, const float* v);
 		void SetUniform1i(const std::string& valueName, int v1);
 		void SetUniform1f(const std::string& valueName, float v1);
 		/// <summary>

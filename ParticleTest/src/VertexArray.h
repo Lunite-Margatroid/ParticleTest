@@ -46,7 +46,7 @@ namespace LM {
 
 		// 输入当前属性的维度
 		template<class T>
-		void PushAttrib(int count, bool skip = false) {ASSERT(false)};
+		void PushAttrib(int count, bool skip = false) { ASSERT(false); }
 
 		// 输入当前属性的维度
 		template<>

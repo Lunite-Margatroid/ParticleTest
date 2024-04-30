@@ -40,13 +40,14 @@ namespace ptt
 	}
 	void tfbShader::BindBuffer(unsigned int index, unsigned int buffer)
 	{
-		Bind();
+		BindTransformFeedback();
 		GLCall(glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, index, buffer));
 	}
 	void tfbShader::BindBufferRange(unsigned int index, unsigned int buffer, int offset, int size)
 	{
-		Bind();
+		BindTransformFeedback();
 		GLCall(glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, index, buffer, offset, size));
+		// GLCall(glTransformFeedbackBufferRange(m_tfbID, index, buffer, offset, size));
 	}
 	void tfbShader::ApplyVarying(GLenum bufferMode)
 	{

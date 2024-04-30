@@ -1,6 +1,6 @@
 #pragma once
 #include "Sprite/Sprite.h"
-
+#include "Sprite/udSprite.h"
 namespace ptt
 {
 	class SceneObj

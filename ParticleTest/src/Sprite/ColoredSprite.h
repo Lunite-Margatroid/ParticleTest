@@ -3,7 +3,7 @@
 namespace ptt
 {
 	template <int n>
-	class ColoredSprite :public Sprite
+	class ColoredSprite :virtual public Sprite
 	{
 	protected:
 		glm::vec4 m_Color[n];

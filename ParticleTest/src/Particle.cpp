@@ -87,7 +87,7 @@ namespace ptt
         // velocity 3
         // time     1
         int nSize = m_ParticleNum * (7 * sizeof(float));
-        float* dataTemp = new float[nSize];
+        float* dataTemp = new float[m_ParticleNum * 7];
         float aVertex[7];
         for (int i = 0; i < m_ParticleNum; i++)
         {

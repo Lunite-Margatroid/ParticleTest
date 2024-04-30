@@ -27,14 +27,15 @@
 #include <functional>
 
 
-#define ASSERT(x)	if(!(x)) __debugbreak();
+#define ASSERT(x)	if(!(x)) __debugbreak()
 
 #ifdef _DEBUG
-#define GLCall(x)	do {\
+#define GLCall(x)	do{\
 					GLClearError();\
 					x;\
-					ASSERT(GLLogCall(#x, __FILE__, __LINE__))\
-					} while(false)
+					ASSERT(GLLogCall(#x, __FILE__, __LINE__));\
+					}while(false)
+					
 #else
 #define GLCall(x)	x
 #endif

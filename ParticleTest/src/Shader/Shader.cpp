@@ -80,12 +80,12 @@ namespace LM
 		GLCall(glUniform3f(GetUniformLocation(valueName), v1, v2, v3));
 	}
 
-	void Shader::SetUniform4f(const std::string& valueName, float* v)
+	void Shader::SetUniform4f(const std::string& valueName, const float* v)
 	{
-		SetUniform4f(valueName, v[0], v[1], v[2], v[4]);
+		SetUniform4f(valueName, v[0], v[1], v[2], v[3]);
 	}
 
-	void Shader::SetUniform3f(const std::string& valueName, float* v)
+	void Shader::SetUniform3f(const std::string& valueName, const float* v)
 	{
 		SetUniform3f(valueName, v[0], v[1], v[2]);
 	}
