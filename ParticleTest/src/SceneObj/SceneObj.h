@@ -1,9 +1,10 @@
 #pragma once
 #include "Sprite/Sprite.h"
 #include "Sprite/udSprite.h"
+#include "Interface/ImGuiInterface.h"
 namespace ptt
 {
-	class SceneObj
+	class SceneObj : public ImGuiInterface
 	{
 	protected:
 		SceneObj* m_ParentObj;
@@ -17,14 +18,17 @@ namespace ptt
 		glm::mat4 m_ModelTrans;
 		glm::qua<float> m_Qua;
 
+		std::string m_ObjName;
+
 		void Clear();
 		void UpdateQuaternion();
 	public:
-		SceneObj(SceneObj* parent = nullptr, Sprite* sprite = nullptr);
+		SceneObj(SceneObj* parent = nullptr, Sprite* sprite = nullptr, const std::string& objName = "No Name");
 		virtual ~SceneObj();
 
 		virtual void Update(float deltaTime);
 		virtual void Render();
+		//virtual void UpdateVar();
 
 		inline static void EulerTrans(glm::mat4& modelTrans, float yaw, float pitch, float roll)
 		{
@@ -52,6 +56,7 @@ namespace ptt
 		float GetRoll() const;
 		const Sprite* GetSprite()const;
 		Sprite* GetSprite();
+		bool HasChild() const;
 
 		void SetPosition(const glm::vec3& position);
 		void SetYaw(float yaw);
@@ -65,5 +70,10 @@ namespace ptt
 		void EulerRotateYaw(float yaw);
 		void EulerRotatePitch(float pitch);
 		void EulerRotateRoll(float roll);
+
+		void RenderImGui() override;
+
+		const std::string& GetObjName() const;
+		const std::vector<SceneObj*> GetChildren() const;
 	};
 }

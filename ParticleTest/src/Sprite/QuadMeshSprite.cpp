@@ -51,4 +51,9 @@ namespace ptt
 		m_VAO.DrawArray(4, 0);
 
 	}
+	void QuadMeshSprite::RenderImGui()
+	{
+		ImGui::SeparatorText("Quad Mesh Color");
+		ImGui::ColorEdit4("Mesh Color", &m_MeshColor.r);
+	}
 }

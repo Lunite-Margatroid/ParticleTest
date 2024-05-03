@@ -3,10 +3,11 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "Renderer/Renderer.h"
+#include "Interface/ImGuiInterface.h"
 
 namespace ptt
 {
-	class QuadMeshSprite :public Sprite
+	class QuadMeshSprite :public Sprite, public ImGuiInterface
 	{
 	private:
 		LM::VertexBuffer m_Buffer;
@@ -22,5 +23,6 @@ namespace ptt
 		void SetMeshColor(const glm::vec4& color);
 
 		virtual void Render(const glm::mat4& modelTrans) override;
+		void RenderImGui() override;
 	};
 }

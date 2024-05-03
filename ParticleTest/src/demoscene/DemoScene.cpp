@@ -64,9 +64,10 @@ namespace ptt
 
 			// render scene on ImGui window
 			ImGui::Begin("Scene");
-			ImVec2& windowPos = ImGui::GetCursorScreenPos();				// 当前窗口位置
+			ImVec2 windowPos = ImGui::GetCursorScreenPos();					// 当前窗口位置
 			LM::FrameBuffer* framebuffer = Application::GetFramebuffer();	// 帧缓冲
 			ImVec2& windowSize = ImGui::GetWindowSize();					// 窗口大小
+
 			float drawWidth;
 			float drawHeight;
 			float aspectRation = framebuffer->GetAspectRatio();
@@ -76,10 +77,12 @@ namespace ptt
 			if (windowSize.x / windowSize.y > aspectRation)
 			{
 				drawHeight = windowSize.y;
+				windowPos.x += (windowSize.x - drawWidth) / 2;
 			}
 			else
 			{
 				drawWidth = windowSize.x;
+				windowPos.y += (windowSize.y - drawHeight) / 2;
 			}
 
 			ImGui::GetWindowDrawList()->AddImage							// 绘制帧缓冲

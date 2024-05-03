@@ -222,7 +222,10 @@ namespace ptt
 	}
 	void FireWork::RenderImGui()
 	{
-		if(ImGui::Button("Firework Reset", ImVec2(100.f, 50.0f)))
+		// ImGui::Text();
+		// ImGui::SameLine();
+		ImGui::SeparatorText("Sprite - Firework");
+		if(ImGui::Button("Firework Reset", ImVec2(200.f, 50.0f)))
 			Reset();
 		if (ImGui::Button("Random Diretion"))
 		{

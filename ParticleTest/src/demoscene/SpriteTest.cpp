@@ -3,20 +3,13 @@
 
 namespace ptt
 {
-	SpriteTest::SpriteTest():
-		m_Color(1.0f, 1.0f, 1.f,1.f)
+	SpriteTest::SpriteTest()
 	{
-		m_RootObj = std::make_unique<SceneObj>();
-		m_SelectedObj = new SceneObj(nullptr, new QuadMeshSprite());
+		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
+		m_SelectedObj = new SceneObj(nullptr, new QuadMeshSprite(), "Quad Mesh");
 		m_RootObj->PushChild(m_SelectedObj);
 		m_Shader = std::make_unique<LM::Shader>("./res/shader/QuadMeshSpriteVertex.shader", "./res/shader/QuadMeshSpriteFrag.shader");
 		m_Camera = std::make_unique<Camera3D>();
-
-		m_Yaw = m_SelectedObj->GetYaw();
-		m_Pitch = m_SelectedObj->GetPitch();
-		m_Roll = m_SelectedObj->GetRoll();
-
-		m_Position = m_SelectedObj->GetPosition();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -25,6 +18,38 @@ namespace ptt
 	SpriteTest::~SpriteTest()
 	{
 		glDisable(GL_BLEND);
+	}
+	void SpriteTest::DrawObjTree(const SceneObj& objNode)
+	{
+		static ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_None;
+		flag = ImGuiTreeNodeFlags_None;
+		flag |= ImGuiTreeNodeFlags_DefaultOpen;
+
+		// 如果没有子节点 设置为叶子节点
+		if (!objNode.HasChild())
+		{
+			flag |= ImGuiTreeNodeFlags_Leaf;
+		}
+
+		// 如果当前节点为选中节点 设置为选中状态
+		if (m_SelectedObj == &objNode)
+		{
+			flag |= ImGuiTreeNodeFlags_Selected;
+		}
+
+		if (ImGui::TreeNodeEx(objNode.GetObjName().c_str(), flag))
+		{
+			if (ImGui::IsItemClicked())
+			{// 点击当前节点 设置为选中节点
+				m_SelectedObj = const_cast<SceneObj*>(&objNode);
+			}
+			if (objNode.HasChild())
+				for (const SceneObj* obj : objNode.GetChildren())
+				{
+					DrawObjTree(*obj);
+				}
+			ImGui::TreePop();
+		}
 	}
 	void SpriteTest::Render()
 	{
@@ -42,22 +67,12 @@ namespace ptt
 			ImGui::Text("CameraPos: %.2f  %.2f  %.2f", cameraPos.x, cameraPos.y, cameraPos.z);
 			ImGui::Text("CameraAhead: %.2f  %.2f  %.2f", cameraAhead.x, cameraAhead.y, cameraAhead.z);
 		}
-		ImGui::SliderFloat3("Mesh Pos", &m_Position.x, -10.0f, 10.0f);
-		ImGui::SliderFloat3("Euler Angle", &m_Yaw, -PI, PI);
-		ImGui::ColorEdit4("MeshColor", &m_Color.r);
+		DrawObjTree(*m_RootObj);
+		m_SelectedObj->RenderImGui();
 	}
 	void SpriteTest::Update(float deltaTime)
 	{
 		m_Camera->Update(deltaTime);
 		m_RootObj->Update(deltaTime);
-
-		m_SelectedObj->SetEulerAngle(&m_Yaw);
-		m_SelectedObj->SetPosition(m_Position);
-
-		QuadMeshSprite* sprite = dynamic_cast<QuadMeshSprite*>(m_SelectedObj->GetSprite());
-		if (sprite)
-		{
-			sprite->SetMeshColor(m_Color);
-		}
 	}
 }

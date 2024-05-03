@@ -14,8 +14,8 @@ namespace ptt
 	{
 		m_Qua = glm::qua<float>(glm::vec3(m_Pitch, m_Yaw, m_Roll));
 	}
-	ptt::SceneObj::SceneObj(SceneObj* parent , Sprite* sprite)
-		:m_ParentObj(parent),
+	ptt::SceneObj::SceneObj(SceneObj* parent , Sprite* sprite, const std::string& objName)
+		:m_ParentObj(parent),m_ObjName(objName),
 		m_Sprite(sprite),
 		m_Yaw(0.0f),
 		m_Pitch(0.0f),
@@ -24,7 +24,6 @@ namespace ptt
 		m_Position(0.0f),
 		m_Qua(glm::vec3(0.0f, 0.0f, 0.0f))
 	{
-
 		if (m_ParentObj != nullptr)
 		{
 			m_ParentObj->m_ChildObj.push_back(this);
@@ -96,6 +95,10 @@ namespace ptt
 	{
 		return m_Sprite;
 	}
+	bool SceneObj::HasChild() const
+	{
+		return !(m_ChildObj.empty());
+	}
 	void SceneObj::SetPosition(const glm::vec3& position)
 	{
 		m_Position = position;
@@ -146,5 +149,27 @@ namespace ptt
 	void SceneObj::EulerRotateRoll(float roll)
 	{
 		m_Roll += roll;
+	}
+	void SceneObj::RenderImGui()
+	{
+		ImGui::SeparatorText("Object");
+		ImGui::DragFloat3("Position", &m_Position.x);
+		ImGui::Text("Rotate");
+		ImGui::DragFloat("Pitch - xAxis",&m_Pitch);
+		ImGui::DragFloat("Yaw - yAxis", &m_Yaw);
+		ImGui::DragFloat("Roll - zAxis", &m_Roll);
+		if (m_Sprite)
+		{
+			if (ImGuiInterface* gui = dynamic_cast<ImGuiInterface*>(m_Sprite))
+				gui->RenderImGui();
+		}
+	}
+	const std::string& SceneObj::GetObjName() const
+	{
+		return m_ObjName;
+	}
+	const std::vector<SceneObj*> SceneObj::GetChildren() const
+	{
+		return m_ChildObj;
 	}
 }

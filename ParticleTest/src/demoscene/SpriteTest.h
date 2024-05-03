@@ -15,18 +15,17 @@ namespace ptt
 		std::unique_ptr<Camera3D> m_Camera;
 		SceneObj* m_SelectedObj;
 
-		glm::vec3 m_Position;
-		float m_Yaw;
-		float m_Pitch;
-		float m_Roll;
-
-		glm::vec4 m_Color;
+		void DrawObjTree(const SceneObj&);
 	public:
 		SpriteTest();
 		virtual ~SpriteTest();
 
+		
+
 		void Render() override;
 		void RenderImGui() override;
 		void Update(float deltaTime) override;
+
+
 	};
 }
