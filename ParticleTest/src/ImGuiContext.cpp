@@ -3,6 +3,8 @@
 
 namespace ptt
 {
+    ImGuiContext* ImGuiContext::s_Instance = nullptr;
+
 	void ImGuiContext::Init(GLFWwindow* window)
 	{
         m_Init = true;
@@ -33,6 +35,8 @@ namespace ptt
             style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
 
+        io.Fonts->AddFontFromFileTTF("C:/Windows/Fonts/simhei.ttf", 20, NULL, io.Fonts->GetGlyphRangesChineseFull());
+
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
 
@@ -47,6 +51,8 @@ namespace ptt
     ImGuiContext::ImGuiContext():
          m_Init(false)
     {
+        ASSERT(s_Instance == nullptr);
+        s_Instance = this;
     }
     ImGuiContext::~ImGuiContext()
     {
@@ -57,6 +63,9 @@ namespace ptt
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        // docking place
+        ImGui::DockSpaceOverViewport();
     }
     void ImGuiContext::ImGuiEnd()
     {
@@ -70,5 +79,53 @@ namespace ptt
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+    }
+
+    void ImGuiContext::SaveStyle(const std::string& fileName)
+    {
+        ASSERT(s_Instance);
+        std::ofstream outFile;
+        outFile.open(fileName, std::ios::binary);
+        if (!outFile.is_open())
+        {
+            std::cout << "can't open file: " << fileName << std::endl;
+            return;
+        }
+        ImGuiStyle* style = &ImGui::GetStyle();
+        int size = sizeof(ImGuiStyle);
+        ASSERT(sizeof(int) == 4);
+        outFile.write((char*)&size, sizeof(int));
+        outFile.write((char*)style, size);
+        outFile.close();
+    }
+    void ImGuiContext::LoadStyle(const std::string& fileName)
+    {
+        ASSERT(s_Instance);
+        std::ifstream inFile;
+        inFile.open(fileName, std::ios::binary);
+        if (!inFile.is_open())
+        {
+            std::cout << "can't open file: " << fileName << std::endl;
+            return;
+        }
+        ImGuiStyle* style = &ImGui::GetStyle();
+        int size = sizeof(ImGuiStyle);
+        ASSERT(sizeof(int) == 4);
+        int tSize;
+        inFile.read((char*)&tSize, sizeof(int));
+        if (tSize != size)
+        {
+            std::cout << "Version not matchs.\n";
+            inFile.close();
+            return;
+        }
+        inFile.read((char*)style, size);
+        inFile.close();
+
+    }
+    ImGuiContext* ImGuiContext::GetInstance()
+    {
+        ASSERT(s_Instance);
+        return s_Instance;
     }
 }

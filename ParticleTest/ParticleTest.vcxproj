@@ -150,6 +150,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\demoscene\SpriteTest.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
+    <ClInclude Include="src\glObj\FrameBuffer.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Interface\ImGuiInterface.h" />
@@ -161,6 +162,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Shader\tfbShader.h" />
     <ClInclude Include="src\Sprite\ColoredSprite.h" />
     <ClInclude Include="src\Sprite\FireWork.h" />
+    <ClInclude Include="src\Sprite\Hanabi.h" />
     <ClInclude Include="src\Sprite\QuadMeshSprite.h" />
     <ClInclude Include="src\Sprite\Sprite.h" />
     <ClInclude Include="src\Sprite\udSprite.h" />
@@ -181,6 +183,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\demoscene\SpriteTest.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
+    <ClCompile Include="src\glObj\FrameBuffer.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Interface\ImGuiInterface.cpp" />
@@ -192,6 +195,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Shader\tfbShader.cpp" />
     <ClCompile Include="src\Sprite\ColoredSprite.cpp" />
     <ClCompile Include="src\Sprite\FireWork.cpp" />
+    <ClCompile Include="src\Sprite\Hanabi.cpp" />
     <ClCompile Include="src\Sprite\QuadMeshSprite.cpp" />
     <ClCompile Include="src\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Sprite\udSprite.cpp" />

@@ -4,6 +4,7 @@
 
 namespace ptt
 {
+	Application* Application::s_Instance = nullptr;
 
 	void Application::Init()
 	{
@@ -16,23 +17,37 @@ namespace ptt
 
 		m_Menu = std::make_unique<MenuScene>();
 		m_Renderer = Renderer::GetInstance();
+
+		m_Framebuffer.Init(1600, 900);
 	}
 	Application::Application()
 	{
+		ASSERT(s_Instance == nullptr);
+		s_Instance = this;
 		m_Run = true;
 		Init();
 	}
 	Application::~Application()
 	{
 		delete m_Renderer;
+		s_Instance = nullptr;
+		//delete m_Menu;
 	}
 	void Application::Render()
 	{
+		// render scene to framebuffer
+		m_Framebuffer.Bind();
 		glClear(GL_COLOR_BUFFER_BIT);
-		glViewport(0, 0, m_GlfwCtx->GetWidth(), m_GlfwCtx->GetHeight());
+		// glViewport(0, 0, m_GlfwCtx->GetWidth(), m_GlfwCtx->GetHeight());
+		glViewport(0, 0, m_Framebuffer.GetWidth(), m_Framebuffer.GetHeight());
 		m_Menu->Render();
+		m_Framebuffer.Unbind();
 
+		// render ui
+		glClear(GL_COLOR_BUFFER_BIT);
 		RenderImGui();
+
+		// swap default framebuffer
 		glfwSwapBuffers(m_Window);
 	}
 
@@ -53,6 +68,19 @@ namespace ptt
 			glfwPollEvents();
 			Render();
 		}
+	}
+
+	Application* Application::GetInstance()
+	{
+		ASSERT(s_Instance);
+		return s_Instance;
+	}
+
+	LM::FrameBuffer* Application::GetFramebuffer()
+	{
+		Application* instance = GetInstance();
+		ASSERT(instance);
+		return &(instance->m_Framebuffer);
 	}
 
 	void Application::UpdateTime()

@@ -12,6 +12,7 @@ class MyApp :public ptt::Application
 public:
 	MyApp()
 	{
+		ptt::ImGuiContext::LoadStyle("./res/ImGuiStyle/PinkStyle.style");
 		m_Menu->RegistDemoScene<ptt::DemoScene>("Nothing Scene");
 		m_Menu->RegistDemoScene<ptt::SinWave>("Sin wave Scene");
 		m_Menu->RegistDemoScene<ptt::SceneFireLoop>("Fire Loop Scene");

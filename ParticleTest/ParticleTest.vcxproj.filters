@@ -43,6 +43,8 @@
     <ClInclude Include="src\demoscene\FireworkScene.h" />
     <ClInclude Include="src\Interface\ImGuiInterface.h" />
     <ClInclude Include="src\Sprite\udSprite.h" />
+    <ClInclude Include="src\glObj\FrameBuffer.h" />
+    <ClInclude Include="src\Sprite\Hanabi.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -83,5 +85,7 @@
     <ClCompile Include="src\demoscene\FireworkScene.cpp" />
     <ClCompile Include="src\Interface\ImGuiInterface.cpp" />
     <ClCompile Include="src\Sprite\udSprite.cpp" />
+    <ClCompile Include="src\glObj\FrameBuffer.cpp" />
+    <ClCompile Include="src\Sprite\Hanabi.cpp" />
   </ItemGroup>
 </Project>

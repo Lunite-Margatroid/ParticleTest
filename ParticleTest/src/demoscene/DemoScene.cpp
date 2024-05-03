@@ -35,7 +35,7 @@ namespace ptt
 	{
 		static char sceneTitle[128];
 		if (m_CurrentScene == nullptr)
-		{
+		{// render menu
 			ImGui::Begin("Menu");
 			for (auto& item : m_Menu)
 			{
@@ -49,6 +49,7 @@ namespace ptt
 		}
 		else
 		{
+			// render scene ui
 			ImGui::Begin(sceneTitle);
 			if (ImGui::Button("<- back to mune"))
 			{
@@ -59,6 +60,36 @@ namespace ptt
 			{
 				m_CurrentScene->RenderImGui();
 			}
+			ImGui::End();
+
+			// render scene on ImGui window
+			ImGui::Begin("Scene");
+			ImVec2& windowPos = ImGui::GetCursorScreenPos();				// 当前窗口位置
+			LM::FrameBuffer* framebuffer = Application::GetFramebuffer();	// 帧缓冲
+			ImVec2& windowSize = ImGui::GetWindowSize();					// 窗口大小
+			float drawWidth;
+			float drawHeight;
+			float aspectRation = framebuffer->GetAspectRatio();
+			drawWidth = windowSize.y * aspectRation;
+			drawHeight = windowSize.x / aspectRation;
+
+			if (windowSize.x / windowSize.y > aspectRation)
+			{
+				drawHeight = windowSize.y;
+			}
+			else
+			{
+				drawWidth = windowSize.x;
+			}
+
+			ImGui::GetWindowDrawList()->AddImage							// 绘制帧缓冲
+			(
+				(void*)framebuffer->GetTextureID(),
+				windowPos,
+				ImVec2(windowPos.x+ drawWidth, windowPos.y+ drawHeight),
+				ImVec2(0, 1),
+				ImVec2(1, 0)
+				);
 			ImGui::End();
 		}
 	}

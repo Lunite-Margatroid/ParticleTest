@@ -10,7 +10,7 @@ namespace ptt
 	public:
 		enum class Shaders
 		{
-			FireWork
+			FireWork, Hanabi, HanabiSpark
 		};
 		enum class Cameras
 		{

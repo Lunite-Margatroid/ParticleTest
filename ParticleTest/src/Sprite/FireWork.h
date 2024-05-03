@@ -35,7 +35,7 @@ namespace ptt
 		float m_VertexSize;
 		float m_kDF;		// ื่มฆฯตสý
 
-		void Init();
+		virtual void Init();
 	public:
 		FireWork(unsigned int count = 100, Distribution distribution = Distribution::uniform);
 		~FireWork();

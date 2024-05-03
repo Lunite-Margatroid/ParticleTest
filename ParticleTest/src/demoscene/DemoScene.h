@@ -1,5 +1,8 @@
 #pragma once
 #include "Interface/ImGuiInterface.h"
+#include "glObj/FrameBuffer.h"
+#include "Application.h"
+
 namespace ptt
 {
 	class DemoScene
