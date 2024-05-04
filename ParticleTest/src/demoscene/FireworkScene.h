@@ -1,6 +1,7 @@
 #pragma once
 #include "demoscene/SpriteTest.h"
 #include "Sprite/FireWork.h"
+#include "Sprite/Hanabi.h"
 namespace ptt
 {
 	class FireworkScene :public SpriteTest

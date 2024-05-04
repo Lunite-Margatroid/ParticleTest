@@ -16,6 +16,10 @@ namespace ptt
 		/*SceneObj* fw = new SceneObj(nullptr, new FireWork(300,FireWork::Distribution::random));
 		m_RootObj->PushChild(fw);
 		fw->SetPosition(glm::vec3(0.0f, 5.f, -5.0f));*/
+		Hanabi* h = new Hanabi(300);
+		FW = new SceneObj(nullptr, h, "Hanabi");
+		m_RootObj->PushChild(FW);
+		FW->SetPosition(glm::vec3(0.0f, 50.f, -50.0f));
 
 		m_Camera->SetPos(glm::vec3(0.0f, 1.f,0.0f));
 		m_Camera->SetEulerAngle(PI / 4,  0.0f, 0.0f);

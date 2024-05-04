@@ -36,5 +36,8 @@ namespace ptt
 		void SetWidth(float width);
 		void SetHeight(float height);
 
+		float GetFar() const;
+		float GetNear() const;
+
 	};
 }

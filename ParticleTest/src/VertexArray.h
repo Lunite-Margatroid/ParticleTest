@@ -7,7 +7,7 @@ namespace LM {
 		bool bNormalize;		// if normal
 		bool skip;
 
-		static const bool skip_arrtib;
+		static const bool skip_attrib;
 		
 		AttribLayout(unsigned int c, unsigned int t, bool b,bool s = false)
 			:count(c), type(t),bNormalize(b),skip(s)

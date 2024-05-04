@@ -1,8 +1,9 @@
 #version 450 core
 
 layout(location = 0) in vec3 aPos;
-layout(location = 1) in vec3 aVel;
-layout(location = 2) in float aT;
+layout(location = 1) in float aT;
+layout(location = 2) in vec3 aVel;
+
 
 uniform mat4 u_MVPTrans;
 uniform mat4 u_MVTrans;

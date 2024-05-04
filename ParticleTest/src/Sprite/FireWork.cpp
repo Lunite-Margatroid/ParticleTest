@@ -97,19 +97,20 @@ namespace ptt
 		ASSERT(shader!=nullptr);
 		Camera* camera = Renderer::GetCurrentCamera();
 		ASSERT(camera);
-		//glm::mat4& mvTrans = Renderer::GetMVTrans();
+		glm::mat4& mvTrans = Renderer::GetMVTrans();
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
-		//mvTrans = camera->GetViewTrans() * modelTrans;
-		mvpTrans = camera->GetProjectionTrans() * camera->GetViewTrans() * modelTrans;
+		mvTrans = camera->GetViewTrans() * modelTrans;
+		mvpTrans = camera->GetProjectionTrans() *mvTrans;
 
 		shader->Bind();
 		shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
-		//shader->SetUniformMatrix4f("u_MVTrans",false, glm::value_ptr(mvTrans));
+		shader->SetUniformMatrix4f("u_MVTrans",false, glm::value_ptr(mvTrans));
 		shader->SetUniform1f("u_DeltaTime", m_DeltaTime);
 		shader->SetUniform3f("u_Accelerate", &m_Acc.x);
 		shader->SetUniform4f("u_VertexColor", &m_Color[0].r);
 		shader->SetUniform1f("u_VertexSize", m_VertexSize);
 		shader->SetUniform1f("u_kDF", m_kDF);
+		shader->SetUniform1f("u_Far", camera->GetFar());
 
 		static size_t size = m_Count * 7 * sizeof(float);
 		if (m_BufferFlag)

@@ -3,7 +3,7 @@
 
 namespace LM
 {
-	const bool AttribLayout::skip_arrtib = true;
+	const bool AttribLayout::skip_attrib = true;
 
 	VertexArray::VertexArray(GLenum type)
 		:m_stride(0), m_MetaType(type), m_vb(0), m_eb(0)

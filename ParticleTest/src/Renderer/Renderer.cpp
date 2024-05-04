@@ -18,6 +18,14 @@ namespace ptt
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("out_T");
 		shader->ApplyVarying();
+
+		shader = new tfbShader("./res/shader/HanabiVertex.shader", "./res/shader/HanabiFrag.shader");
+		m_ShaderMap[Shaders::Hanabi] = shader;
+		shader->PushVarying("out_Pos");
+		shader->PushVarying("out_T");
+		shader->PushVarying("out_Vel");
+		shader->PushVarying("gl_SkipComponents1");
+		shader->ApplyVarying();
 		
 	}
 	Renderer::~Renderer()

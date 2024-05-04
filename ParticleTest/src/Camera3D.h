@@ -19,7 +19,7 @@ namespace ptt
 
 		float m_fov;				// 转轴为z轴 Roll
 
-		float m_ViewRange;
+		float m_ViewRange;			// 视野角度
 		
 		float m_SenRad;				// Sensitivity Of rotate
 		float m_SenPos;				// Sensitivity Of Move

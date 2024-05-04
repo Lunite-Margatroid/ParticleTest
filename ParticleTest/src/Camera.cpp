@@ -35,4 +35,12 @@ namespace ptt
 	{
 		m_Height = height;
 	}
+	float Camera::GetFar() const
+	{
+		return m_Far;
+	}
+	float Camera::GetNear() const
+	{
+		return m_Near;
+	}
 }
