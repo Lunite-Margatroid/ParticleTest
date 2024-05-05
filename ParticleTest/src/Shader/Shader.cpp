@@ -135,30 +135,13 @@ namespace LM
 		GLCall(glUniformBlockBinding(m_ShaderID , uniformIndex, index));
 	}
 
-	void Shader::SetUniformModelTrans(glm::mat4& modelTrans)
+	unsigned int Shader::GetUniformBlockIndex(const char* uniformBlockName)
 	{
-		SetUniformMatrix4f("modelTrans", false, glm::value_ptr(modelTrans));
+		unsigned int uniformIndex;
+		GLCall(uniformIndex = glGetUniformBlockIndex(m_ShaderID, uniformBlockName));
+		return uniformIndex;
 	}
 
-	void Shader::SetUniformViewTrans(glm::mat4& viewTrans)
-	{
-		SetUniformMatrix4f("viewTrans", false, glm::value_ptr(viewTrans));
-	}
-
-	void Shader::SetUniformProjectionTrans(glm::mat4& projectionTrans)
-	{
-		SetUniformMatrix4f("projectionTrans", false, glm::value_ptr(projectionTrans));
-	}
-
-	void Shader::SetUniformNormalMat(glm::mat3& normalMat)
-	{
-		SetUniformMatrix3f("normalMat", false, glm::value_ptr(normalMat));
-	}
-
-	void Shader::SetUniformCameraPos(glm::vec3& cameraPos)
-	{
-		SetUniform3f("cameraPos", cameraPos.x, cameraPos.y, cameraPos.z);
-	}
 
 	int Shader::GetUniformLocation(const std::string& valueName)
 	{

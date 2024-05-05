@@ -67,6 +67,7 @@ namespace ptt
 			ImGui::Text("CameraPos: %.2f  %.2f  %.2f", cameraPos.x, cameraPos.y, cameraPos.z);
 			ImGui::Text("CameraAhead: %.2f  %.2f  %.2f", cameraAhead.x, cameraAhead.y, cameraAhead.z);
 		}
+		ImGui::SeparatorText("Obj Tree");
 		DrawObjTree(*m_RootObj);
 		m_SelectedObj->RenderImGui();
 	}

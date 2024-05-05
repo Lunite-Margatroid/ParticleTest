@@ -9,7 +9,7 @@
 
 namespace ptt
 {
-	class Hanabi :public ColoredSprite<1>, public ImGuiInterface, public udSprite
+	class Hanabi :public ColoredSprite<2>, public ImGuiInterface, public udSprite
 	{
 	public:
 		enum class Distribution { random, uniform };
@@ -45,6 +45,8 @@ namespace ptt
 		float m_SparkSize;
 
 		bool m_BufferFlag;
+
+		float m_ExistTime;
 
 		void Init();
 		void GenData(float*);

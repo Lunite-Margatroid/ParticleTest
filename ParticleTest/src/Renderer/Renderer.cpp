@@ -13,20 +13,26 @@ namespace ptt
 		m_CurrentCamera(nullptr)
 	{
 		tfbShader* shader = new tfbShader("./res/shader/FireworkVertex.shader", "./res/shader/FireworkFrag.shader");
-		m_ShaderMap[Shaders::FireWork] = shader;
+		m_ShaderMap[Shaders::FireWork] = dynamic_cast<LM::Shader*>(shader);
+		shader->PushVarying("out_Pos");
+		shader->PushVarying("out_Vel");
+		shader->PushVarying("out_T");
+		shader->ApplyVarying();
+
+		shader = new tfbShader("./res/shader/HanabiSparkVertex.shader", "./res/shader/HanabiSparkFrag.shader");
+		m_ShaderMap[Shaders::HanabiSpark] = dynamic_cast<LM::Shader*>(shader);
 		shader->PushVarying("out_Pos");
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("out_T");
 		shader->ApplyVarying();
 
 		shader = new tfbShader("./res/shader/HanabiVertex.shader", "./res/shader/HanabiFrag.shader");
-		m_ShaderMap[Shaders::Hanabi] = shader;
+		m_ShaderMap[Shaders::Hanabi] = dynamic_cast<LM::Shader*>(shader);
 		shader->PushVarying("out_Pos");
 		shader->PushVarying("out_T");
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("gl_SkipComponents1");
 		shader->ApplyVarying();
-		
 	}
 	Renderer::~Renderer()
 	{

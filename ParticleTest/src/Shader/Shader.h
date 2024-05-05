@@ -59,11 +59,7 @@ namespace LM
 		/// <param name="index">°ó¶¨µã±àºÅ</param>
 		void UniformBlockBinding(const char* blockName, unsigned int index);
 
-		void SetUniformModelTrans(glm::mat4&);
-		void SetUniformViewTrans(glm::mat4&);
-		void SetUniformProjectionTrans(glm::mat4&);
-		void SetUniformNormalMat(glm::mat3&);
-		void SetUniformCameraPos(glm::vec3&);
+		unsigned int GetUniformBlockIndex(const char* uniformBlockName);
 	protected:
 		
 		static void GetShaderSource(const std::string& path, std::string& shaderCode);

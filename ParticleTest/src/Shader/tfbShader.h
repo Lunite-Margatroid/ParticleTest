@@ -2,7 +2,7 @@
 #include "Shader.h"
 namespace ptt
 {
-	class tfbShader:public LM::Shader
+	class tfbShader:virtual public LM::Shader
 	{
 	protected:
 		unsigned int m_tfbID;

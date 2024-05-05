@@ -34,6 +34,36 @@ namespace ptt
 		m_VAO[1].ApplyLayout();
 
         delete[] buffer;
+
+		// spark
+		// pos 3 float
+		// vel 3 float
+		// time 1 float
+		size_t sparkSize = sizeof(float) * 7 * m_Count * m_SparkCount;
+		buffer = reinterpret_cast<float*>(new char[sparkSize]);
+		memset(buffer, 0, sparkSize);
+		m_vbSpark[0].Init(sparkSize, buffer, GL_DYNAMIC_COPY);
+		m_vbSpark[1].Init(sparkSize, buffer, GL_DYNAMIC_COPY);
+
+		m_vaoSpark[0].SetMetaType(GL_POINTS);
+		m_vaoSpark[0].SetVB(m_vbSpark[0].GetID());
+		m_vaoSpark[0].PushAttrib<float>(3);
+		m_vaoSpark[0].PushAttrib<float>(3);
+		m_vaoSpark[0].PushAttrib<float>(1);
+		m_vaoSpark[0].ApplyLayout();
+
+		m_vaoSpark[1].SetMetaType(GL_POINTS);
+		m_vaoSpark[1].SetVB(m_vbSpark[1].GetID());
+		m_vaoSpark[1].PushAttrib<float>(3);
+		m_vaoSpark[1].PushAttrib<float>(3);
+		m_vaoSpark[1].PushAttrib<float>(1);
+		m_vaoSpark[1].ApplyLayout();
+		delete[] buffer;
+
+		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::HanabiSpark);
+		glBindBufferBase(GL_UNIFORM_BUFFER, shader->GetUniformBlockIndex("UnifVertexAtttib"), m_Buffer[0].GetID());
+		//shader->UniformBlockBinding("UnifVertexAtttib", 4);
+		//glBindBufferBase(GL_UNIFORM_BUFFER, 4, m_Buffer[0].GetID());
     }
     void Hanabi::GenData(float* buffer)
     {
@@ -62,7 +92,7 @@ namespace ptt
     }
     Hanabi::Hanabi(unsigned int count, unsigned int sparkCount) :
         m_Count(count), m_SparkCount(sparkCount),
-        m_kDF(0.1f), m_kSparkDF(0.3f),
+        m_kDF(0.1f), m_kSparkDF(0.4f),
         m_Acc(0.0f, -6.0f, 0.0f), m_SparkAcc(0.0f, -6.0f, 0.0f),
         m_Distribution(Distribution::uniform), m_sparkDistribution(Distribution::random),
         m_DeltaTime(0.0f),
@@ -72,11 +102,15 @@ namespace ptt
     {
         m_VelHanabi[0] = 10.0f;
         m_VelHanabi[1] = 2.0f;
-        m_VelSpark[0] = 1.0f;
-        m_VelSpark[1] = 0.2f;
+        m_VelSpark[0] = 0.5f;
+        m_VelSpark[1] = 0.3f;
 		m_TimeHanabi[0] = 2.0f;
 		m_TimeHanabi[1] = 0.3f;
+		m_TimeSpark[0] = 0.5f;
+		m_TimeSpark[1] = 0.2f;
         m_Color[0] = glm::vec4(1.0f, 1.0f, 1.0f ,1.0f);
+		m_Color[1] = glm::vec4(1.0f);
+		m_ExistTime = m_TimeHanabi[0] + m_TimeSpark[0] + 2 * (m_TimeHanabi[1] + m_TimeSpark[1]);
 
 		Init();
     }
@@ -87,10 +121,16 @@ namespace ptt
 	void Hanabi::Update(float deltaTime)
 	{
 		m_DeltaTime = deltaTime;
+		if (m_ExistTime > 0.0f)
+			m_ExistTime -= deltaTime;
 	}
 
 	void Hanabi::Render(const glm::mat4& modelTrans)
 	{
+		if (m_ExistTime < 0.0f)
+			return;
+
+		// ------------- Render Hanabi ----------------
 		tfbShader* shader = dynamic_cast<tfbShader*>(Renderer::GetShader(Renderer::Shaders::Hanabi));
 		ASSERT(shader);
 		Camera* camera = Renderer::GetCurrentCamera();
@@ -126,6 +166,48 @@ namespace ptt
 		}
 		shader->EndTransformFeedback();
 		shader->UnbindTransformFeedback();
+		
+
+		// ------------------ Render Spark -------------------
+
+		shader = dynamic_cast<tfbShader*>(Renderer::GetShader(Renderer::Shaders::HanabiSpark));
+		ASSERT(shader);
+		shader->Bind();
+		shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
+		shader->SetUniformMatrix4f("u_MVTrans", false, glm::value_ptr(mvTrans));
+		shader->SetUniform1f("u_DeltaTime", m_DeltaTime);
+		shader->SetUniform3f("u_Accelerate", &m_SparkAcc.x);
+		shader->SetUniform1f("u_VertexSize", m_SparkSize);
+		shader->SetUniform1f("u_kDF",m_kSparkDF);
+		shader->SetUniform1f("u_Far", camera->GetFar());
+
+		shader->SetUniform1f("u_AverageVel", m_VelSpark[0]);
+		shader->SetUniform1f("u_VelSD", m_VelSpark[1]);
+
+		shader->SetUniform1f("u_AverageTime",m_TimeSpark[0]);
+		shader->SetUniform1f("u_TimeSD", m_TimeSpark[1]);
+
+		shader->SetUniform1i("u_Count", m_Count);
+
+		shader->SetUniform4f("u_VertexColor", &m_Color[1].r);
+
+		size = sizeof(float) * m_Count * m_SparkCount * 7;
+		if (m_BufferFlag)
+		{
+			shader->BindBufferRange(0, m_vbSpark[0].GetID(), 0, size);
+			shader->BeginTransformFeedback(GL_POINTS);
+			m_vaoSpark[1].DrawArray(m_Count * m_SparkCount);
+
+		}
+		else
+		{
+			shader->BindBufferRange(0, m_vbSpark[1].GetID(), 0, size);
+			shader->BeginTransformFeedback(GL_POINTS);
+			m_vaoSpark[0].DrawArray(m_Count * m_SparkCount);
+		}
+		shader->EndTransformFeedback();
+		shader->UnbindTransformFeedback();
+		// ------------------------------------------------------
 		m_BufferFlag = !m_BufferFlag;
 	}
 	void Hanabi::Reset()
@@ -136,7 +218,7 @@ namespace ptt
 		GenData(buffer);
 		m_Buffer[0].SetData(0, hanabiSize, buffer);
 		m_Buffer[1].SetData(0, hanabiSize, buffer);
-
+		m_ExistTime = m_TimeHanabi[0] + m_TimeSpark[0] + 2 * (m_TimeHanabi[1] + m_TimeSpark[1]);
 		delete[] buffer;
 	}
 
@@ -147,7 +229,8 @@ namespace ptt
 		if (ImGui::Button("Firework Reset", ImVec2(200.f, 50.0f)))
 			Reset();
 
-		ImGui::BeginChild("Hanabi property", ImVec2(0.0f, 0.0f), ImGuiChildFlags_Border);
+		ImGui::BeginChild("Hanabi property", ImVec2(0.0f, 0.0f), ImGuiChildFlags_Border | ImGuiChildFlags_AutoResizeY);
+		ImGui::Text("Hanabi property");
 		if(m_Distribution == Distribution::random)
 			ImGui::Text("Current Direction Distribution: Random");
 		else
@@ -165,9 +248,22 @@ namespace ptt
 		ImGui::SliderFloat("Gravity Acc", &m_Acc.y, -20.0f, 0.0f);
 		ImGui::SliderFloat("k Drag Force", &m_kDF, 0.0f, 0.4f);
 		ImGui::SliderFloat("Average Velocity", m_VelHanabi, 1.0f, 100.0f);
-		ImGui::SliderFloat("standard deviation", m_VelHanabi + 1, 0.0f, 0.4f);
+		ImGui::SliderFloat("standard deviation", m_VelHanabi + 1, 0.0f, 10.f);
+		ImGui::SliderFloat("Existing Time", m_TimeHanabi, 0.0f, 10.0f);
+		ImGui::SliderFloat("standard deciation", m_TimeHanabi + 1, 0.0f, 5.0f);
 		ImGui::ColorEdit4("Firework Color", &(m_Color[0].r));
 		ImGui::EndChild();
 
+		ImGui::BeginChild("Spark property", ImVec2(0.0f, 0.0f), ImGuiChildFlags_Border | ImGuiChildFlags_AutoResizeY);
+		ImGui::Text("Spark property");
+		ImGui::SliderFloat("Point Size", &m_SparkSize, 1.0f, 50.0f);
+		ImGui::SliderFloat("Gravity Acc", &m_SparkAcc.y, -20.0f, 0.0f);
+		ImGui::SliderFloat("k Drag Force", &m_kSparkDF, 0.0f, 0.6f);
+		ImGui::SliderFloat("Average Velocity", m_VelSpark, 1.0f, 100.0f);
+		ImGui::SliderFloat("standard deviation", m_VelSpark + 1, 0.0f, 10.f);
+		ImGui::SliderFloat("Existing Time", m_TimeSpark, 0.0f, 10.0f);
+		ImGui::SliderFloat("standard deciation", m_TimeSpark + 1, 0.0f, 5.0f);
+		ImGui::ColorEdit4("Firework Color", &(m_Color[1].r));
+		ImGui::EndChild();
 	}
 }
