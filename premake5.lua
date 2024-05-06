@@ -45,7 +45,8 @@ project "ParticleTest"
 		"glad",
 		"opengl32.lib",
 		"Dependence/glfw3.lib",
-		"ImGui"
+		"ImGui",
+		"Dependence/assimp/assimp-vc143-mt.lib"
 	}
 	
 	

@@ -16,6 +16,10 @@
 #include <glm/ext/quaternion_geometric.hpp>
 #include <glm/ext/quaternion_trigonometric.hpp>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #include <sstream>
 #include <fstream>
 #include <iostream>
@@ -26,6 +30,8 @@
 
 
 #include <functional>
+
+// #include <stb/stb_image.h>
 
 
 #define ASSERT(x)	if(!(x)) __debugbreak()

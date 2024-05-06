@@ -89,7 +89,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;..\Dependence\assimp\assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -112,7 +112,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;..\Dependence\assimp\assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST ..\bin\Release-x86_64\ParticleTest\ParticleTest.exe\ (xcopy /Q /E /Y /I ..\bin\Release-x86_64\ParticleTest\ParticleTest.exe ..\bin\Release-x86_64\MyApp &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-x86_64\ParticleTest\ParticleTest.exe ..\bin\Release-x86_64\MyApp &gt; nul)
@@ -139,18 +139,15 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;..\Dependence\glfw3.lib;..\Dependence\assimp\assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Camera3D.h" />
-    <ClInclude Include="src\demoscene\FireworkScene.h" />
-    <ClInclude Include="src\demoscene\SpriteTest.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
-    <ClInclude Include="src\glObj\FrameBuffer.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Interface\ImGuiInterface.h" />
@@ -164,26 +161,30 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Sprite\FireWork.h" />
     <ClInclude Include="src\Sprite\Hanabi.h" />
     <ClInclude Include="src\Sprite\QuadMeshSprite.h" />
+    <ClInclude Include="src\Sprite\QuadSprite.h" />
     <ClInclude Include="src\Sprite\Sprite.h" />
     <ClInclude Include="src\Sprite\udSprite.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\demoscene\DemoScene.h" />
+    <ClInclude Include="src\demoscene\FireworkScene.h" />
     <ClInclude Include="src\demoscene\QuadMeshScene.h" />
     <ClInclude Include="src\demoscene\SceneFireLoop.h" />
     <ClInclude Include="src\demoscene\SinWave.h" />
+    <ClInclude Include="src\demoscene\SpriteTest.h" />
+    <ClInclude Include="src\glObj\FrameBuffer.h" />
+    <ClInclude Include="src\glObj\Texture.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\tfBuffer.h" />
+    <ClInclude Include="src\vendor\ImGuiFileDialog\ImGuiFileDialog.h" />
+    <ClInclude Include="src\vendor\ImGuiFileDialog\ImGuiFileDialogConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Camera3D.cpp" />
-    <ClCompile Include="src\demoscene\FireworkScene.cpp" />
-    <ClCompile Include="src\demoscene\SpriteTest.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
-    <ClCompile Include="src\glObj\FrameBuffer.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Interface\ImGuiInterface.cpp" />
@@ -197,19 +198,29 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Sprite\FireWork.cpp" />
     <ClCompile Include="src\Sprite\Hanabi.cpp" />
     <ClCompile Include="src\Sprite\QuadMeshSprite.cpp" />
+    <ClCompile Include="src\Sprite\QuadSprite.cpp" />
     <ClCompile Include="src\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Sprite\udSprite.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\demoscene\DemoScene.cpp" />
+    <ClCompile Include="src\demoscene\FireworkScene.cpp" />
     <ClCompile Include="src\demoscene\QuadMeshScene.cpp" />
     <ClCompile Include="src\demoscene\SceneFireLoop.cpp" />
     <ClCompile Include="src\demoscene\SinWave.cpp" />
+    <ClCompile Include="src\demoscene\SpriteTest.cpp" />
+    <ClCompile Include="src\glObj\FrameBuffer.cpp" />
+    <ClCompile Include="src\glObj\Texture.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\tfBuffer.cpp" />
+    <ClCompile Include="src\vendor\ImGuiFileDialog\ImGuiFileDialog.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\glad\glad.vcxproj">
