@@ -22,7 +22,8 @@ namespace LM
 		GLCall(glActiveTexture(GL_TEXTURE0 + index));
 		GLCall(glBindTexture(GL_TEXTURE_2D, *texture)); // 绑定纹理
 
-
+		if (nChannals == 4)
+			resColorMode = GL_RGBA;
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, texColorMode, m_nWidth, m_nHeight, 0, resColorMode, GL_UNSIGNED_BYTE, img_data));
 		// param1 纹理Target
 		// param2 多级渐远级别 0为基本级别
@@ -39,17 +40,42 @@ namespace LM
 		return true;
 	}
 
-	Texture::Texture(const std::string& imgPath, unsigned char index, int texColorMode, int imgColorMode, bool bGenerateMipmap, TextureType type)
+	Texture::Texture(const std::string& imgPath, TextureType type, GLenum dstColorMode, GLenum srcColorMode, GLenum minFilter, GLenum magFilter, GLenum wrap)
 		:m_type(type)
 	{
-		this->LoadTexture(&m_uTextureID, imgPath, index, texColorMode, imgColorMode, true);
-		m_ubTextureIndex = index;
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));		// 设置环绕方式
+		switch (m_type)
+		{
+		case LM::texture_unknown:
+			m_strType = "texture_unknown";
+			break;
+		case LM::texture_diffuse:
+			m_strType = "texture_diffuse";
+			break;
+		case LM::texture_specular:
+			m_strType = "texture_specular";
+			break;
+		case LM::texture_normal:
+			m_strType = "texture_normal";
+			break;
+		case LM::texture_parallax:
+			m_strType = "texture_parallax";
+			break;
+		default:
+			break;
+		}
 
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));	// 设置插值方式
+		bool ifMipmap;
+		ifMipmap = minFilter == GL_NEAREST_MIPMAP_NEAREST ||
+			minFilter == GL_LINEAR_MIPMAP_NEAREST ||
+			minFilter == GL_NEAREST_MIPMAP_LINEAR ||
+			minFilter == GL_LINEAR_MIPMAP_LINEAR;
+		this->LoadTexture(&m_uTextureID, imgPath, 0, dstColorMode, srcColorMode, ifMipmap);
+		m_ubTextureIndex = 0;
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap));		// 设置环绕方式
 
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter));	// 设置插值方式
 	}
 
 	Texture::~Texture()

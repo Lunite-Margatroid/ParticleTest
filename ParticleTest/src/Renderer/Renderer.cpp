@@ -12,6 +12,10 @@ namespace ptt
 		m_CurrentShader(nullptr),
 		m_CurrentCamera(nullptr)
 	{
+		InitShader();
+	}
+	void Renderer::InitShader()
+	{
 		tfbShader* shader = new tfbShader("./res/shader/FireworkVertex.shader", "./res/shader/FireworkFrag.shader");
 		m_ShaderMap[Shaders::FireWork] = dynamic_cast<LM::Shader*>(shader);
 		shader->PushVarying("out_Pos");
@@ -34,6 +38,10 @@ namespace ptt
 		shader->PushVarying("gl_SkipComponents1");
 		shader->ApplyVarying();
 	}
+	void Renderer::InitTexture()
+	{
+		m_Textures.push_back(new LM::Texture());
+	}
 	Renderer::~Renderer()
 	{
 		for (auto& shader : m_ShaderMap)
@@ -43,6 +51,10 @@ namespace ptt
 		for (auto& camera : m_CameraMap)
 		{
 			delete camera.second;
+		}
+		for (LM::Texture* tex : m_Textures)
+		{
+			delete tex;
 		}
 	}
 	void Renderer::SetTransMat()
@@ -56,6 +68,21 @@ namespace ptt
 	}
 	void Renderer::SetProjectionTrans(const glm::mat4& projectionTrans)
 	{
+	}
+	unsigned int Renderer::LoadTexture(const std::string& path, LM::TextureType type)
+	{
+		auto& textures =  GetInstance()->m_Textures;
+		unsigned int ret = textures.size();
+		textures.push_back(new LM::Texture(path, type));
+
+		return ret;
+	}
+	LM::Texture* Renderer::GetTexture(unsigned int texInd)
+	{
+		auto& textures = GetInstance()->m_Textures;
+		if(texInd >= textures.size())
+			return nullptr;
+		return textures[texInd];
 	}
 	LM::Shader* Renderer::GetShader(Shaders shader)
 	{

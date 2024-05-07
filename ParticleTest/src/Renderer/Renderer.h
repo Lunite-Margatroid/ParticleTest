@@ -3,6 +3,7 @@
 #include "Shader/tfbShader.h"
 #include "Camera.h"
 #include "Camera3D.h"
+#include "glObj/Texture.h"
 namespace ptt
 {
 	class Renderer
@@ -16,6 +17,7 @@ namespace ptt
 		{
 			Camera3D_Alpha
 		};
+
 	protected:
 		glm::mat4 m_ViewTrans;
 		glm::mat4 m_ModelTrans;
@@ -29,9 +31,13 @@ namespace ptt
 
 		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
 		std::unordered_map<Cameras, Camera*> m_CameraMap;
+		std::vector<LM::Texture*> m_Textures;
 		Renderer();
 
 		static Renderer* s_Instance;
+
+		void InitShader();
+		void InitTexture();
 	public:
 		virtual ~Renderer();
 		
@@ -41,6 +47,8 @@ namespace ptt
 		void SetModelTrans(const glm::mat4& modelTrans);
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
 
+		static unsigned int LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse);
+		static LM::Texture* GetTexture(unsigned int texInd);
 		static LM::Shader* GetShader(Shaders shaderName);
 		static void LoadShader(Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
 		static void LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath);

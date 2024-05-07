@@ -4,7 +4,7 @@ namespace LM
 	// 纹理类型枚举 8bit无符号整形
 	enum TextureType : uint8_t
 	{
-		texture_uknown,				
+		texture_unknown,				
 		texture_diffuse,	// 漫反射纹理
 		texture_specular,	// 镜面反射纹理
 		texture_normal,		// 法线纹理
@@ -39,18 +39,9 @@ namespace LM
 		virtual bool LoadTexture(unsigned int* texture, const std::string& path, unsigned char index,
 			int texColorMode, int resColorMode, bool bGenerateMipmap);
 	public:
-		
 
-		/// <summary>
-		/// 构造函数
-		/// </summary>
-		/// <param name="imgPath">纹理图片路径</param>
-		/// <param name="index">纹理索引 从0开始，最大15</param>
-		/// <param name="texColorMode">纹理的颜色模式，一般为GL_RGB或GL_RGBA。</param>
-		/// <param name="imgColorMode">图片资源的颜色模式，同上</param>
-		/// <param name="bGenerateMipmap">是否生成多级渐远纹理，默认为true</param>
-		Texture(const std::string& imgPath, unsigned char index, int texColorMode,
-			int imgColorMode, bool bGenerateMipmap = true,TextureType type = texture_diffuse);
+		Texture(const std::string& imgPath, TextureType type = texture_diffuse, GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
+			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_CLAMP_TO_EDGE);
 		virtual ~Texture();
 		Texture();
 
