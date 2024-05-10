@@ -39,7 +39,6 @@ namespace ptt
 
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
-
         
 	}
     void ImGuiContext::Terminate()

@@ -31,6 +31,8 @@
 
 #include <functional>
 
+#include <queue>
+
 // #include <stb/stb_image.h>
 
 

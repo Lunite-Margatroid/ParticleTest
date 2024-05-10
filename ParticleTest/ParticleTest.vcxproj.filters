@@ -114,6 +114,7 @@
     <ClInclude Include="src\vendor\ImGuiFileDialog\ImGuiFileDialogConfig.h">
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClInclude>
+    <ClInclude Include="src\demoscene\DemoSceneA.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -195,5 +196,6 @@
     <ClCompile Include="src\vendor\ImGuiFileDialog\ImGuiFileDialog.cpp">
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClCompile>
+    <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
   </ItemGroup>
 </Project>

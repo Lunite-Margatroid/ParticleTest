@@ -29,7 +29,6 @@ namespace ptt
 		bool m_Run;
 
 		LM::FrameBuffer m_Framebuffer;
-		
 
 		void UpdateTime();
 		void Update();

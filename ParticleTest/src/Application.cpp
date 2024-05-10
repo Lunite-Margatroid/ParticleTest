@@ -1,5 +1,4 @@
 #include "pch.h"
-
 #include "Application.h"
 
 namespace ptt
@@ -82,7 +81,6 @@ namespace ptt
 		ASSERT(instance);
 		return &(instance->m_Framebuffer);
 	}
-
 	void Application::UpdateTime()
 	{
 		static bool first = true;

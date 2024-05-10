@@ -42,6 +42,10 @@ namespace ptt
 	{
 		m_Textures.push_back(new LM::Texture());
 	}
+	void Renderer::InitCamera()
+	{
+		m_CameraMap[Cameras::Camera3D_Alpha] = new Camera3D();
+	}
 	Renderer::~Renderer()
 	{
 		for (auto& shader : m_ShaderMap)

@@ -38,6 +38,7 @@ namespace ptt
 
 		void InitShader();
 		void InitTexture();
+		void InitCamera();
 	public:
 		virtual ~Renderer();
 		
