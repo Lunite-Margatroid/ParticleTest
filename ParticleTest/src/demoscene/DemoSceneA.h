@@ -9,14 +9,15 @@ namespace ptt
 	{
 	protected:
 		std::unique_ptr<SceneObj> m_RootObj;
-		LM::Shader* m_Shader;
-		Camera3D* m_Camera;
+		Camera* m_Camera;
 		SceneObj* m_SelectedObj;
 
 		virtual void Init();
+		void DrawObjTree(const SceneObj&);
+		
 	public:
-		DemoSceneA() = delete;	// forbid default structor
-		DemoSceneA(bool init = true);
+		DemoSceneA(bool init);
+		DemoSceneA();						// forbid default structor
 		virtual ~DemoSceneA();
 
 		void Render() override;

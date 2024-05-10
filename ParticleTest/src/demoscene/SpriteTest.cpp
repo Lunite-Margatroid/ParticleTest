@@ -8,7 +8,6 @@ namespace ptt
 		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
 		m_SelectedObj = new SceneObj(nullptr, new QuadMeshSprite(), "Quad Mesh");
 		m_RootObj->PushChild(m_SelectedObj);
-		m_Shader = std::make_unique<LM::Shader>("./res/shader/QuadMeshSpriteVertex.shader", "./res/shader/QuadMeshSpriteFrag.shader");
 		m_Camera = std::make_unique<Camera3D>();
 
 		glEnable(GL_BLEND);
@@ -53,7 +52,6 @@ namespace ptt
 	}
 	void SpriteTest::Render()
 	{
-		Renderer::SetCurrentShader(m_Shader.get());
 		Renderer::SetCurrentCamera(m_Camera.get());
 		m_RootObj->Render();
 	}

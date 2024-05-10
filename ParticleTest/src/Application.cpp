@@ -7,23 +7,31 @@ namespace ptt
 
 	void Application::Init()
 	{
+		m_Width = 1600;
+		m_Height = 900;
+
 		m_GlfwCtx = std::make_unique<GlfwContext>();
 		m_ImGuiCtx= std::make_unique<ImGuiContext>();
 
-		m_GlfwCtx->Init();
+		m_GlfwCtx->Init(m_Width, m_Height);
 		m_Window = m_GlfwCtx->GetGlfwWindow();
 		m_ImGuiCtx->Init(m_Window);
 
+
 		m_Menu = std::make_unique<MenuScene>();
 		m_Renderer = Renderer::GetInstance();
+		
+		m_Framebuffer.Init(m_Width, m_Height);
 
-		m_Framebuffer.Init(1600, 900);
+		// ½Ø¶ÏImGuiÏûÏ¢
+		glfwSetKeyCallback(m_Window, PreCallbackKey);
 	}
 	Application::Application()
 	{
 		ASSERT(s_Instance == nullptr);
 		s_Instance = this;
 		m_Run = true;
+		m_FullScreen = false;
 		Init();
 	}
 	Application::~Application()
@@ -66,6 +74,7 @@ namespace ptt
 			Update();
 			glfwPollEvents();
 			Render();
+			glFlush();
 		}
 	}
 
@@ -80,6 +89,36 @@ namespace ptt
 		Application* instance = GetInstance();
 		ASSERT(instance);
 		return &(instance->m_Framebuffer);
+	}
+	bool Application::IsFullScreen()
+	{
+		return GetInstance()->m_FullScreen;
+	}
+	void Application::PreCallbackKey(GLFWwindow* window, int key, int scanCode, int action, int mods)
+	{
+		if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
+		{
+			Application* app = GetInstance();
+			app->m_FullScreen = !(app->m_FullScreen);
+			if (app->m_FullScreen)
+			{
+				GLFWmonitor* primary = glfwGetPrimaryMonitor();
+				const GLFWvidmode* mode = glfwGetVideoMode(primary);
+				int width = 1920, height = 1080;
+				if (mode)
+				{
+					width = mode->width;
+					height = mode->height;
+				}
+				//glfwGetMonitorPhysicalSize(primary, &width, &height);
+				glfwSetWindowMonitor(window, primary, 0, 0, width, height, GLFW_DONT_CARE);
+			}
+			else
+			{
+				glfwSetWindowMonitor(window, NULL, 100, 100, app->m_Width, app->m_Height, GLFW_DONT_CARE);
+			}
+		}
+		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mods);
 	}
 	void Application::UpdateTime()
 	{

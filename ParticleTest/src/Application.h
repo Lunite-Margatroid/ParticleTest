@@ -27,6 +27,8 @@ namespace ptt
 		float m_DeltaTime;
 
 		bool m_Run;
+		bool m_FullScreen;
+		int m_Width, m_Height;
 
 		LM::FrameBuffer m_Framebuffer;
 
@@ -43,5 +45,9 @@ namespace ptt
 
 		static Application* GetInstance();
 		static LM::FrameBuffer* GetFramebuffer();
+
+		static bool IsFullScreen();
+
+		static void PreCallbackKey(GLFWwindow* window, int key, int scanCode, int action, int mods);
 	};
 }

@@ -11,7 +11,6 @@ namespace ptt
 	{
 	protected:
 		std::unique_ptr<SceneObj> m_RootObj;
-		std::unique_ptr<LM::Shader> m_Shader;
 		std::unique_ptr<Camera3D> m_Camera;
 		SceneObj* m_SelectedObj;
 

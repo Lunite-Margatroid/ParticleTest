@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "GlfwContext.h"
-
+#include "Application.h"
 namespace ptt
 {
 
@@ -35,7 +35,12 @@ namespace ptt
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVersion);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		GLFWwindow* window = glfwCreateWindow(m_Width, m_Height, title.c_str(), NULL, NULL);
+		// 屏幕对象指针 用来全屏模式
+		GLFWmonitor* primary = NULL;
+		if(Application::IsFullScreen())
+			primary = glfwGetPrimaryMonitor();
+
+		GLFWwindow* window = glfwCreateWindow(m_Width, m_Height, title.c_str(), primary, NULL);
 		if (window == NULL)
 		{
 			std::cout << "Fail to create a window" << std::endl;

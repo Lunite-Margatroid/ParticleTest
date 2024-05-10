@@ -13,6 +13,8 @@ namespace ptt
 		m_CurrentCamera(nullptr)
 	{
 		InitShader();
+		InitCamera();
+		InitTexture();
 	}
 	void Renderer::InitShader()
 	{
@@ -37,6 +39,9 @@ namespace ptt
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("gl_SkipComponents1");
 		shader->ApplyVarying();
+
+		LM::Shader* shd = new LM::Shader("./res/shader/QuadMeshSpriteVertex.shader", "./res/shader/QuadMeshSpriteFrag.shader");
+		m_ShaderMap[Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
 	}
 	void Renderer::InitTexture()
 	{
