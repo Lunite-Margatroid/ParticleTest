@@ -61,7 +61,7 @@ namespace ptt
 		delete[] buffer;
 
 		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::HanabiSpark);
-		glBindBufferBase(GL_UNIFORM_BUFFER, shader->GetUniformBlockIndex("UnifVertexAtttib"), m_Buffer[0].GetID());
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, m_Buffer[0].GetID());
 		//shader->UniformBlockBinding("UnifVertexAtttib", 4);
 		//glBindBufferBase(GL_UNIFORM_BUFFER, 4, m_Buffer[0].GetID());
     }

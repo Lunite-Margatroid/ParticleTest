@@ -10,9 +10,9 @@ struct ParticleVertex
 };
 
 // 父级粒子的顶点属性
-layout(std140)uniform UnifVertexAtttib
+layout(std140, binding = 0 )buffer UnifVertexAtttib
 {
-	ParticleVertex particles[300];
+	ParticleVertex particles[];
 };
 
 // transform feedback
