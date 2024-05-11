@@ -16,8 +16,8 @@ namespace ptt
 		void DrawObjTree(const SceneObj&);
 		
 	public:
-		DemoSceneA(bool init);
-		DemoSceneA();						// forbid default structor
+		DemoSceneA(bool init);			// 供子类使用的构造函数
+		DemoSceneA();
 		virtual ~DemoSceneA();
 
 		void Render() override;

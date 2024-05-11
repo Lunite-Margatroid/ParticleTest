@@ -28,6 +28,15 @@ namespace ptt
 		if (init)
 			Init();
 	}
+
+	DemoSceneA::DemoSceneA()
+	{
+		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
+		Init();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
 	DemoSceneA::~DemoSceneA()
 	{
 		glDisable(GL_BLEND);
@@ -88,11 +97,5 @@ namespace ptt
 			ImGui::TreePop();
 		}
 	}
-	DemoSceneA::DemoSceneA()
-	{
-		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
-		Init();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	}
+	
 }
