@@ -130,6 +130,8 @@ namespace ptt
 	}
 	void Camera3D::SetViewRange(float rad)
 	{
+		rad = rad < 0.1f ? 0.1f : rad;
+		rad = rad > 1.2f ? rad : 1.2f;
 		m_ViewRange = rad;
 	}
 	const glm::vec3& Camera3D::GetPosition()
@@ -148,11 +150,13 @@ namespace ptt
 	}
 	void Camera3D::SetYaw(float yaw)
 	{
-		m_yaw;
+		m_yaw = yaw;
 	}
 	void Camera3D::SetPitch(float pitch)
 	{
 		m_pitch = pitch;
+		m_pitch = m_pitch < 1.5f ? m_pitch : 1.5f;
+		m_pitch = m_pitch > -1.5f ? m_pitch : -1.5f;
 	}
 	void Camera3D::SetFov(float fov)
 	{
@@ -163,5 +167,31 @@ namespace ptt
 		m_pitch = pitch;
 		m_yaw = yaw;
 		m_fov = fov;
+	}
+	float Camera3D::GetYaw() const
+	{
+		return m_yaw;
+	}
+	float Camera3D::GetPitch() const
+	{
+		return m_pitch;
+	}
+	float Camera3D::GetFov() const
+	{
+		return m_fov;
+	}
+	void Camera3D::RotateYaw(float yaw)
+	{
+		m_yaw += yaw;
+	}
+	void Camera3D::RotatePitch(float pitch)
+	{
+		m_pitch += pitch;
+		m_pitch = m_pitch < 1.5f ? m_pitch : 1.5f;
+		m_pitch = m_pitch > -1.5f ? m_pitch : -1.5f;
+	}
+	void Camera3D::RotateFov(float fov)
+	{
+		m_fov += fov;
 	}
 }

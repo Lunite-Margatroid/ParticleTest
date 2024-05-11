@@ -2,6 +2,8 @@
 #include "Interface/ImGuiInterface.h"
 #include "glObj/FrameBuffer.h"
 #include "Application.h"
+#include "Camera3D.h"
+#include "Renderer/Renderer.h"
 
 namespace ptt
 {

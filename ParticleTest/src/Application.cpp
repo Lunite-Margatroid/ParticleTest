@@ -9,6 +9,8 @@ namespace ptt
 	{
 		m_Width = 1600;
 		m_Height = 900;
+		m_SceneWidth = 1920;
+		m_SceneHeight = 1080;
 
 		m_GlfwCtx = std::make_unique<GlfwContext>();
 		m_ImGuiCtx= std::make_unique<ImGuiContext>();
@@ -21,7 +23,7 @@ namespace ptt
 		m_Menu = std::make_unique<MenuScene>();
 		m_Renderer = Renderer::GetInstance();
 		
-		m_Framebuffer.Init(m_Width, m_Height);
+		m_Framebuffer.Init(m_SceneWidth, m_SceneHeight);
 
 		// ½Ø¶ÏImGuiÏûÏ¢
 		glfwSetKeyCallback(m_Window, PreCallbackKey);

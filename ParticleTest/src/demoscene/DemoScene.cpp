@@ -51,6 +51,7 @@ namespace ptt
 		{
 			// render scene ui
 			ImGui::Begin(sceneTitle);
+
 			if (ImGui::Button("<- back to mune"))
 			{
 				delete m_CurrentScene;
@@ -70,7 +71,7 @@ namespace ptt
 
 			float drawWidth;
 			float drawHeight;
-			float aspectRation = framebuffer->GetAspectRatio();
+			float aspectRation = framebuffer->GetAspectRatio();	// 长宽比
 			drawWidth = windowSize.y * aspectRation;
 			drawHeight = windowSize.x / aspectRation;
 
@@ -92,7 +93,48 @@ namespace ptt
 				ImVec2(windowPos.x+ drawWidth, windowPos.y+ drawHeight),
 				ImVec2(0, 1),
 				ImVec2(1, 0)
-				);
+			);
+
+			//std::cout << "window pos: " << windowPos.x << ',' << windowPos.y << std::endl;
+
+			ImVec2 mouseDrag = ImGui::GetMouseDragDelta();
+			//std::cout << "Mouse Drag: " << "x = " << mouseDrag.x << " y = " << mouseDrag.y << std::endl;
+			
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			static ImVec2 sLastCursor;
+			static ImVec2 sDeltaPos;
+			if (io.MouseDown[0])	// 左键按下
+			{
+				// 这里windowPos 是scene绘制区域的左上角
+				if (io.MouseClickedPos[0].x >= windowPos.x &&
+					io.MouseClickedPos[0].x <= windowPos.x + drawWidth &&
+					io.MouseClickedPos[0].y >= windowPos.y &&
+					io.MouseClickedPos[0].y <= windowPos.y + drawHeight)	// 左键点击位置在目标区域内
+				{
+					sDeltaPos.x = io.MousePos.x - sLastCursor.x;
+					sDeltaPos.y = io.MousePos.y - sLastCursor.y;
+					// std::cout << "Mouse Drag dleta Pos: " << sDeltaPos.x << ", " << sDeltaPos.y << std::endl;
+					if (Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera()))
+					{
+						camera->RotateYaw(sDeltaPos.x / 500.0f);
+						camera->RotatePitch(sDeltaPos.y / 500.0f);
+					}
+					
+				}
+			}
+			sLastCursor = ImGui::GetMousePos();
+
+			/*if(ImGui::IsMouseHoveringRect(windowPos, ImVec2(drawWidth + windowPos.x, drawHeight + windowPos.y)))
+				std:: cout << "Cursor is hovering on Scene ViewPort.\n";
+			else
+				std::cout << "Cursor doesn't hovering on Scene ViewPort.\n";*/
+			//ImGuiIO& io = ImGui::GetIO(); (void)io;
+			/*static ImVec2 sLastCursor;
+			sLastCursor = ImGui::GetMousePosOnOpeningCurrentPopup();
+			std::cout << "MousePosOnOpeningCurrentPopup: ("<< sLastCursor.x << ',' << sLastCursor.y << ")\n";
+
+			sLastCursor = ImGui::GetMousePos();
+			std::cout << "MousePos: (" << sLastCursor.x << ',' << sLastCursor.y << ")\n";*/
 			ImGui::End();
 		}
 	}

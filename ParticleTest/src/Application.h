@@ -28,7 +28,8 @@ namespace ptt
 
 		bool m_Run;
 		bool m_FullScreen;
-		int m_Width, m_Height;
+		int m_Width, m_Height;				// window's width and height
+		int m_SceneWidth, m_SceneHeight;	// frame's width and height
 
 		LM::FrameBuffer m_Framebuffer;
 

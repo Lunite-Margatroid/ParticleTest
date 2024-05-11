@@ -49,6 +49,14 @@ namespace ptt
 		void SetPitch(float pitch);
 		void SetFov(float fov);
 		void SetEulerAngle(float pitch, float yaw, float fov);
+
+		float GetYaw() const;
+		float GetPitch() const;
+		float GetFov() const;
+
+		void RotateYaw(float yaw);
+		void RotatePitch(float pitch);
+		void RotateFov(float fov);
 	};
 
 }

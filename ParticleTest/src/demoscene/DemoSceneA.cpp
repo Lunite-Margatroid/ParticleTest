@@ -24,6 +24,7 @@ namespace ptt
 	{
 		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
 		glEnable(GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		if (init)
 			Init();
@@ -34,6 +35,7 @@ namespace ptt
 		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
 		Init();
 		glEnable(GL_BLEND);
+		glDisable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
@@ -43,6 +45,7 @@ namespace ptt
 	}
 	void DemoSceneA::Render()
 	{
+		glClear(GL_DEPTH_BUFFER_BIT);
 		m_RootObj->Render();
 	}
 	void DemoSceneA::RenderImGui()
