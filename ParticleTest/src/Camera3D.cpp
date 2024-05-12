@@ -144,6 +144,24 @@ namespace ptt
 		// TODO: insert return statement here
 		return m_Dir;
 	}
+	void Camera3D::HeadTo(const glm::vec3& target)
+	{
+		glm::vec3 dir = target - m_Pos;
+		float xz = sqrtf(dir.x * dir.x + dir.z * dir.z);
+		if (xz > 0.0f)
+		{
+			m_yaw = dir.x > 0 ? -acosf(-dir.z / xz): acosf(-dir.z / xz);
+		}
+
+		float xyz = sqrtf(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
+		if (xyz > 0.0f)
+		{
+			m_pitch = acos(xz / xyz);
+			m_pitch = dir.y > 0 ? m_pitch : -m_pitch;
+			m_pitch = m_pitch < 1.5f ? m_pitch : 1.5f;
+			m_pitch = m_pitch > -1.5f ? m_pitch : -1.5f;
+		}
+	}
 	void Camera3D::SetPos(const glm::vec3& pos)
 	{
 		m_Pos = pos;

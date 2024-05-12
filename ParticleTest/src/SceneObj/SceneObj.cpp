@@ -22,6 +22,7 @@ namespace ptt
 		m_Roll(0.0f),
 		m_ModelTrans(1.0f),
 		m_Position(0.0f),
+		m_Scale(1.0f),
 		m_Qua(glm::vec3(0.0f, 0.0f, 0.0f))
 	{
 		if (m_ParentObj != nullptr)
@@ -58,6 +59,7 @@ namespace ptt
 		m_ModelTrans = glm::translate(m_ModelTrans, m_Position);
 		// EulerTrans(m_ModelTrans, m_Yaw, m_Pitch, m_Roll);
 		QuaternionRotate(m_ModelTrans, m_Qua);
+		m_ModelTrans = glm::scale(m_ModelTrans, m_Scale);
 		if (m_Sprite)
 			m_Sprite->Render(m_ModelTrans);
 		for (auto child : m_ChildObj)
@@ -158,6 +160,7 @@ namespace ptt
 		ImGui::DragFloat("Pitch - xAxis",&m_Pitch);
 		ImGui::DragFloat("Yaw - yAxis", &m_Yaw);
 		ImGui::DragFloat("Roll - zAxis", &m_Roll);
+		ImGui::DragFloat3("Scale", &m_Scale.x);
 		if (m_Sprite)
 		{
 			if (ImGuiInterface* gui = dynamic_cast<ImGuiInterface*>(m_Sprite))

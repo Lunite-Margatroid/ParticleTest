@@ -24,6 +24,7 @@ namespace ptt
 		m_Renderer = Renderer::GetInstance();
 		
 		m_Framebuffer.Init(m_SceneWidth, m_SceneHeight);
+		m_FramebufferMS.Init(m_SceneWidth, m_SceneHeight, 4);
 
 		// ½Ø¶ÏImGuiÏûÏ¢
 		glfwSetKeyCallback(m_Window, PreCallbackKey);
@@ -34,6 +35,7 @@ namespace ptt
 		s_Instance = this;
 		m_Run = true;
 		m_FullScreen = false;
+		m_MultiSample = true;
 		Init();
 	}
 	Application::~Application()
@@ -44,14 +46,26 @@ namespace ptt
 	}
 	void Application::Render()
 	{
-		// render scene to framebuffer
-		m_Framebuffer.Bind();
-		glClear(GL_COLOR_BUFFER_BIT);
-		// glViewport(0, 0, m_GlfwCtx->GetWidth(), m_GlfwCtx->GetHeight());
-		glViewport(0, 0, m_Framebuffer.GetWidth(), m_Framebuffer.GetHeight());
-		m_Menu->Render();
-		m_Framebuffer.Unbind();
-
+		if (m_MultiSample)
+		{
+			// render scene to multisample framebuffer
+			m_FramebufferMS.Bind();
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glViewport(0, 0, m_FramebufferMS.GetWidth(), m_FramebufferMS.GetHeight());
+			m_Menu->Render();
+			m_FramebufferMS.BlitFrameBuffer(m_Framebuffer);
+			m_FramebufferMS.Unbind();
+		}
+		else
+		{
+			// render scene to framebuffer
+			m_Framebuffer.Bind();
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glViewport(0, 0, m_Framebuffer.GetWidth(), m_Framebuffer.GetHeight());
+			m_Menu->Render();
+			m_Framebuffer.Unbind();
+		}
+		
 		// render ui
 		glClear(GL_COLOR_BUFFER_BIT);
 		RenderImGui();
@@ -120,7 +134,19 @@ namespace ptt
 				glfwSetWindowMonitor(window, NULL, 100, 100, app->m_Width, app->m_Height, GLFW_DONT_CARE);
 			}
 		}
+
+		if (key == GLFW_KEY_M && action == GLFW_PRESS)
+		{
+			Application* app = GetInstance();
+			app->m_MultiSample = !(app->m_MultiSample);
+			std::cout << "Mulisample " << (app->m_MultiSample ? "On.\n" : "Off.\n");
+		}
 		ImGui_ImplGlfw_KeyCallback(window, key, scanCode, action, mods);
+	}
+	void Application::GetDefaultFrameBufferSize(int* width, int* height)
+	{
+		Application* app = GetInstance();
+		glfwGetWindowSize(app->m_Window, width, height);
 	}
 	void Application::UpdateTime()
 	{

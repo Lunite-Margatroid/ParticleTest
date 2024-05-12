@@ -13,8 +13,17 @@ namespace ptt
 
 		m_SelectedObj->SetPosition(glm::vec3(0.0f, 50.0f, -50.0f));
 
+		m_SelectedObj = new SceneObj(nullptr,
+			new QuadSprite(),
+			"Quad");
+		m_RootObj->PushChild(m_SelectedObj);
+		m_SelectedObj->SetPosition(glm::vec3(2.0f, 2.0f, 2.0f));
+		
+
 		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
 		Renderer::SetCurrentCamera(m_Camera);
+
+
 
 		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
 		camera->SetPos(glm::vec3(0.0f, 1.f, 0.0f));
@@ -91,7 +100,18 @@ namespace ptt
 			if (ImGui::IsItemClicked())
 			{// 点击当前节点 设置为选中节点
 				m_SelectedObj = const_cast<SceneObj*>(&objNode);
+				ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+				//双击将镜头对准目标
+				if (io.MouseDoubleClicked[0])
+				{
+					if (Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera()))
+					{
+						camera->HeadTo(m_SelectedObj->GetPosition());
+					}
+				}
 			}
+			
 			if (objNode.HasChild())
 				for (const SceneObj* obj : objNode.GetChildren())
 				{

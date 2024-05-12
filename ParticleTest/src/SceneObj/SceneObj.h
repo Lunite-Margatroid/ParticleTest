@@ -11,6 +11,7 @@ namespace ptt
 		Sprite* m_Sprite;
 		std::vector<SceneObj*> m_ChildObj;
 		glm::vec3 m_Position;
+		glm::vec3 m_Scale;
 		float m_Yaw;
 		float m_Pitch;
 		float m_Roll;

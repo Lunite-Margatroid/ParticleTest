@@ -11,6 +11,10 @@ namespace LM
 	{
 		int nChannals;
 		unsigned char* img_data;
+		stbi_set_flip_vertically_on_load(true);	// 翻转y轴
+		// 原点到了图片的左下角
+
+
 		img_data = stbi_load(path.c_str(), &m_nWidth, &m_nHeight, &nChannals, 0);
 
 		if (img_data == 0)

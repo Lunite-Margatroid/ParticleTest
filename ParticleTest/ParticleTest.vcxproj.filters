@@ -115,6 +115,7 @@
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneA.h" />
+    <ClInclude Include="src\glObj\FrameBufferMS.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -197,5 +198,6 @@
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
+    <ClCompile Include="src\glObj\FrameBufferMS.cpp" />
   </ItemGroup>
 </Project>

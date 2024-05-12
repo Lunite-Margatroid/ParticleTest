@@ -3,5 +3,64 @@
 
 namespace ptt
 {
+	void QuadSprite::Init()
+	{
+		float vertice[]
+		{
+			// postion float 3		normal vec float3    texture coordiate float 2
+			-1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		0.0f, 0.0f,
+			1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		1.0f, 0.0f,
+			1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		1.0f, 1.0f,
+			-1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		0.0f, 1.0f,
+		};
+		ASSERT(sizeof(GLfloat) == sizeof(float));
 
+		m_vbo.Init(sizeof(GLfloat) * 4 * 8, vertice, GL_STATIC_DRAW);
+
+		m_vao.SetVB(m_vbo.GetID());
+		m_vao.SetMetaType(GL_TRIANGLE_FAN);
+
+		m_vao.PushAttrib<float>(3); // postion 3 float
+		m_vao.PushAttrib<float>(3); // normal vec 3 float
+		m_vao.PushAttrib<float>(2);	// texture coordiate float 2
+		m_vao.ApplyLayout();
+	}
+	QuadSprite::QuadSprite()
+	{
+		Init();
+	}
+	QuadSprite::~QuadSprite()
+	{
+	}
+	void QuadSprite::Render(const glm::mat4& modelTrans)
+	{
+		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		if (camera == nullptr)
+			return;
+		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
+		if (shader == nullptr)
+			return;
+
+		LM::Texture* tex = Renderer::GetTexture();
+		tex->Bind();
+		shader->Bind();
+		shader->SetUniformTexture("u_Tex", tex->GetIndex());
+
+		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
+		glm::mat3& normalTrans = Renderer::GetNormalTrans();
+		glm::mat4& mvTrans = Renderer::GetMVTrans();
+		mvTrans = camera->GetViewTrans() * modelTrans;
+		mvpTrans = camera->GetProjectionTrans() * mvTrans;
+		normalTrans = glm::transpose(glm::inverse(glm::mat3(modelTrans)));
+		shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
+		shader->SetUniformMatrix4f("u_MVTrans", false, glm::value_ptr(mvTrans));
+		shader->SetUniformMatrix3f("u_NormalTrans", false, glm::value_ptr(normalTrans));
+		shader->SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(camera->GetViewTrans()));
+		shader->SetUniform4f("u_Color", &m_Color[0].r);
+
+		m_vao.DrawArray(4);
+	}
+	void QuadSprite::RenderImGui()
+	{
+	}
 }

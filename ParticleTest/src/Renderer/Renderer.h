@@ -11,7 +11,7 @@ namespace ptt
 	public:
 		enum class Shaders
 		{
-			FireWork, Hanabi, HanabiSpark, QuadMesh
+			FireWork, Hanabi, HanabiSpark, Mesh_V_N_T, QuadMesh
 		};
 		enum class Cameras
 		{
@@ -25,6 +25,8 @@ namespace ptt
 
 		glm::mat4 m_MVPTrans;
 		glm::mat4 m_MVTrans;
+
+		glm::mat3 m_NormalTrans;
 
 		LM::Shader* m_CurrentShader;
 		Camera* m_CurrentCamera;
@@ -49,7 +51,12 @@ namespace ptt
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
 
 		static unsigned int LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse);
-		static LM::Texture* GetTexture(unsigned int texInd);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="texInd"> default:0 return the default texture while is fully white.</param>
+		/// <returns></returns>
+		static LM::Texture* GetTexture(unsigned int texInd = 0);
 		static LM::Shader* GetShader(Shaders shaderName);
 		static void LoadShader(Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
 		static void LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath);
@@ -71,5 +78,7 @@ namespace ptt
 
 		static glm::mat4& GetMVPTrans();
 		static glm::mat4& GetMVTrans();
+
+		static glm::mat3& GetNormalTrans();
 	};
 }

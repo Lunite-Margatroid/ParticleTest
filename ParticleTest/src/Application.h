@@ -4,6 +4,7 @@
 #include "demoscene/DemoScene.h"
 #include "Renderer/Renderer.h"
 #include "glObj/FrameBuffer.h"
+#include "glObj/FrameBufferMS.h"
 
 namespace ptt
 {
@@ -28,10 +29,12 @@ namespace ptt
 
 		bool m_Run;
 		bool m_FullScreen;
+		bool m_MultiSample;
 		int m_Width, m_Height;				// window's width and height
 		int m_SceneWidth, m_SceneHeight;	// frame's width and height
 
 		LM::FrameBuffer m_Framebuffer;
+		LM::FrameBufferMS m_FramebufferMS;
 
 		void UpdateTime();
 		void Update();
@@ -50,5 +53,6 @@ namespace ptt
 		static bool IsFullScreen();
 
 		static void PreCallbackKey(GLFWwindow* window, int key, int scanCode, int action, int mods);
+		static void GetDefaultFrameBufferSize(int* width, int* height);
 	};
 }

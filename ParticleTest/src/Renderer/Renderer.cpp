@@ -9,6 +9,7 @@ namespace ptt
 		m_ViewTrans(1.0f),
 		m_ModelTrans(1.0f),
 		m_ProjectionTrans(1.0f),
+		m_NormalTrans(1.0f),
 		m_CurrentShader(nullptr),
 		m_CurrentCamera(nullptr)
 	{
@@ -42,6 +43,9 @@ namespace ptt
 
 		LM::Shader* shd = new LM::Shader("./res/shader/QuadMeshSpriteVertex.shader", "./res/shader/QuadMeshSpriteFrag.shader");
 		m_ShaderMap[Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
+
+		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag.shader");
+		m_ShaderMap[Shaders::Mesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
 	}
 	void Renderer::InitTexture()
 	{
@@ -197,5 +201,9 @@ namespace ptt
 	{
 		// TODO: insert return statement here
 		return GetInstance()->m_MVTrans;
+	}
+	glm::mat3& Renderer::GetNormalTrans()
+	{
+		return GetInstance()->m_NormalTrans;
 	}
 }
