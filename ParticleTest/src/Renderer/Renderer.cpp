@@ -5,6 +5,7 @@ namespace ptt
 {
 	Renderer* Renderer::s_Instance = nullptr;
 
+
 	Renderer::Renderer():
 		m_ViewTrans(1.0f),
 		m_ModelTrans(1.0f),
@@ -50,6 +51,7 @@ namespace ptt
 	void Renderer::InitTexture()
 	{
 		m_Textures.push_back(new LM::Texture());
+		m_TextureName.push_back(std::string("default texture"));
 	}
 	void Renderer::InitCamera()
 	{
@@ -85,8 +87,25 @@ namespace ptt
 	unsigned int Renderer::LoadTexture(const std::string& path, LM::TextureType type)
 	{
 		auto& textures =  GetInstance()->m_Textures;
+		auto& texNames = GetInstance()->m_TextureName;
 		unsigned int ret = textures.size();
 		textures.push_back(new LM::Texture(path, type));
+
+		
+		std::string::const_iterator begin;
+		auto i = path.begin();
+		for ( ;i != path.end(); i++)
+		{
+			if (*i == '\\' || *i == '/')
+			{
+				begin = i;
+			}
+		}
+		begin++;
+		std::string texName('\n', 128);
+		std::copy(begin,i, texName.begin());
+		
+		texNames.push_back(texName);
 
 		return ret;
 	}
@@ -96,6 +115,35 @@ namespace ptt
 		if(texInd >= textures.size())
 			return nullptr;
 		return textures[texInd];
+	}
+	const std::string& Renderer::GetTextureName(unsigned int texInd)
+	{
+		auto& textureNames = GetInstance()->m_TextureName;
+		if (texInd >= textureNames.size())
+			return std::string("Error!!!");
+		return textureNames[texInd];
+	}
+	const std::string& Renderer::GetTextureComboName(int texCombo)
+	{
+		Renderer* renderer = GetInstance();
+		std::vector<std::string>& names = renderer->m_TextureComboName;
+		if (texCombo + 1 <= names.size())
+		{
+			return names[texCombo];
+		}
+		
+		std::string temp = "texture ";
+		int i = names.size();
+		for (; i < 100 && i <= texCombo; i++)
+		{
+			std::string tt = std::to_string(i);
+			names.push_back(temp + tt);
+		}
+		return names[i-1];
+	}
+	unsigned int Renderer::GetTextureCount()
+	{
+		return (GetInstance()->m_Textures).size();
 	}
 	LM::Shader* Renderer::GetShader(Shaders shader)
 	{

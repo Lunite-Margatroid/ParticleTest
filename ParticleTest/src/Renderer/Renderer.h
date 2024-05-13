@@ -18,6 +18,7 @@ namespace ptt
 			Camera3D_Alpha
 		};
 
+
 	protected:
 		glm::mat4 m_ViewTrans;
 		glm::mat4 m_ModelTrans;
@@ -34,6 +35,10 @@ namespace ptt
 		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
 		std::unordered_map<Cameras, Camera*> m_CameraMap;
 		std::vector<LM::Texture*> m_Textures;
+		std::vector<std::string> m_TextureName;
+
+		std::vector<std::string> m_TextureComboName;
+
 		Renderer();
 
 		static Renderer* s_Instance;
@@ -57,6 +62,10 @@ namespace ptt
 		/// <param name="texInd"> default:0 return the default texture while is fully white.</param>
 		/// <returns></returns>
 		static LM::Texture* GetTexture(unsigned int texInd = 0);
+		static const std::string& GetTextureName(unsigned int texInd = 0);
+		static const std::string& GetTextureComboName(int texCombo = 0);
+		static unsigned int GetTextureCount();
+
 		static LM::Shader* GetShader(Shaders shaderName);
 		static void LoadShader(Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
 		static void LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath);

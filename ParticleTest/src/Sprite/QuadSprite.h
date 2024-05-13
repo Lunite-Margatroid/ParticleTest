@@ -15,7 +15,10 @@ namespace ptt
 		LM::VertexArray m_vao;
 		LM::VertexBuffer m_vbo;
 
+		std::vector<unsigned int> m_Textures;
+
 		void Init();
+		virtual void TextureSelector();
 	public:
 		QuadSprite();
 		virtual ~QuadSprite();

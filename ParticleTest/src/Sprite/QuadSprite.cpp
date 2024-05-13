@@ -24,6 +24,35 @@ namespace ptt
 		m_vao.PushAttrib<float>(3); // normal vec 3 float
 		m_vao.PushAttrib<float>(2);	// texture coordiate float 2
 		m_vao.ApplyLayout();
+
+		//m_Textures.push_back(Renderer::LoadTexture("./res/img/Rumia.jpg"));
+		m_Textures.push_back(0);
+		Renderer::LoadTexture("./res/img/marisa.jpg");
+	}
+	void QuadSprite::TextureSelector()
+	{
+		int count = 1;
+		for (unsigned int &tex : m_Textures)
+		{// 对于每一个 m_Texture 都有一个combo
+
+			if (ImGui::BeginCombo(Renderer::GetTextureComboName(count).c_str(), Renderer::GetTextureName(tex).c_str()))
+			{
+				int n = Renderer::GetTextureCount();
+				for (int i = 0; i < n; i++) // 遍历renderer所有纹理
+				{
+					bool isSelected = (i == tex);// 与当前纹理是同一个 isSelected = true
+					if (ImGui::Selectable(Renderer::GetTextureName(i).c_str(), isSelected))
+					{
+						tex = i;
+					}
+					if (isSelected)
+						ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
+			count++;
+		}
+		
 	}
 	QuadSprite::QuadSprite()
 	{
@@ -41,7 +70,7 @@ namespace ptt
 		if (shader == nullptr)
 			return;
 
-		LM::Texture* tex = Renderer::GetTexture();
+		LM::Texture* tex = Renderer::GetTexture(m_Textures[0]);
 		tex->Bind();
 		shader->Bind();
 		shader->SetUniformTexture("u_Tex", tex->GetIndex());
@@ -62,5 +91,8 @@ namespace ptt
 	}
 	void QuadSprite::RenderImGui()
 	{
+		ImGui::SeparatorText("Sprite Property");
+		ImGui::ColorEdit4("Mesh Color", &m_Color[0].r, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_AlphaPreviewHalf);
+		TextureSelector();
 	}
 }
