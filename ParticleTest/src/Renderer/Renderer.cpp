@@ -12,11 +12,13 @@ namespace ptt
 		m_ProjectionTrans(1.0f),
 		m_NormalTrans(1.0f),
 		m_CurrentShader(nullptr),
-		m_CurrentCamera(nullptr)
+		m_CurrentCamera(nullptr),
+		m_oitContext(nullptr)
 	{
 		InitShader();
 		InitCamera();
 		InitTexture();
+		InitOIT();
 	}
 
 	void Renderer::InitShader()
@@ -48,6 +50,11 @@ namespace ptt
 
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag.shader");
 		m_ShaderMap[Shaders::Mesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
+		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag_oit.shader");
+		m_oitShaderMap[Shaders::Mesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
+
+		shd = new LM::Shader("./res/shader/OIT_Vertex.shader", "./res/shader/OIT_Fragment.shader");
+		m_ShaderMap[Shaders::OIT] = dynamic_cast<LM::Shader*>(shd);
 	}
 	void Renderer::InitTexture()
 	{
@@ -58,6 +65,10 @@ namespace ptt
 	void Renderer::InitCamera()
 	{
 		m_CameraMap[Cameras::Camera3D_Alpha] = new Camera3D();
+	}
+	void Renderer::InitOIT()
+	{
+		m_oitContext = std::make_unique<oitContext>();
 	}
 	Renderer::~Renderer()
 	{
@@ -85,6 +96,14 @@ namespace ptt
 	}
 	void Renderer::SetProjectionTrans(const glm::mat4& projectionTrans)
 	{
+	}
+	void Renderer::OitRenderBegin()
+	{
+		m_oitRendering = true;
+	}
+	void Renderer::OitRenderEnd()
+	{
+		m_oitRendering = false;
 	}
 	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type)
 	{
@@ -157,10 +176,19 @@ namespace ptt
 	}
 	LM::Shader* Renderer::GetShader(Shaders shader)
 	{
-		auto& map = GetInstance()->m_ShaderMap;
-		if (map.find(shader) == map.end())
+		Renderer* render = GetInstance();
+		auto& shaderMap = render->m_ShaderMap;
+		auto& oitShaderMap = render->m_oitShaderMap;
+		if (render->m_oitRendering)
+		{
+			if (oitShaderMap.find(shader) != oitShaderMap.end())
+			{
+				return oitShaderMap[shader];
+			}
+		}
+		if (shaderMap.find(shader) == shaderMap.end())
 			return nullptr;
-		return map[shader];
+		return shaderMap[shader];
 	}
 	void Renderer::LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath)
 	{
@@ -273,12 +301,27 @@ namespace ptt
 	}
 	void Renderer::RenderTransparencySprite()
 	{
-		std::queue<TransparencySprite>& renderQueue = GetInstance()->m_TransparencyRenderQueue;
-		while (!renderQueue.empty())
+		Renderer* render = GetInstance();
+		std::queue<TransparencySprite>& renderQueue = render->m_TransparencyRenderQueue;
+		if (render->m_oitContext)
 		{
-			renderQueue.front()();
-			renderQueue.pop();
+			render->OitRenderBegin();
+			render->m_oitContext->RenderPreproc();
+			while (!renderQueue.empty())
+			{
+				renderQueue.front()();
+				renderQueue.pop();
+			}
+			render->OitRenderEnd();
+			render->m_oitContext->Render();
 		}
-			
+		else
+		{
+			while (!renderQueue.empty())
+			{
+				renderQueue.front()();
+				renderQueue.pop();
+			}
+		}
 	}
 }

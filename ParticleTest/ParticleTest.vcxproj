@@ -151,6 +151,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
     <ClInclude Include="src\glObj\FrameBufferMS.h" />
+    <ClInclude Include="src\glObj\oitContext.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Interface\ImGuiInterface.h" />
@@ -197,6 +198,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
     <ClCompile Include="src\glObj\FrameBufferMS.cpp" />
+    <ClCompile Include="src\glObj\oitContext.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Interface\ImGuiInterface.cpp" />

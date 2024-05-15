@@ -5,6 +5,7 @@
 #include "Camera3D.h"
 #include "glObj/Texture.h"
 #include "TransparencySprite.h"
+#include "glObj/oitContext.h"
 namespace ptt
 {
 	class Renderer
@@ -12,7 +13,7 @@ namespace ptt
 	public:
 		enum class Shaders
 		{
-			FireWork, Hanabi, HanabiSpark, Mesh_V_N_T, QuadMesh
+			FireWork, Hanabi, HanabiSpark, Mesh_V_N_T, QuadMesh, OIT
 		};
 		enum class Cameras
 		{
@@ -33,13 +34,18 @@ namespace ptt
 		LM::Shader* m_CurrentShader;
 		Camera* m_CurrentCamera;
 
+		bool m_oitRendering;
 		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
+		std::unordered_map<Shaders, LM::Shader*> m_oitShaderMap;
 		std::unordered_map<Cameras, Camera*> m_CameraMap;
 		std::unordered_map<std::string, LM::Texture*> m_Textures;
 
 		std::vector<std::string> m_TextureComboName;
 
 		std::queue<TransparencySprite> m_TransparencyRenderQueue;
+
+		std::unique_ptr<oitContext> m_oitContext;
+
 
 		Renderer();
 
@@ -48,6 +54,10 @@ namespace ptt
 		void InitShader();
 		void InitTexture();
 		void InitCamera();
+		void InitOIT();
+
+		void OitRenderBegin();
+		void OitRenderEnd();
 	public:
 		virtual ~Renderer();
 		
@@ -56,6 +66,8 @@ namespace ptt
 		void SetViewTrans(const glm::mat4& viewTrans);
 		void SetModelTrans(const glm::mat4& modelTrans);
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
+
+		
 
 		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse);
 		/// <summary>
