@@ -6,14 +6,14 @@ namespace LM
 	const bool AttribLayout::skip_attrib = true;
 
 	VertexArray::VertexArray(GLenum type)
-		:m_stride(0), m_MetaType(type), m_vb(0), m_eb(0)
+		:m_stride(0), m_MetaType(type), m_vb(0), m_eb(0),m_count(0)
 	{
 		GLCall(glGenVertexArrays(1, &m_id));
 		Bind();
 	}
 
 	VertexArray::VertexArray(unsigned int vb, unsigned int eb, GLenum type)
-		:m_vb(vb), m_eb(eb)
+		:m_vb(vb), m_eb(eb),m_count(0)
 	{
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eb));
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, vb));
@@ -126,6 +126,39 @@ namespace LM
 	{
 		Bind();
 		GLCall(glDrawArrays(m_MetaType, offset, count));
+	}
+
+	void VertexArray::SetCount(unsigned int count)
+	{
+		m_count = count;
+	}
+
+	unsigned int VertexArray::GetCount() const
+	{
+		return m_count;
+	}
+
+	void VertexArray::DrawElement() const
+	{
+		Bind();
+		GLCall(glDrawElements(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)0));
+	}
+
+	void VertexArray::DrawElement()
+	{
+		Bind();
+		GLCall(glDrawElements(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)0));
+	}
+
+	void VertexArray::DrawArray() const
+	{
+		Bind();
+		GLCall(glDrawArrays(m_MetaType, 0, m_count));
+	}
+	void VertexArray::DrawArray()
+	{
+		Bind();
+		GLCall(glDrawArrays(m_MetaType, 0, m_count));
 	}
 
 

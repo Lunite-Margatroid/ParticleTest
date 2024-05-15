@@ -159,4 +159,12 @@ namespace LM
 	{
 		m_type = type;
 	}
+	void Texture::SetTextureName(const std::string& texName)
+	{
+		m_strName = texName;
+	}
+	const std::string& Texture::GetTextureName() const
+	{
+		return m_strName;
+	}
 }

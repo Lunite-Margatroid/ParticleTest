@@ -6,11 +6,20 @@ in vec3 FragPos;		// 相机坐标系的顶点坐标
 in vec2 TexCoord;
 
 uniform sampler2D u_Tex;
+uniform vec2 u_TexOffset;
+uniform vec2 u_TexScale;
+
+
 uniform vec4 u_Color;
 
 out vec4 FragColor;
 
+vec4 FragmentShader()
+{
+	vec2 texCoord = TexCoord / u_TexScale + u_TexOffset;
+	return texture2D(u_Tex, texCoord) * u_Color;
+}
 void main()
 {
-	FragColor = texture2D(u_Tex, TexCoord) * u_Color;
+	FragColor = FragmentShader();
 }

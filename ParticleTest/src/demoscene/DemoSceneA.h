@@ -4,6 +4,7 @@
 #include "Sprite/QuadMeshSprite.h"
 #include "Sprite/Hanabi.h"
 #include "Sprite/QuadSprite.h"
+#include "Sprite/CubeSprite.h"
 namespace ptt
 {
 	class DemoSceneA :public DemoScene

@@ -18,6 +18,7 @@ namespace ptt
 		InitCamera();
 		InitTexture();
 	}
+
 	void Renderer::InitShader()
 	{
 		tfbShader* shader = new tfbShader("./res/shader/FireworkVertex.shader", "./res/shader/FireworkFrag.shader");
@@ -50,8 +51,9 @@ namespace ptt
 	}
 	void Renderer::InitTexture()
 	{
-		m_Textures.push_back(new LM::Texture());
-		m_TextureName.push_back(std::string("default texture"));
+		LM::Texture* tex = new LM::Texture();
+		tex->SetTextureName("default texture");
+		m_Textures[tex->GetTextureName()] =  tex;
 	}
 	void Renderer::InitCamera()
 	{
@@ -67,9 +69,9 @@ namespace ptt
 		{
 			delete camera.second;
 		}
-		for (LM::Texture* tex : m_Textures)
+		for (auto& p : m_Textures)
 		{
-			delete tex;
+			delete p.second;
 		}
 	}
 	void Renderer::SetTransMat()
@@ -84,17 +86,13 @@ namespace ptt
 	void Renderer::SetProjectionTrans(const glm::mat4& projectionTrans)
 	{
 	}
-	unsigned int Renderer::LoadTexture(const std::string& path, LM::TextureType type)
+	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type)
 	{
 		auto& textures =  GetInstance()->m_Textures;
-		auto& texNames = GetInstance()->m_TextureName;
-		unsigned int ret = textures.size();
-		textures.push_back(new LM::Texture(path, type));
-
-		
+		//-----------------Get file name------------
 		std::string::const_iterator begin;
 		auto i = path.begin();
-		for ( ;i != path.end(); i++)
+		for (; i != path.end(); i++)
 		{
 			if (*i == '\\' || *i == '/')
 			{
@@ -102,26 +100,34 @@ namespace ptt
 			}
 		}
 		begin++;
-		std::string texName('\n', 128);
-		std::copy(begin,i, texName.begin());
-		
-		texNames.push_back(texName);
-
-		return ret;
+		std::string fileName('\n', 128);
+		std::copy(begin, i, fileName.begin());
+		//----------------------²éÖØ-------------------
+		while (true)
+		{
+			if (textures.find(fileName) == textures.end())
+			{
+				break;
+			}
+			else
+			{
+				fileName.append("-");
+			}
+		}
+		// ------------------------------
+		LM::Texture* tex = new LM::Texture(path, type);
+		tex->SetTextureName(std::move(fileName));
+		textures[tex->GetTextureName()] = tex;
+		return tex;
 	}
-	LM::Texture* Renderer::GetTexture(unsigned int texInd)
+	LM::Texture* Renderer::GetTexture(const std::string& texName)
 	{
 		auto& textures = GetInstance()->m_Textures;
-		if(texInd >= textures.size())
-			return nullptr;
-		return textures[texInd];
-	}
-	const std::string& Renderer::GetTextureName(unsigned int texInd)
-	{
-		auto& textureNames = GetInstance()->m_TextureName;
-		if (texInd >= textureNames.size())
-			return std::string("Error!!!");
-		return textureNames[texInd];
+		if (textures.find(texName) == textures.end())
+		{
+			return textures["default texture"];
+		}
+		return textures[texName];
 	}
 	const std::string& Renderer::GetTextureComboName(int texCombo)
 	{
@@ -144,6 +150,10 @@ namespace ptt
 	unsigned int Renderer::GetTextureCount()
 	{
 		return (GetInstance()->m_Textures).size();
+	}
+	const std::unordered_map<std::string, LM::Texture*>& Renderer::GetTextureMap()
+	{
+		return GetInstance()->m_Textures;
 	}
 	LM::Shader* Renderer::GetShader(Shaders shader)
 	{
@@ -253,5 +263,22 @@ namespace ptt
 	glm::mat3& Renderer::GetNormalTrans()
 	{
 		return GetInstance()->m_NormalTrans;
+	}
+	void Renderer::RenderSprite(Sprite* sprite, const glm::mat4& modelTrans)
+	{
+		if (sprite->IsTransparency())
+			GetInstance()->m_TransparencyRenderQueue.emplace(TransparencySprite(sprite, modelTrans));
+		else
+			sprite->Render(modelTrans);
+	}
+	void Renderer::RenderTransparencySprite()
+	{
+		std::queue<TransparencySprite>& renderQueue = GetInstance()->m_TransparencyRenderQueue;
+		while (!renderQueue.empty())
+		{
+			renderQueue.front()();
+			renderQueue.pop();
+		}
+			
 	}
 }

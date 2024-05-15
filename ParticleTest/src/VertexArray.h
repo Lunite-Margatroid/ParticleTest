@@ -35,6 +35,7 @@ namespace LM {
 		unsigned int m_stride;
 		unsigned int m_vb;
 		unsigned int m_eb;
+		unsigned int m_count;
 		std::vector<AttribLayout> m_attribLayout;
 		GLenum m_MetaType;
 	public:
@@ -88,6 +89,14 @@ namespace LM {
 		void DrawElement(unsigned int count, unsigned int offset = 0);
 		void DrawArray(unsigned int count, unsigned int offset = 0) const;
 		void DrawArray(unsigned int count, unsigned int offset = 0);
+
+		void SetCount(unsigned int count);
+		unsigned int GetCount() const;
+
+		void DrawElement() const;
+		void DrawElement();
+		void DrawArray() const;
+		void DrawArray();
 
 		void SetVB(unsigned int  vb);
 		void SetEB(unsigned int  eb);

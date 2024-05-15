@@ -23,6 +23,7 @@ namespace LM
 		/// 纹理类型 可选texture_diffuse texture_specular texture_normal texture_height
 		/// </summary>
 		std::string m_strType;
+		std::string m_strName;
 		aiString m_aistrPath;		// 纹理路径
 
 		TextureType m_type;
@@ -41,7 +42,7 @@ namespace LM
 	public:
 
 		Texture(const std::string& imgPath, TextureType type = texture_diffuse, GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
-			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_CLAMP_TO_EDGE);
+			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT);
 		virtual ~Texture();
 		Texture();
 
@@ -65,6 +66,9 @@ namespace LM
 
 		TextureType GetTextureType() const;
 		void SetTextureType(TextureType type);
+
+		void SetTextureName(const std::string& texName);
+		const std::string& GetTextureName()const;
 	};
 }
 

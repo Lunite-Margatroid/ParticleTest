@@ -90,6 +90,15 @@ namespace LM
 		SetUniform3f(valueName, v[0], v[1], v[2]);
 	}
 
+	void Shader::SetUniform2f(const std::string& valueName, float v1, float v2)
+	{
+		GLCall(glUniform2f(GetUniformLocation(valueName), v1, v2));
+	}
+	void Shader::SetUniform2f(const std::string& valueName, const float* v)
+	{
+		SetUniform2f(valueName, v[0], v[1]);
+	}
+
 	void Shader::SetUniform1i(const std::string& valueName, int v1)
 	{
 		GLCall(glUniform1i(GetUniformLocation(valueName), v1));

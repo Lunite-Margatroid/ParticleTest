@@ -3,7 +3,7 @@
 
 namespace ptt
 {
-	Sprite::Sprite()
+	Sprite::Sprite():m_Transparency(false),m_Visible(true)
 	{
 	}
 	Sprite::~Sprite()
@@ -11,5 +11,24 @@ namespace ptt
 	}
 	void Sprite::Render(const glm::mat4& modelTrans)
 	{
+	}
+	bool Sprite::IsTransparency() const
+	{
+		return m_Transparency;
+	}
+	bool Sprite::IsVisible() const
+	{
+		return m_Visible;
+	}
+	bool Sprite::SetVisible(bool visible)
+	{
+		return m_Visible = visible;
+	}
+	void Sprite::RenderImGui()
+	{
+		ImGui::SeparatorText("Sprite Property");
+		ImGui::Checkbox("Visible", &m_Visible);
+		ImGui::SameLine();
+		ImGui::Checkbox("Transparency", &m_Transparency);
 	}
 }

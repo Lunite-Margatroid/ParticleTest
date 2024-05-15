@@ -116,6 +116,13 @@
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneA.h" />
     <ClInclude Include="src\glObj\FrameBufferMS.h" />
+    <ClInclude Include="src\Renderer\TransparencySprite.h" />
+    <ClInclude Include="src\Light\DirLight.h" />
+    <ClInclude Include="src\Light\Light.h" />
+    <ClInclude Include="src\Light\PointLight.h" />
+    <ClInclude Include="src\Light\SpotLight.h" />
+    <ClInclude Include="src\Sprite\CubeSprite.h" />
+    <ClInclude Include="src\ElementBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -199,5 +206,12 @@
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
     <ClCompile Include="src\glObj\FrameBufferMS.cpp" />
+    <ClCompile Include="src\Renderer\TransparencySprite.cpp" />
+    <ClCompile Include="src\Light\DirLight.cpp" />
+    <ClCompile Include="src\Light\Light.cpp" />
+    <ClCompile Include="src\Light\PointLight.cpp" />
+    <ClCompile Include="src\Light\SpotLight.cpp" />
+    <ClCompile Include="src\Sprite\CubeSprite.cpp" />
+    <ClCompile Include="src\ElementBuffer.cpp" />
   </ItemGroup>
 </Project>

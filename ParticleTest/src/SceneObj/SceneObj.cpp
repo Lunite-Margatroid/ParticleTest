@@ -60,8 +60,8 @@ namespace ptt
 		// EulerTrans(m_ModelTrans, m_Yaw, m_Pitch, m_Roll);
 		QuaternionRotate(m_ModelTrans, m_Qua);
 		m_ModelTrans = glm::scale(m_ModelTrans, m_Scale);
-		if (m_Sprite)
-			m_Sprite->Render(m_ModelTrans);
+		if (m_Sprite && m_Sprite->IsVisible())
+			Renderer::RenderSprite(m_Sprite, m_ModelTrans);
 		for (auto child : m_ChildObj)
 		{
 			child->Render();
@@ -133,6 +133,14 @@ namespace ptt
 	{
 		m_Position += vec;
 	}
+	const glm::vec3& SceneObj::GetScale() const
+	{
+		return m_Scale;
+	}
+	void SceneObj::SetScale(const glm::vec3& scale)
+	{
+		m_Scale = scale;
+	}
 	void SceneObj::EulerRotate(float yaw, float pitch, float roll)
 	{
 		m_Yaw += yaw;
@@ -157,10 +165,15 @@ namespace ptt
 		ImGui::SeparatorText("Object");
 		ImGui::DragFloat3("Position", &m_Position.x);
 		ImGui::Text("Rotate");
-		ImGui::DragFloat("Pitch - xAxis",&m_Pitch);
-		ImGui::DragFloat("Yaw - yAxis", &m_Yaw);
-		ImGui::DragFloat("Roll - zAxis", &m_Roll);
-		ImGui::DragFloat3("Scale", &m_Scale.x);
+		ImGui::DragFloat("Pitch - xAxis",&m_Pitch, 
+			0.01f, -PI, PI,"%.3f",
+			ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragFloat("Yaw - yAxis", &m_Yaw, 0.01f, -PI, PI, "%.3f",
+			ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragFloat("Roll - zAxis", &m_Roll, 0.01f, -PI, PI, "%.3f",
+			ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragFloat3("Scale", &m_Scale.x, 0.01f, 0.01f, 100.0f, "%.3f",
+			ImGuiSliderFlags_AlwaysClamp);
 		if (m_Sprite)
 		{
 			if (ImGuiInterface* gui = dynamic_cast<ImGuiInterface*>(m_Sprite))

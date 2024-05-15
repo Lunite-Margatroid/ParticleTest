@@ -116,8 +116,8 @@ namespace ptt
 					// std::cout << "Mouse Drag dleta Pos: " << sDeltaPos.x << ", " << sDeltaPos.y << std::endl;
 					if (Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera()))
 					{
-						camera->RotateYaw(sDeltaPos.x / 500.0f);
-						camera->RotatePitch(sDeltaPos.y / 500.0f);
+						camera->RotateYaw(-sDeltaPos.x / 500.0f);
+						camera->RotatePitch(-sDeltaPos.y / 500.0f);
 					}
 					
 				}

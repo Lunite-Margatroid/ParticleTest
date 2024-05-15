@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Camera3D.h"
 #include "glObj/Texture.h"
+#include "TransparencySprite.h"
 namespace ptt
 {
 	class Renderer
@@ -34,10 +35,11 @@ namespace ptt
 
 		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
 		std::unordered_map<Cameras, Camera*> m_CameraMap;
-		std::vector<LM::Texture*> m_Textures;
-		std::vector<std::string> m_TextureName;
+		std::unordered_map<std::string, LM::Texture*> m_Textures;
 
 		std::vector<std::string> m_TextureComboName;
+
+		std::queue<TransparencySprite> m_TransparencyRenderQueue;
 
 		Renderer();
 
@@ -55,16 +57,16 @@ namespace ptt
 		void SetModelTrans(const glm::mat4& modelTrans);
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
 
-		static unsigned int LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse);
+		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse);
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="texInd"> default:0 return the default texture while is fully white.</param>
 		/// <returns></returns>
-		static LM::Texture* GetTexture(unsigned int texInd = 0);
-		static const std::string& GetTextureName(unsigned int texInd = 0);
+		static LM::Texture* GetTexture(const std::string& texName);
 		static const std::string& GetTextureComboName(int texCombo = 0);
 		static unsigned int GetTextureCount();
+		static const std::unordered_map<std::string, LM::Texture*>& GetTextureMap();
 
 		static LM::Shader* GetShader(Shaders shaderName);
 		static void LoadShader(Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
@@ -89,5 +91,9 @@ namespace ptt
 		static glm::mat4& GetMVTrans();
 
 		static glm::mat3& GetNormalTrans();
+
+		static void RenderSprite(Sprite* sprite,const glm::mat4& modelTrans);
+		static void RenderTransparencySprite();
+
 	};
 }

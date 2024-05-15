@@ -23,6 +23,19 @@ namespace ptt
 		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
 		Renderer::SetCurrentCamera(m_Camera);
 
+		m_SelectedObj = new SceneObj(nullptr, new CubeSprite(), "Cube1");
+		m_RootObj->PushChild(m_SelectedObj);
+		m_SelectedObj->SetPosition(glm::vec3(-4.0f, 4.0f, 4.0f));
+		m_SelectedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
+
+		m_SelectedObj = new SceneObj(nullptr, new CubeSprite(), "Cube2");
+		m_RootObj->PushChild(m_SelectedObj);
+		m_SelectedObj->SetPosition(glm::vec3(-4.0f, 4.0f, 4.0f));
+
+		m_SelectedObj = new SceneObj(nullptr, new CubeSprite(), "Cube3");
+		m_RootObj->PushChild(m_SelectedObj);
+		m_SelectedObj->SetPosition(glm::vec3(-4.0f, 4.0f, 4.0f));
+		m_SelectedObj->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
 
 
 		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
@@ -55,8 +68,9 @@ namespace ptt
 	}
 	void DemoSceneA::Render()
 	{
-		glClear(GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		m_RootObj->Render();
+		Renderer::RenderTransparencySprite();
 	}
 	void DemoSceneA::RenderImGui()
 	{

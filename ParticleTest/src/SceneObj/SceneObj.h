@@ -2,6 +2,7 @@
 #include "Sprite/Sprite.h"
 #include "Sprite/udSprite.h"
 #include "Interface/ImGuiInterface.h"
+#include "Renderer/Renderer.h"
 namespace ptt
 {
 	class SceneObj : public ImGuiInterface
@@ -67,6 +68,10 @@ namespace ptt
 		void SetEulerAngle(float* eulerAngle);
 
 		void Move(const glm::vec3& vec);
+
+		const glm::vec3& GetScale() const;
+		void SetScale(const glm::vec3& scale);
+
 		void EulerRotate(float yaw, float pitch, float roll);
 		void EulerRotateYaw(float yaw);
 		void EulerRotatePitch(float pitch);
