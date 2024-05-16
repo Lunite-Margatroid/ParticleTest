@@ -12,7 +12,8 @@ namespace ptt
 		GLuint m_HeadInitializer;
 		GLuint m_AtomicCounter;
 		GLuint m_ListBuffer;
-
+		GLuint m_ListTex;
+		
 		int m_Width;
 		int m_Height;
 

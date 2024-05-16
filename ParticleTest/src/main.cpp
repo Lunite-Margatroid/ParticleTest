@@ -7,6 +7,7 @@
 #include "demoscene/SpriteTest.h"
 #include "demoscene/FireworkScene.h"
 #include "demoscene/DemoSceneA.h"
+#include "demoscene/DemoSceneB.h"
 #include "Rand/Rand.h"
 class MyApp :public ptt::Application
 {
@@ -21,6 +22,7 @@ public:
 		m_Menu->RegistDemoScene<ptt::SpriteTest>("Quad Mest Sprite Scene");
 		m_Menu->RegistDemoScene<ptt::FireworkScene>("Fire Work Scene");
 		m_Menu->RegistDemoScene<ptt::DemoSceneA>("DemoSceneA");
+		m_Menu->RegistDemoScene<ptt::DemoSceneB>("oit demoscene");
 	}
 	~MyApp() {}
 };

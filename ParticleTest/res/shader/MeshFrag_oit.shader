@@ -9,8 +9,8 @@ uniform sampler2D u_Tex;
 uniform vec2 u_TexOffset;
 uniform vec2 u_TexScale;
 
-
 uniform vec4 u_Color;
+
 
 vec4 FragmentShader()
 {
@@ -28,21 +28,19 @@ layout (binding = 0, offset = 0) uniform atomic_uint u_AtomicCounter;
 layout (binding = 0, rgba32ui) uniform uimageBuffer u_ListBuffer;
 
 // 头指针缓存
-layout (binding = 1, r32ui) uniform uimage2DRect u_HeadMat;
+layout (binding = 1, r32ui) uniform uimage2D u_HeadMat;
 
 void main()
 {
 	// 绘制 获取片元颜色
     vec4 fragColor = FragmentShader();
-    
     // 申请空间 即原子计数器+1
     uint newHead = atomicCounterIncrement(u_AtomicCounter);
     
     // 将新申请的空间作为新的头指针写入头指针缓存
     // 并返回原来的头指针
-    uint oldHead = floatBitsToUint(
-		imageAtomicExchange(u_HeadMat, ivec2(gl_FragCoord.xy), newHead)
-	);
+    uint oldHead =
+		imageAtomicExchange(u_HeadMat, ivec2(gl_FragCoord.xy), newHead);
     
     // 初始化新头节点的数据
     uvec4 item;

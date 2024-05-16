@@ -163,7 +163,7 @@ namespace ptt
 	void SceneObj::RenderImGui()
 	{
 		ImGui::SeparatorText("Object");
-		ImGui::DragFloat3("Position", &m_Position.x);
+		ImGui::DragFloat3("Position", &m_Position.x, 0.1f);
 		ImGui::Text("Rotate");
 		ImGui::DragFloat("Pitch - xAxis",&m_Pitch, 
 			0.01f, -PI, PI,"%.3f",

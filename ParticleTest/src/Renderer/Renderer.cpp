@@ -13,12 +13,14 @@ namespace ptt
 		m_NormalTrans(1.0f),
 		m_CurrentShader(nullptr),
 		m_CurrentCamera(nullptr),
-		m_oitContext(nullptr)
+		m_oitContext(nullptr),
+		m_oitRender(true)
 	{
 		InitShader();
 		InitCamera();
 		InitTexture();
-		InitOIT();
+		if(m_oitRender)
+			InitOIT();
 	}
 
 	void Renderer::InitShader()
@@ -301,9 +303,13 @@ namespace ptt
 	}
 	void Renderer::RenderTransparencySprite()
 	{
+		// 关闭深度测试
+		GLboolean depthEnable = glIsEnabled(GL_DEPTH_TEST);
+		glDisable(GL_DEPTH_TEST);
+
 		Renderer* render = GetInstance();
 		std::queue<TransparencySprite>& renderQueue = render->m_TransparencyRenderQueue;
-		if (render->m_oitContext)
+		if (render->m_oitContext && render->m_oitRender)
 		{
 			render->OitRenderBegin();
 			render->m_oitContext->RenderPreproc();
@@ -323,5 +329,9 @@ namespace ptt
 				renderQueue.pop();
 			}
 		}
+
+		// 复原
+		if (depthEnable)
+			glEnable(GL_DEPTH_TEST);
 	}
 }

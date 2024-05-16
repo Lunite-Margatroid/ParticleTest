@@ -147,6 +147,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Camera3D.h" />
     <ClInclude Include="src\demoscene\DemoSceneA.h" />
+    <ClInclude Include="src\demoscene\DemoSceneB.h" />
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
@@ -194,6 +195,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Camera3D.cpp" />
     <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneB.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />

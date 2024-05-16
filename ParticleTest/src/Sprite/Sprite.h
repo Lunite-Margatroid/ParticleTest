@@ -17,6 +17,7 @@ namespace ptt
 		bool IsTransparency() const;
 		bool IsVisible()const;
 		bool SetVisible(bool visible);
+		void SetTransparency(bool transparency);
 
 		virtual void RenderImGui() override;
 	};

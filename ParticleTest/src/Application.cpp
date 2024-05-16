@@ -148,6 +148,11 @@ namespace ptt
 		Application* app = GetInstance();
 		glfwGetWindowSize(app->m_Window, width, height);
 	}
+	std::pair<int, int> Application::GetSceneFramebufferSize()
+	{
+		Application* app = GetInstance();
+		return std::pair<int, int>(app->m_SceneWidth, app->m_SceneHeight);
+	}
 	void Application::UpdateTime()
 	{
 		static bool first = true;

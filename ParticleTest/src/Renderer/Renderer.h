@@ -35,6 +35,8 @@ namespace ptt
 		Camera* m_CurrentCamera;
 
 		bool m_oitRendering;
+		bool m_oitRender;
+
 		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
 		std::unordered_map<Shaders, LM::Shader*> m_oitShaderMap;
 		std::unordered_map<Cameras, Camera*> m_CameraMap;
@@ -75,7 +77,7 @@ namespace ptt
 		/// </summary>
 		/// <param name="texInd"> default:0 return the default texture while is fully white.</param>
 		/// <returns></returns>
-		static LM::Texture* GetTexture(const std::string& texName);
+		static LM::Texture* GetTexture(const std::string& texName = "default texture");
 		static const std::string& GetTextureComboName(int texCombo = 0);
 		static unsigned int GetTextureCount();
 		static const std::unordered_map<std::string, LM::Texture*>& GetTextureMap();

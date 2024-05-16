@@ -1,10 +1,10 @@
 #version 450 core
 
 // 头指针缓存
-uniform sampler2D head_pointer_image;
+layout (binding = 1, r32ui) uniform uimage2D u_HeadMat;
 
 // 颜色混合缓存
-uniform samplerBuffer list_buffer;
+layout (binding = 0, rgba32ui) uniform uimageBuffer u_ListBuffer;
 
 #define MAX_FRAGMENTS 15
 
@@ -12,7 +12,7 @@ uniform samplerBuffer list_buffer;
 uvec4 fragments[MAX_FRAGMENTS];
 
 // 输出颜色
-layout (location  =0) out vec4 output_color;
+out vec4 output_color;
 
 
 int build_local_fragment_list();
@@ -21,6 +21,7 @@ vec4 calculate_final_color(int frag_count);
 
 void main()
 {
+
     int frag_count;
     
     // 遍历链表 把混合颜色存入数组fragments
@@ -37,12 +38,12 @@ int build_local_fragment_list()
 {
     uint current;
     int frag_count = 0;
-    
-    current = floatBitsToUint(texelFetch(head_pointer_image, ivec2(gl_FragCoord.xy), 0).r);
+	
+    current = imageLoad(u_HeadMat, ivec2(gl_FragCoord.xy)).x;
     
     while(current != 0xffffffff && frag_count < MAX_FRAGMENTS)
     {
-        uvec4 item = floatBitsToUint(texelFetch(list_buffer, int(current)));
+        uvec4 item = imageLoad(u_ListBuffer, int(current));
         current = item.x;	// next 指针
         fragments[frag_count] = item;
         frag_count ++;

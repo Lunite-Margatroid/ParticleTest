@@ -5,15 +5,14 @@ namespace ptt
 {
 	void CubeSprite::Init()
 	{
-		const unsigned int restartIndex = 0xffffffff;
 		unsigned int indices[] =
 		{
-		0, 1,3,2,		restartIndex,
-		4,5,7,6,		restartIndex,
-		8,9,11,10,		restartIndex,
-		12,13,15,14,	restartIndex,
-		16,17,19,18,	restartIndex,
-		20, 21,23,22 };
+		0, 1,2,0,2,3,		
+		4,5,6, 4,6,7,		
+		8,9,10,8,10,11,		
+		12,13,14,12,14,15,	
+		16,17,18,16,18,19,	
+		20, 21,22,20,22,23 };
 		float vertices[] =
 		{
 			// 位置坐标					法线向量					纹理坐标
@@ -48,7 +47,7 @@ namespace ptt
 			-1.0f,1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 1.0f
 		};
 		m_vbo.Init(sizeof(vertices), vertices);
-		m_ebo.Init(24 + 5, indices);
+		m_ebo.Init(36, indices);
 		m_vao.SetEB(m_ebo.GetID());
 		m_vao.SetVB(m_vbo.GetID());
 		m_vao.SetCount(m_ebo.GetCount());
@@ -56,10 +55,7 @@ namespace ptt
 		m_vao.PushAttrib<float>(3);
 		m_vao.PushAttrib<float>(2);
 		m_vao.ApplyLayout();
-		m_vao.SetMetaType(GL_TRIANGLE_STRIP);
-		m_vao.Bind();
-		glPrimitiveRestartIndex(restartIndex);
-		m_vao.Bind();
+		m_vao.SetMetaType(GL_TRIANGLES);
 	}
 	CubeSprite::CubeSprite(bool init)
 		:QuadSprite(false)

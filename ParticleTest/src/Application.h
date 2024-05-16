@@ -54,5 +54,6 @@ namespace ptt
 
 		static void PreCallbackKey(GLFWwindow* window, int key, int scanCode, int action, int mods);
 		static void GetDefaultFrameBufferSize(int* width, int* height);
+		static std::pair<int, int> GetSceneFramebufferSize();
 	};
 }

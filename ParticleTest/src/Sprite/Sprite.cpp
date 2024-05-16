@@ -24,6 +24,10 @@ namespace ptt
 	{
 		return m_Visible = visible;
 	}
+	void Sprite::SetTransparency(bool transparency)
+	{
+		m_Transparency = transparency;
+	}
 	void Sprite::RenderImGui()
 	{
 		ImGui::SeparatorText("Sprite Property");
