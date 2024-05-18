@@ -109,5 +109,7 @@ namespace ptt
 		static void RenderSprite(Sprite* sprite,const glm::mat4& modelTrans);
 		static void RenderTransparencySprite();
 
+		static oitContext* GetOITContext();
+
 	};
 }

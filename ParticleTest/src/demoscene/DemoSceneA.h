@@ -13,6 +13,9 @@ namespace ptt
 		std::unique_ptr<SceneObj> m_RootObj;
 		Camera* m_Camera;
 		SceneObj* m_SelectedObj;
+		float m_DeltaTime;
+		float m_FPSTimer;
+		float m_FPS;
 
 		virtual void Init();
 		void DrawObjTree(const SceneObj&);

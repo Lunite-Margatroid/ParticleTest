@@ -48,6 +48,9 @@ namespace ptt
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		m_DeltaTime = 0.0f;
+		m_FPSTimer = 0.0f;
+		m_FPS = 0.0f;
 		if (init)
 			Init();
 	}
@@ -59,6 +62,9 @@ namespace ptt
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		m_DeltaTime = 0.0f;
+		m_FPSTimer = 0.0f;
+		m_FPS = 0.0f;
 	}
 
 	DemoSceneA::~DemoSceneA()
@@ -74,6 +80,9 @@ namespace ptt
 	}
 	void DemoSceneA::RenderImGui()
 	{
+		if (m_DeltaTime > 0.0f && m_FPSTimer == 0.0f)
+			m_FPS = 1.0f/ m_DeltaTime;
+		ImGui::Text("FPS: %.2f", m_FPS);
 		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
 		if (camera)
 		{
@@ -90,6 +99,10 @@ namespace ptt
 	{
 		m_Camera->Update(deltaTime);
 		m_RootObj->Update(deltaTime);
+		m_DeltaTime = deltaTime;
+		m_FPSTimer += m_DeltaTime;
+		if (m_FPSTimer > 0.5f)
+			m_FPSTimer = 0.0f;
 	}
 
 	void DemoSceneA::DrawObjTree(const SceneObj& objNode)

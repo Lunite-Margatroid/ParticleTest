@@ -33,13 +33,17 @@ namespace ptt
 		int m_Width, m_Height;				// window's width and height
 		int m_SceneWidth, m_SceneHeight;	// frame's width and height
 
-		LM::FrameBuffer m_Framebuffer;
-		LM::FrameBufferMS m_FramebufferMS;
+		
 
 		void UpdateTime();
 		void Update();
 		virtual void Init();
 	public:
+
+		LM::FrameBuffer m_Framebuffer;
+		LM::FrameBufferMS m_FramebufferMS;
+		LM::FrameBuffer* m_Current;
+
 		Application();
 		virtual ~Application();
 
@@ -49,6 +53,7 @@ namespace ptt
 
 		static Application* GetInstance();
 		static LM::FrameBuffer* GetFramebuffer();
+		static LM::FrameBuffer* GetCurrentFramebuffer();
 
 		static bool IsFullScreen();
 

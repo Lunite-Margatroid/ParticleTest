@@ -1,5 +1,8 @@
 #version 450 core
 
+// 开启片元预测试
+layout(early_fragment_tests) in;
+
 in vec3 NormalVec;
 in vec3 HalfVec;
 in vec3 FragPos;		// 相机坐标系的顶点坐标
@@ -18,8 +21,7 @@ vec4 FragmentShader()
 	return texture2D(u_Tex, texCoord) * u_Color;
 }
 
-// 开启片元预测试
-layout (early_fragment_tests) in;
+
 
 // 原子计数器
 layout (binding = 0, offset = 0) uniform atomic_uint u_AtomicCounter;
@@ -32,6 +34,9 @@ layout (binding = 1, r32ui) uniform uimage2D u_HeadMat;
 
 void main()
 {
+    if (gl_SampleID > 0)
+        discard;
+
 	// 绘制 获取片元颜色
     vec4 fragColor = FragmentShader();
     // 申请空间 即原子计数器+1
@@ -47,7 +52,7 @@ void main()
     item.x = oldHead;	// next 指针
     item.y = packUnorm4x8(fragColor);	// 32位深 4通道颜色
     item.z = floatBitsToUint(gl_FragCoord.z);	// 深度
-    item.w = 0;			// 预留
+    item.w = 0;			// 预留  多重采样混合
     
     // 将节点数据写入头节点 index
     imageStore(u_ListBuffer, int(newHead), item);

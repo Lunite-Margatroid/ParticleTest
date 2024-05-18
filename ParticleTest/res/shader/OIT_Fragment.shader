@@ -78,7 +78,7 @@ void sort_fragment_list(int frag_count)
 vec4 calculate_final_color(int frag_count)
 {
     vec4 final_color = vec4(0.0f);
-    int i;
+    uint i;
     for(i =0;i < frag_count;i++ )
     {
         vec4 frag_color = unpackUnorm4x8(fragments[i].y);

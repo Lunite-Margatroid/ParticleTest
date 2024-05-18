@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Renderer.h"
+#include "Application.h"
 
 namespace ptt
 {
@@ -303,14 +304,15 @@ namespace ptt
 	}
 	void Renderer::RenderTransparencySprite()
 	{
-		// 关闭深度测试
-		GLboolean depthEnable = glIsEnabled(GL_DEPTH_TEST);
-		glDisable(GL_DEPTH_TEST);
+		glDepthMask(GL_FALSE);
 
 		Renderer* render = GetInstance();
 		std::queue<TransparencySprite>& renderQueue = render->m_TransparencyRenderQueue;
 		if (render->m_oitContext && render->m_oitRender)
 		{
+			//LM::FrameBuffer* currentFramebuffer = Application::GetCurrentFramebuffer();
+			//LM::FrameBuffer* framebuffer = Application::GetFramebuffer();
+			//framebuffer->Bind();
 			render->OitRenderBegin();
 			render->m_oitContext->RenderPreproc();
 			while (!renderQueue.empty())
@@ -319,7 +321,8 @@ namespace ptt
 				renderQueue.pop();
 			}
 			render->OitRenderEnd();
-			render->m_oitContext->Render();
+			//currentFramebuffer->Bind();
+			//render->m_oitContext->Render();
 		}
 		else
 		{
@@ -330,8 +333,10 @@ namespace ptt
 			}
 		}
 
-		// 复原
-		if (depthEnable)
-			glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+	}
+	oitContext* Renderer::GetOITContext()
+	{
+		return (GetInstance()->m_oitContext).get();
 	}
 }

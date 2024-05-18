@@ -65,6 +65,17 @@ namespace ptt
 			m_Menu->Render();
 			m_Framebuffer.Unbind();
 		}
+
+		// 关闭深度测试
+		GLboolean depthEnable = glIsEnabled(GL_DEPTH_TEST);
+		glDisable(GL_DEPTH_TEST);
+		// render
+		m_Framebuffer.Bind();
+		Renderer::GetOITContext()->Render();
+		m_Framebuffer.Unbind();
+		// 复原
+		if (depthEnable)
+			glEnable(GL_DEPTH_TEST);
 		
 		// render ui
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -105,6 +116,13 @@ namespace ptt
 		Application* instance = GetInstance();
 		ASSERT(instance);
 		return &(instance->m_Framebuffer);
+	}
+	LM::FrameBuffer* Application::GetCurrentFramebuffer()
+	{
+		Application* app = GetInstance();
+		if (app->m_MultiSample)
+			return &(app->m_FramebufferMS);
+		return &(app->m_Framebuffer);
 	}
 	bool Application::IsFullScreen()
 	{
