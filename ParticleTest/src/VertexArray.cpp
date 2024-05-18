@@ -6,14 +6,14 @@ namespace LM
 	const bool AttribLayout::skip_attrib = true;
 
 	VertexArray::VertexArray(GLenum type)
-		:m_stride(0), m_MetaType(type), m_vb(0), m_eb(0),m_count(0)
+		:m_stride(0), m_MetaType(type), m_vb(0), m_eb(0),m_count(0), m_ebOffset(0)
 	{
 		GLCall(glGenVertexArrays(1, &m_id));
 		Bind();
 	}
 
 	VertexArray::VertexArray(unsigned int vb, unsigned int eb, GLenum type)
-		:m_vb(vb), m_eb(eb),m_count(0)
+		:m_vb(vb), m_eb(eb),m_count(0),m_ebOffset(0)
 	{
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eb));
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, vb));
@@ -141,13 +141,13 @@ namespace LM
 	void VertexArray::DrawElement() const
 	{
 		Bind();
-		GLCall(glDrawElements(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)0));
+		GLCall(glDrawElements(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)m_ebOffset));
 	}
 
 	void VertexArray::DrawElement()
 	{
 		Bind();
-		GLCall(glDrawElements(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)0));
+		GLCall(glDrawElements(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)m_ebOffset));
 	}
 
 	void VertexArray::DrawArray() const
@@ -170,6 +170,10 @@ namespace LM
 	void VertexArray::SetEB(unsigned int eb)
 	{
 		m_eb = eb;
+	}
+	void VertexArray::SetElementOffset(unsigned int offset)
+	{
+		m_ebOffset = offset;
 	}
 }
 

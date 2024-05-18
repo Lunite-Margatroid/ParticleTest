@@ -160,6 +160,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Light\Light.h" />
     <ClInclude Include="src\Light\PointLight.h" />
     <ClInclude Include="src\Light\SpotLight.h" />
+    <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\Particle.h" />
     <ClInclude Include="src\Rand\Rand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
@@ -208,6 +209,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Light\Light.cpp" />
     <ClCompile Include="src\Light\PointLight.cpp" />
     <ClCompile Include="src\Light\SpotLight.cpp" />
+    <ClCompile Include="src\Material\Material.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Rand\Rand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />

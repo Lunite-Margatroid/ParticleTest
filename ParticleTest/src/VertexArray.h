@@ -36,6 +36,7 @@ namespace LM {
 		unsigned int m_vb;
 		unsigned int m_eb;
 		unsigned int m_count;
+		unsigned int m_ebOffset;
 		std::vector<AttribLayout> m_attribLayout;
 		GLenum m_MetaType;
 	public:
@@ -100,5 +101,7 @@ namespace LM {
 
 		void SetVB(unsigned int  vb);
 		void SetEB(unsigned int  eb);
+
+		void SetElementOffset(unsigned int offset);
 	};
 }

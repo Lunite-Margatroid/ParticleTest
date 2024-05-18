@@ -5,29 +5,7 @@ namespace ptt
 {
 	void QuadSprite::Init()
 	{
-		m_Transparency = true;
-
-		float vertice[]
-		{
-			// postion float 3		normal vec float3    texture coordiate float 2
-			-1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		0.0f, 0.0f,
-			1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		1.0f, 0.0f,
-			1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		1.0f, 1.0f,
-			-1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		0.0f, 1.0f,
-		};
-		ASSERT(sizeof(GLfloat) == sizeof(float));
-
-		m_vbo.Init(sizeof(GLfloat) * 4 * 8, vertice, GL_STATIC_DRAW);
-
-		m_vao.SetVB(m_vbo.GetID());
-		m_vao.SetMetaType(GL_TRIANGLE_FAN);
-
-		m_vao.PushAttrib<float>(3); // postion 3 float
-		m_vao.PushAttrib<float>(3); // normal vec 3 float
-		m_vao.PushAttrib<float>(2);	// texture coordiate float 2
-		m_vao.ApplyLayout();
-
-		m_vao.SetCount(4);
+		m_vao = Renderer::GetVertexArray(Renderer::VertexArrays::Quad_V_N_T);
 
 		m_Textures.push_back(Texture(Renderer::LoadTexture("./res/img/marisa.jpg")));
 	}
@@ -104,7 +82,7 @@ namespace ptt
 		shader->SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(camera->GetViewTrans()));
 		shader->SetUniform4f("u_Color", &m_Color[0].r);
 
-		m_vao.DrawArray();
+		m_vao->DrawArray();
 	}
 	void QuadSprite::RenderImGui()
 	{

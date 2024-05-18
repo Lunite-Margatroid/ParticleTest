@@ -5,57 +5,7 @@ namespace ptt
 {
 	void CubeSprite::Init()
 	{
-		unsigned int indices[] =
-		{
-		0, 1,2,0,2,3,		
-		4,5,6, 4,6,7,		
-		8,9,10,8,10,11,		
-		12,13,14,12,14,15,	
-		16,17,18,16,18,19,	
-		20, 21,22,20,22,23 };
-		float vertices[] =
-		{
-			// 位置坐标					法线向量					纹理坐标
-			-1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 0.0f,
-			1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 0.0f,
-			1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 1.0f,
-			-1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 1.0f,
-
-			-1.0f, -1.0f, -1.0f,	0.0f, 0.0f, -1.0f,			0.0f, 0.0f,
-			-1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 0.0f,
-			1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 1.0f,
-			1.0f, -1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			0.0f, 1.0f,
-
-			-1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 0.0f,
-			-1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 0.0f,
-			1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 1.0f,
-			1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 1.0f,
-
-			-1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 0.0f,
-			1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 0.0f,
-			1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 1.0f,
-			-1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 1.0f,
-
-			1.0f,-1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 0.0f,
-			1.0f,1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 0.0f,
-			1.0f,1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 1.0f,
-			1.0f,-1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 1.0f,
-
-			-1.0f,-1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 0.0f,
-			-1.0f,-1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 0.0f,
-			-1.0f,1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 1.0f,
-			-1.0f,1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 1.0f
-		};
-		m_vbo.Init(sizeof(vertices), vertices);
-		m_ebo.Init(36, indices);
-		m_vao.SetEB(m_ebo.GetID());
-		m_vao.SetVB(m_vbo.GetID());
-		m_vao.SetCount(m_ebo.GetCount());
-		m_vao.PushAttrib<float>(3);
-		m_vao.PushAttrib<float>(3);
-		m_vao.PushAttrib<float>(2);
-		m_vao.ApplyLayout();
-		m_vao.SetMetaType(GL_TRIANGLES);
+		m_vao = Renderer::GetVertexArray(Renderer::VertexArrays::Cube_V_N_T);
 	}
 	CubeSprite::CubeSprite(bool init)
 		:QuadSprite(false)
@@ -92,6 +42,6 @@ namespace ptt
 		shader->SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(camera->GetViewTrans()));
 		shader->SetUniform4f("u_Color", &m_Color[0].r);
 
-		m_vao.DrawElement();
+		m_vao->DrawElement();
 	}
 }

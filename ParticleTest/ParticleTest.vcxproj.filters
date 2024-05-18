@@ -125,6 +125,7 @@
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\glObj\oitContext.h" />
     <ClInclude Include="src\demoscene\DemoSceneB.h" />
+    <ClInclude Include="src\Material\Material.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -217,5 +218,6 @@
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\glObj\oitContext.cpp" />
     <ClCompile Include="src\demoscene\DemoSceneB.cpp" />
+    <ClCompile Include="src\Material\Material.cpp" />
   </ItemGroup>
 </Project>

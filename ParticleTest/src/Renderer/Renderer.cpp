@@ -20,6 +20,7 @@ namespace ptt
 		InitShader();
 		InitCamera();
 		InitTexture();
+		InitVertexArray();
 		if(m_oitRender)
 			InitOIT();
 	}
@@ -73,6 +74,96 @@ namespace ptt
 	{
 		m_oitContext = std::make_unique<oitContext>();
 	}
+	void Renderer::InitVertexArray()
+	{
+		size_t totalSize = 0;
+		size_t quadBufferSize = 4 * 8 * sizeof(float);
+		size_t cubeBufferSize = 4 * 6 * 8 * sizeof(float);
+		totalSize += quadBufferSize + cubeBufferSize;
+
+		size_t eleBufferCount = 0;
+		size_t cubeEleBufferCount = 36;
+
+		eleBufferCount += cubeEleBufferCount;
+		float vertice[]
+		{
+			// ---------------------- Quad ---------------------------------
+			// postion float 3		normal vec float3    texture coordiate float 2
+			-1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		0.0f, 0.0f,
+			1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		1.0f, 0.0f,
+			1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		1.0f, 1.0f,
+			-1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		0.0f, 1.0f,
+
+			// ----------------------- Cube --------------------------------
+			// 位置坐标					法线向量					纹理坐标
+			-1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 0.0f,
+			1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 0.0f,
+			1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 1.0f,
+			-1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 1.0f,
+
+			-1.0f, -1.0f, -1.0f,	0.0f, 0.0f, -1.0f,			0.0f, 0.0f,
+			-1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 0.0f,
+			1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 1.0f,
+			1.0f, -1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			0.0f, 1.0f,
+
+			-1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 0.0f,
+			-1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 0.0f,
+			1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 1.0f,
+			1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 1.0f,
+
+			-1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 0.0f,
+			1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 0.0f,
+			1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 1.0f,
+			-1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 1.0f,
+
+			1.0f,-1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 0.0f,
+			1.0f,1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 0.0f,
+			1.0f,1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 1.0f,
+			1.0f,-1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 1.0f,
+
+			-1.0f,-1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 0.0f,
+			-1.0f,-1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 0.0f,
+			-1.0f,1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 1.0f,
+			-1.0f,1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 1.0f
+		};
+
+		unsigned int indices[] =
+		{
+		0, 1,2,0,2,3,
+		4,5,6, 4,6,7,
+		8,9,10,8,10,11,
+		12,13,14,12,14,15,
+		16,17,18,16,18,19,
+		20, 21,22,20,22,23
+		};
+
+		m_VertexBuffer.Init(totalSize, vertice, GL_STATIC_DRAW);
+		m_ElementBuffer.Init(eleBufferCount, indices, GL_STATIC_DRAW);
+
+		// quad
+		LM::VertexArray* va = new LM::VertexArray();
+		va->SetVB(m_VertexBuffer.GetID());
+		va->SetCount(4);
+		va->SetMetaType(GL_TRIANGLE_FAN);
+		va->PushAttrib<float>(3);
+		va->PushAttrib<float>(3);
+		va->PushAttrib<float>(2);
+		va->ApplyLayout(0);
+		m_VertexArrayMap[VertexArrays::Quad_V_N_T] = va;
+
+		// cube
+		va = new LM::VertexArray();
+		va->SetVB(m_VertexBuffer.GetID());
+		va->SetEB(m_ElementBuffer.GetID());
+		va->SetMetaType(GL_TRIANGLES);
+		va->SetCount(36);
+		va->SetElementOffset(0);
+		va->PushAttrib<float>(3);
+		va->PushAttrib<float>(3);
+		va->PushAttrib<float>(2);
+		va->ApplyLayout(quadBufferSize);
+		m_VertexArrayMap[VertexArrays::Cube_V_N_T] = va;
+	}
 	Renderer::~Renderer()
 	{
 		for (auto& shader : m_ShaderMap)
@@ -86,6 +177,10 @@ namespace ptt
 		for (auto& p : m_Textures)
 		{
 			delete p.second;
+		}
+		for (auto& va : m_VertexArrayMap)
+		{
+			delete va.second;
 		}
 	}
 	void Renderer::SetTransMat()
@@ -338,5 +433,12 @@ namespace ptt
 	oitContext* Renderer::GetOITContext()
 	{
 		return (GetInstance()->m_oitContext).get();
+	}
+	LM::VertexArray* Renderer::GetVertexArray(VertexArrays va)
+	{
+		std::unordered_map<VertexArrays, LM::VertexArray*> &vaMap = GetInstance()->m_VertexArrayMap;
+		if (vaMap.find(va) == vaMap.end())
+			return nullptr;
+		return vaMap[va];
 	}
 }

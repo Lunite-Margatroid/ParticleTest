@@ -22,8 +22,7 @@ namespace ptt
 			{}
 		};
 
-		LM::VertexArray m_vao;
-		LM::VertexBuffer m_vbo;
+		LM::VertexArray* m_vao;
 
 		std::vector<Texture> m_Textures;
 		

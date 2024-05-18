@@ -51,7 +51,7 @@ namespace LM
 		unsigned int GetTexID()const;
 		void InitFromModelFile(const char* filename, const std::string& directory, const std::string& type);
 	
-		// ³ÙÔç°ÑÕâÍæ¶ùÉ¾µô
+
 		const std::string& GetTexType();
 		// ³ÙÔç°ÑÕâÍæ¶ùÉ¾µô
 		const aiString& GetTexPath();

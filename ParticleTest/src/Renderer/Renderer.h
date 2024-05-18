@@ -6,6 +6,7 @@
 #include "glObj/Texture.h"
 #include "TransparencySprite.h"
 #include "glObj/oitContext.h"
+#include "ElementBuffer.h"
 namespace ptt
 {
 	class Renderer
@@ -20,7 +21,10 @@ namespace ptt
 			Camera3D_Alpha
 		};
 
-
+		enum class VertexArrays
+		{
+			Quad_V_N_T, Cube_V_N_T
+		};
 	protected:
 		glm::mat4 m_ViewTrans;
 		glm::mat4 m_ModelTrans;
@@ -36,6 +40,8 @@ namespace ptt
 
 		bool m_oitRendering;
 		bool m_oitRender;
+		std::unique_ptr<oitContext> m_oitContext;
+		std::queue<TransparencySprite> m_TransparencyRenderQueue;
 
 		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
 		std::unordered_map<Shaders, LM::Shader*> m_oitShaderMap;
@@ -44,10 +50,9 @@ namespace ptt
 
 		std::vector<std::string> m_TextureComboName;
 
-		std::queue<TransparencySprite> m_TransparencyRenderQueue;
-
-		std::unique_ptr<oitContext> m_oitContext;
-
+		LM::VertexBuffer m_VertexBuffer;
+		LM::ElementBuffer m_ElementBuffer;
+		std::unordered_map<VertexArrays, LM::VertexArray*> m_VertexArrayMap;
 
 		Renderer();
 
@@ -57,6 +62,7 @@ namespace ptt
 		void InitTexture();
 		void InitCamera();
 		void InitOIT();
+		void InitVertexArray();
 
 		void OitRenderBegin();
 		void OitRenderEnd();
@@ -111,5 +117,6 @@ namespace ptt
 
 		static oitContext* GetOITContext();
 
+		static LM::VertexArray* GetVertexArray(VertexArrays va);
 	};
 }
