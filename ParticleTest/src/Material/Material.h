@@ -1,6 +1,7 @@
 #pragma once
 #include "glObj/Texture.h"
 #include "Renderer/Renderer.h"
+#include "Shader/Shader.h"
 
 namespace ptt
 {
@@ -33,5 +34,7 @@ namespace ptt
 		void SetTexture(LM::TextureType, const std::string& texName);
 
 		virtual void MaterialEditor();
+		virtual void BindTexture();
+		virtual void SetUniformMaterial(LM::Shader* shader);
 	};
 }

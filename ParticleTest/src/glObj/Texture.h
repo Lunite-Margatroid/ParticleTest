@@ -44,7 +44,7 @@ namespace LM
 		Texture(const std::string& imgPath, TextureType type = texture_diffuse, GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
 			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT);
 		virtual ~Texture();
-		Texture();
+		Texture(TextureType type = texture_diffuse);
 
 		virtual void Bind();
 		virtual unsigned char GetIndex()const;
@@ -69,6 +69,7 @@ namespace LM
 
 		void SetTextureName(const std::string& texName);
 		const std::string& GetTextureName()const;
+
 	};
 }
 

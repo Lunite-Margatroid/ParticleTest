@@ -6,28 +6,17 @@
 #include "VertexBuffer.h"
 #include "Camera3D.h"
 #include "Renderer/Renderer.h"
+#include "Material/Material.h"
 
 namespace ptt
 {
-	class QuadSprite :public ColoredSprite<1>
+	class QuadSprite :public ColoredSprite<1>,virtual public Material
 	{
 	protected:
-		struct Texture
-		{
-			LM::Texture* m_Texture;
-			float offsetx, offsety;
-			float scalex, scaley;
-			Texture(LM::Texture* tex) :
-				m_Texture(tex), offsetx(0.0f), offsety(0.0f), scalex(1.0f), scaley(1.f)
-			{}
-		};
-
 		LM::VertexArray* m_vao;
-
-		std::vector<Texture> m_Textures;
 		
 		virtual void Init();
-		virtual void TextureSelector();
+		//virtual void TextureSelector();
 	public:
 		QuadSprite(bool init = true);
 		virtual ~QuadSprite();

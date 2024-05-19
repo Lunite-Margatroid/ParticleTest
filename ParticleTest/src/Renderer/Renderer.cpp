@@ -65,6 +65,18 @@ namespace ptt
 		LM::Texture* tex = new LM::Texture();
 		tex->SetTextureName("default texture");
 		m_Textures[tex->GetTextureName()] =  tex;
+
+		tex = new LM::Texture(LM::texture_normal);
+		tex->SetTextureName("default normal texture");
+		m_Textures[tex->GetTextureName()] = tex;
+
+		tex = new LM::Texture(LM::texture_specular);
+		tex->SetTextureName("default specular texture");
+		m_Textures[tex->GetTextureName()] = tex;
+
+		tex = new LM::Texture(LM::texture_parallax);
+		tex->SetTextureName("default parallax texture");
+		m_Textures[tex->GetTextureName()] = tex;
 	}
 	void Renderer::InitCamera()
 	{

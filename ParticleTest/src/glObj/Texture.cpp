@@ -87,16 +87,40 @@ namespace LM
 		GLCall(glDeleteTextures(1, &m_uTextureID));
 	}
 
-	Texture::Texture():
-		m_strType("texture_diffuse"),
+	Texture::Texture(TextureType type):
 		m_nHeight(1),
 		m_nWidth(1),
 		m_ubTextureIndex(0),
-		m_type(texture_diffuse)
-	{// 默认纹理 1 * 1  颜色纯白
+		m_type(type)
+	{// 默认纹理 1 * 1 
+		float defaultColor;
+		switch (m_type)
+		{
+		case LM::texture_diffuse:
+			m_strType = "texture_diffuse";
+			defaultColor = 1.0f;
+			break;
+		case LM::texture_specular:
+			m_strType = "texture_specular";
+			defaultColor = 1.0f;
+			break;
+		case LM::texture_normal:
+			m_strType = "texture_normal";
+			defaultColor = 0.0f;
+			break;
+		case LM::texture_parallax:
+			m_strType = "texture_parallax";
+			defaultColor = 0.0f;
+			break;
+		default:
+			m_type = texture_unknown;
+			m_strType = "texture_unknown";
+			break;
+		}
+
 		glGenTextures(1, &m_uTextureID);
 		glBindTexture(GL_TEXTURE_2D, m_uTextureID);
-		float white[4] = {1.0f, 1.0f ,1.0f,1.0f};
+		float white[4] = { defaultColor,defaultColor ,defaultColor,defaultColor };
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_FLOAT, white);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -105,6 +129,8 @@ namespace LM
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		
 	}
 
 	void Texture::Bind()

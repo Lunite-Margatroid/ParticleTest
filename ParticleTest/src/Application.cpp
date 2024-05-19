@@ -171,6 +171,10 @@ namespace ptt
 		Application* app = GetInstance();
 		return std::pair<int, int>(app->m_SceneWidth, app->m_SceneHeight);
 	}
+	DemoScene* Application::GetCurrentScene()
+	{
+		return GetInstance()->m_Menu->GetCurrentScene();
+	}
 	void Application::UpdateTime()
 	{
 		static bool first = true;

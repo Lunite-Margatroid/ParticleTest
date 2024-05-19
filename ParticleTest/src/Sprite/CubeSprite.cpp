@@ -23,12 +23,8 @@ namespace ptt
 		if (shader == nullptr)
 			return;
 
-		LM::Texture* tex = m_Textures[0].m_Texture;
-		tex->Bind();
 		shader->Bind();
-		shader->SetUniformTexture("u_Tex", tex->GetIndex());
-		shader->SetUniform2f("u_TexOffset", m_Textures[0].offsetx, m_Textures[0].offsety);
-		shader->SetUniform2f("u_TexScale", m_Textures[0].scalex, m_Textures[0].scaley);
+		SetUniformMaterial(shader);
 
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
 		glm::mat3& normalTrans = Renderer::GetNormalTrans();

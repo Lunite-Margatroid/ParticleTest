@@ -148,4 +148,8 @@ namespace ptt
 		if(m_CurrentScene)
 			m_CurrentScene->Update(deltaTime);
 	}
+	DemoScene* MenuScene::GetCurrentScene()
+	{
+		return m_CurrentScene;
+	}
 }

@@ -33,8 +33,6 @@ namespace ptt
 		int m_Width, m_Height;				// window's width and height
 		int m_SceneWidth, m_SceneHeight;	// frame's width and height
 
-		
-
 		void UpdateTime();
 		void Update();
 		virtual void Init();
@@ -60,5 +58,7 @@ namespace ptt
 		static void PreCallbackKey(GLFWwindow* window, int key, int scanCode, int action, int mods);
 		static void GetDefaultFrameBufferSize(int* width, int* height);
 		static std::pair<int, int> GetSceneFramebufferSize();
+
+		static DemoScene* GetCurrentScene();
 	};
 }

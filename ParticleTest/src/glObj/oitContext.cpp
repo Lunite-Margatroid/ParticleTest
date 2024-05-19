@@ -103,11 +103,11 @@ namespace ptt
 			GL_READ_WRITE,	// 读写权限
 			GL_R32UI);		// 单通道32位整形
 		/*---------------------原子计数器归零----------------*/
-		glBindBuffer(GL_ATOMIC_COUNTER_BUFFER, m_AtomicCounter);
+		/*glBindBuffer(GL_ATOMIC_COUNTER_BUFFER, m_AtomicCounter);
 
 		unsigned int* count = (unsigned int *)glMapBuffer(GL_ATOMIC_COUNTER_BUFFER, GL_READ_ONLY);
 		std::cout << "Atomic count: "<<*count << std::endl;
-		glUnmapBuffer(GL_ATOMIC_COUNTER_BUFFER);
+		glUnmapBuffer(GL_ATOMIC_COUNTER_BUFFER);*/
 
 		GLCall(glBindBufferBase(GL_ATOMIC_COUNTER_BUFFER, 0, m_AtomicCounter));
 		const GLuint zero = 0;

@@ -61,7 +61,7 @@ namespace ptt
 		}
 
 		// 开启垂直同步
-		// glfwSwapInterval(1);
+		glfwSwapInterval(1);
 
 		// 设置视口
 		GLCall(glViewport(0, 0, m_Width, m_Height));

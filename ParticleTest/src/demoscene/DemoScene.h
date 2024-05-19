@@ -37,6 +37,8 @@ namespace ptt
 		void Render();
 		void Update(float deltaTime);
 
+		DemoScene* GetCurrentScene();
+
 		template<typename T>
 		void RegistDemoScene(const std::string& title)
 		{

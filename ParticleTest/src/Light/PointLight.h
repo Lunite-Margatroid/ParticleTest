@@ -24,7 +24,7 @@ namespace LM
 		*/
 	protected:
 		glm::vec3 m_v3Position;
-	
+
 		// 衰减
 		float m_kConstant;		// 常数项
 		float m_kLinear;			// 一次项
