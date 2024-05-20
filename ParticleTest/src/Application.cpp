@@ -36,6 +36,7 @@ namespace ptt
 		m_Run = true;
 		m_FullScreen = false;
 		m_MultiSample = true;
+		m_FPS = 0.0f;
 		Init();
 	}
 	Application::~Application()
@@ -175,6 +176,10 @@ namespace ptt
 	{
 		return GetInstance()->m_Menu->GetCurrentScene();
 	}
+	float Application::GetFPS()
+	{
+		return GetInstance() -> m_FPS;
+	}
 	void Application::UpdateTime()
 	{
 		static bool first = true;
@@ -194,5 +199,7 @@ namespace ptt
 	{
 		UpdateTime();
 		m_Menu->Update(m_DeltaTime);
+		if (m_DeltaTime > 0.0f)
+			m_FPS = 1.0f / m_DeltaTime;
 	}
 }

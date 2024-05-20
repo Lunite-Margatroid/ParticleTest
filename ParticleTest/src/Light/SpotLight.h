@@ -37,6 +37,12 @@ namespace LM
 		SpotLight();
 		~SpotLight();
 		void SetUniformLight(const std::string& valName, Shader&shader);
+
+		/// <summary>
+		/// 输入边界角度 弧度制
+		/// </summary>
+		/// <param name="outer"></param>
+		/// <param name="inner"></param>
 		void SetLightBoundary(float outer, float inner);
 	};
 }

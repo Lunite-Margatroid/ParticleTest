@@ -37,6 +37,14 @@ void LM::SpotLight::SetUniformLight(const std::string& valName, Shader& shader)
 
 void LM::SpotLight::SetLightBoundary(float outer, float inner)
 {
-	m_fOuterBdr = outer;
-	m_fInnerBdr = inner;
+	if (inner > outer)
+	{
+		m_fOuterBdr = cosf(inner);
+		m_fInnerBdr = cosf(outer);
+	}
+	else
+	{
+		m_fOuterBdr = cosf(outer);
+		m_fInnerBdr = cosf(inner);
+	}
 }
