@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "QuadSprite.h"
+#include "Application.h"
+#include "demoscene/LightedDemoScene.h"
 
 namespace ptt
 {
@@ -8,7 +10,7 @@ namespace ptt
 		m_vao = Renderer::GetVertexArray(Renderer::VertexArrays::Quad_V_N_T);
 
 		//m_Textures.push_back(Texture(Renderer::LoadTexture("./res/img/marisa.jpg")));
-		Renderer::LoadTexture("./res/img/marisa.jpg");
+		//Renderer::LoadTexture("./res/img/marisa.jpg");
 	}
 	//void QuadSprite::TextureSelector()
 	//{
@@ -58,11 +60,16 @@ namespace ptt
 		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
 		if (camera == nullptr)
 			return;
-		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
+		LM::Shader* shader;
+		if (m_Lighted)
+			shader = Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T);
+		else
+			shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
 		if (shader == nullptr)
 			return;
 		shader->Bind();
 		SetUniformMaterial(shader);
+
 
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
 		glm::mat3& normalTrans = Renderer::GetNormalTrans();

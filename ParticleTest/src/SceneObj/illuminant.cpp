@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "illuminant.h"
 #include "Application.h"
+#include "demoscene/LightedDemoScene.h"
 
 namespace ptt
 {
@@ -8,6 +9,13 @@ namespace ptt
 		:SceneObj(parent, sprite, objName),
 		m_Light(light)
 	{
+		/*LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(Application::GetCurrentScene());
+		if (scene)
+		{
+			scene->AddLight(m_Light);
+		}*/
+		LightedDemoScene* scene = (LightedDemoScene*)(Application::GetCurrentScene());
+		scene->AddLight(m_Light);
 	}
 	Illuminant::~Illuminant()
 	{
@@ -23,6 +31,8 @@ namespace ptt
 	void Illuminant::Update(float deltaTime)
 	{
 		SceneObj::Update(deltaTime);
+
+		// 光源的位置和朝向与Object一致
 		if (m_Light)
 		{
 			LM::DirLight* dirLight = dynamic_cast<LM::DirLight*>(m_Light);

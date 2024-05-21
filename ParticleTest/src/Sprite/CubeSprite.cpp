@@ -19,7 +19,11 @@ namespace ptt
 		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
 		if (camera == nullptr)
 			return;
-		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
+		LM::Shader* shader;
+		if (m_Lighted)
+			shader = Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T);
+		else
+			shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
 		if (shader == nullptr)
 			return;
 

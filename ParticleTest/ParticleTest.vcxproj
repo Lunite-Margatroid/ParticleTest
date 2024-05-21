@@ -260,6 +260,31 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\FireLoopFrag.shader" />
+    <None Include="res\shader\FireLoopVertex.shader" />
+    <None Include="res\shader\FireworkFrag.shader" />
+    <None Include="res\shader\FireworkVertex.shader" />
+    <None Include="res\shader\HanabiFrag.shader" />
+    <None Include="res\shader\HanabiSparkFrag.shader" />
+    <None Include="res\shader\HanabiSparkVertex.shader" />
+    <None Include="res\shader\HanabiVertex.shader" />
+    <None Include="res\shader\LightedMeshFrag.shader" />
+    <None Include="res\shader\LightedMeshVertex.shader" />
+    <None Include="res\shader\MeshFrag.shader" />
+    <None Include="res\shader\MeshFrag_oit.shader" />
+    <None Include="res\shader\MeshVertex.shader" />
+    <None Include="res\shader\OIT_Fragment.shader" />
+    <None Include="res\shader\OIT_Vertex.shader" />
+    <None Include="res\shader\QuadMeshFrag.shader" />
+    <None Include="res\shader\QuadMeshSpriteFrag.shader" />
+    <None Include="res\shader\QuadMeshSpriteVertex.shader" />
+    <None Include="res\shader\QuadMeshVertex.shader" />
+    <None Include="res\shader\ScreenTexFragment.shader" />
+    <None Include="res\shader\ScreenTexVertex.shader" />
+    <None Include="res\shader\SinWaveFrag.shader" />
+    <None Include="res\shader\SinWaveVertex.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

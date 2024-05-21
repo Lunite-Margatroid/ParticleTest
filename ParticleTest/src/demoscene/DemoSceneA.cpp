@@ -48,6 +48,7 @@ namespace ptt
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		m_SelectedObj = m_RootObj.get();
 		if (init)
 			Init();
 	}
@@ -55,6 +56,7 @@ namespace ptt
 	DemoSceneA::DemoSceneA()
 	{
 		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
+		m_SelectedObj = m_RootObj.get();
 		Init();
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);

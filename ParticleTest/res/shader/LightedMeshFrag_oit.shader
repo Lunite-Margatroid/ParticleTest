@@ -1,8 +1,8 @@
 #version 450 core
 
 // 输入变量
-in vec3 NormalVec;	vec3 NormalVec_;
-in vec3 HalfVec;	vec3 HalfVec_;
+in vec3 NormalVec;	vec3 NormalVec_;	// 单位化
+in vec3 HalfVec;	vec3 HalfVec_;		// 单位化
 in vec3 FragPos;		// 相机坐标系的顶点坐标
 in vec2 TexCoord;
 
@@ -79,19 +79,19 @@ struct SpotLight
 	float outerbdr;			// 外边界的cos
 				// innerbdr > outerbdr
 			};
-layout(std140, binding = 1)buffer DirLights
+layout(std140, binding = 0)buffer DirLights
 {
 	int countDirLight;
 	DirLight dataDirLights[];
 };
 
-layout(std140,binding = 2)buffer PointLights
+layout(std140,binding = 1)buffer PointLights
 {
 	int countPointLight;
 	PointLight dataPointLights[];
 };
 
-layout(std140, binding = 3)buffer SpotLights
+layout(std140, binding = 2)buffer SpotLights
 {
 	int countSpotLight;
 	SpotLight dataSpotLights[];
@@ -113,8 +113,6 @@ void CulcDirLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		diffuse = diffuse + max(dot(NormalVec_ , dir), 0.0f) * light.diffuse;
 	// specular
 		specular = specular + pow(max(dot(HalfVec_ , dir), 0.0f), u_Material.shininess) * light.specular;
-		
-	//ambient = vec3(0.3f);
 		
 	}
 }
@@ -210,9 +208,43 @@ vec4 FragmentShader()
 			* u_Color;
 }
 
+/*---------------OIT--------------------*/
 
+// 开启片元预测试
+layout(early_fragment_tests) in;
+
+
+// 原子计数器
+layout (binding = 0, offset = 0) uniform atomic_uint u_AtomicCounter;
+
+// 颜色混合缓存
+layout (binding = 0, rgba32ui) uniform uimageBuffer u_ListBuffer;
+
+// 头指针缓存
+layout (binding = 1, r32ui) uniform uimage2D u_HeadMat;
 
 void main()
 {
-	FragColor = FragmentShader();
+    if (gl_SampleID > 0)
+        discard;
+
+	// 绘制 获取片元颜色
+    vec4 fragColor = FragmentShader();
+    // 申请空间 即原子计数器+1
+    uint newHead = atomicCounterIncrement(u_AtomicCounter);
+    
+    // 将新申请的空间作为新的头指针写入头指针缓存
+    // 并返回原来的头指针
+    uint oldHead =
+		imageAtomicExchange(u_HeadMat, ivec2(gl_FragCoord.xy), newHead);
+    
+    // 初始化新头节点的数据
+    uvec4 item;
+    item.x = oldHead;	// next 指针
+    item.y = packUnorm4x8(fragColor);	// 32位深 4通道颜色
+    item.z = floatBitsToUint(gl_FragCoord.z);	// 深度
+    item.w = 0;			// 预留  多重采样混合
+    
+    // 将节点数据写入头节点 index
+    imageStore(u_ListBuffer, int(newHead), item);
 }

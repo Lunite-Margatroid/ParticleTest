@@ -32,6 +32,9 @@ namespace LM
 	protected:
 		float m_fOuterBdr;
 		float m_fInnerBdr;
+
+		float m_radOuterBdr;
+		float m_radInnerBdr;
 	public:
 		SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position,glm::vec3 direction, LightType type = LightType::SpotLight);
 		SpotLight();
@@ -45,5 +48,7 @@ namespace LM
 		/// <param name="inner"></param>
 		void SetLightBoundary(float outer, float inner);
 		unsigned int WriteBuffer(GLenum target, unsigned int offset) override;
+
+		virtual void LightEditor() override;
 	};
 }

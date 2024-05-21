@@ -3,7 +3,7 @@
 
 namespace ptt
 {
-	Sprite::Sprite():m_Transparency(false),m_Visible(true)
+	Sprite::Sprite():m_Transparency(false),m_Visible(true),m_Lighted(false)
 	{
 	}
 	Sprite::~Sprite()
@@ -28,11 +28,20 @@ namespace ptt
 	{
 		m_Transparency = transparency;
 	}
+	bool Sprite::IsLighted() const
+	{
+		return m_Lighted;
+	}
+	void Sprite::SetLighted(bool lighted)
+	{
+		m_Lighted = lighted;
+	}
 	void Sprite::RenderImGui()
 	{
 		ImGui::SeparatorText("Sprite Property");
 		ImGui::Checkbox("Visible", &m_Visible);
 		ImGui::SameLine();
 		ImGui::Checkbox("Transparency", &m_Transparency);
+		ImGui::Checkbox("Lighted", &m_Lighted);
 	}
 }

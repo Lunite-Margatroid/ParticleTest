@@ -59,6 +59,11 @@ namespace ptt
 
 		shd = new LM::Shader("./res/shader/OIT_Vertex.shader", "./res/shader/OIT_Fragment.shader");
 		m_ShaderMap[Shaders::OIT] = dynamic_cast<LM::Shader*>(shd);
+
+		shd = new LM::Shader("./res/shader/LightedMeshVertex.shader", "./res/shader/LightedMeshFrag.shader");
+		m_ShaderMap[Shaders::LightedMesh_V_N_T] = shd;
+		shd = new LM::Shader("./res/shader/LightedMeshVertex.shader", "./res/shader/LightedMeshFrag_oit.shader");
+		m_oitShaderMap[Shaders::LightedMesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
 	}
 	void Renderer::InitTexture()
 	{
@@ -229,8 +234,16 @@ namespace ptt
 			}
 		}
 		begin++;
-		std::string fileName('\n', 128);
-		std::copy(begin, i, fileName.begin());
+		char tempStr[128];
+		memset(tempStr, 0, 128);
+		int index = 0;
+		for (; begin != path.end(); begin++)
+		{
+			tempStr[index] = *begin;
+			index++;
+		}
+		tempStr[index] = '\0';
+		std::string fileName(tempStr);
 		//----------------------≤È÷ÿ-------------------
 		while (true)
 		{

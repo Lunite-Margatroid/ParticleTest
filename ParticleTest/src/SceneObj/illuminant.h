@@ -1,6 +1,5 @@
 #pragma once
 #include "SceneObj.h"
-#include "demoscene/LightedDemoScene.h"
 #include "Light/SpotLight.h"
 
 namespace ptt

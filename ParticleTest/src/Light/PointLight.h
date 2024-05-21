@@ -45,6 +45,7 @@ namespace LM
 		float GetKQuadratic() const;
 
 		unsigned int WriteBuffer(GLenum target, unsigned int offset) override;
+		virtual void LightEditor() override;
 	};
 
 }

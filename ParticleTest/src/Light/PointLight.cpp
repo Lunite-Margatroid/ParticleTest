@@ -131,3 +131,15 @@ unsigned int LM::PointLight::WriteBuffer(GLenum target, unsigned int offset)
 
 	return offset;
 }
+
+void LM::PointLight::LightEditor()
+{
+	Light::LightEditor();
+	ImGui::Text("Attenuation");
+	ImGui::DragFloat("kConstant", &m_kConstant, 0.1f, 0.0f, 3.0f, "%.3f", 
+		ImGuiSliderFlags_AlwaysClamp);
+	ImGui::DragFloat("kLinear", &m_kLinear, 0.1f, 0.0f, 3.0f, "%.3f",
+		ImGuiSliderFlags_AlwaysClamp);
+	ImGui::DragFloat("kQuadratic", &m_kQuadratic, 0.1f, 0.0f, 3.0f, "%.3f",
+		ImGuiSliderFlags_AlwaysClamp);
+}

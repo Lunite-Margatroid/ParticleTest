@@ -9,6 +9,7 @@ namespace ptt
 		LM::Shader* m_Shader;	// »ﬂ”‡ «®“∆µƒ ±∫Úº«µ√…æµÙ
 		bool m_Transparency;
 		bool m_Visible;
+		bool m_Lighted;
 	public:
 		Sprite();
 		virtual ~Sprite();
@@ -18,6 +19,8 @@ namespace ptt
 		bool IsVisible()const;
 		bool SetVisible(bool visible);
 		void SetTransparency(bool transparency);
+		bool IsLighted() const;
+		void SetLighted(bool lighted);
 
 		virtual void RenderImGui() override;
 	};

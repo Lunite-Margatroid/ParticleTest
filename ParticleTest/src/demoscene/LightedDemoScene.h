@@ -1,6 +1,8 @@
 #pragma once
 #include "DemoSceneA.h"
+#include "SceneObj/illuminant.h"
 #include "glObj/LightBuffer.h"
+#include "Light/Light.h"
 namespace ptt
 {
 	class LightedDemoScene : public DemoSceneA
@@ -21,6 +23,8 @@ namespace ptt
 		LightedDemoScene();
 		virtual ~LightedDemoScene();
 		virtual void RenderImGui() override;
+
+		virtual void Update(float deltaTime) override;
 
 		bool RemoveLight(LM::Light* light);
 		void AddLight(LM::Light* light);

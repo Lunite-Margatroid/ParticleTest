@@ -1,6 +1,5 @@
 #pragma once
 #include "Shader/Shader.h"
-#include "SceneObj/illuminant.h"
 namespace LM
 {
 	enum class LightType
@@ -33,8 +32,10 @@ namespace LM
 		glm::vec3 GetSpecular() const;
 
 		virtual unsigned int WriteBuffer(GLenum target, unsigned int offset) = 0;
-		virtual void LightEditor() = 0;
+		virtual void LightEditor();
 		bool IsLighted() const;
 		void SetLighted(bool ifLight);
+
+		LightType GetLightType() const;
 	};
 }

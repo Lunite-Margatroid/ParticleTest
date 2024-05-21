@@ -55,6 +55,14 @@ glm::vec3 LM::Light::GetSpecular() const
 	return m_v3Specular;
 }
 
+void LM::Light::LightEditor()
+{
+	ImGui::SeparatorText("Light Editor");
+	ImGui::ColorEdit3("Ambient", &m_v3Ambient.r);
+	ImGui::ColorEdit3("Diffuse", &m_v3Diffuse.r);
+	ImGui::ColorEdit3("Specular", &m_v3Specular.r);
+}
+
 bool LM::Light::IsLighted() const
 {
 	return m_Lighted;
@@ -63,4 +71,9 @@ bool LM::Light::IsLighted() const
 void LM::Light::SetLighted(bool ifLight)
 {
 	m_Lighted = ifLight;
+}
+
+LM::LightType LM::Light::GetLightType() const
+{
+	return m_Type;
 }

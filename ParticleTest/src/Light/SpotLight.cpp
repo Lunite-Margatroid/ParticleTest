@@ -7,14 +7,18 @@ LM::SpotLight::SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specula
 {
 	m_v3Position = position;
 	m_v3Direction = direction;
-	m_fInnerBdr = cos(3.14159f / 12.f);
-	m_fOuterBdr = cos(3.14159f / 10.f);
+	m_radInnerBdr = 3.14159f / 12.f;
+	m_fInnerBdr = cos(m_fInnerBdr);
+	m_radOuterBdr = 3.14159f / 10.f;
+	m_fOuterBdr = cos(m_radOuterBdr);
 }
 
 LM::SpotLight::SpotLight()
 {
-	m_fInnerBdr = cos(3.14159f / 16.f);
-	m_fOuterBdr = cos(3.14159f / 10.f);
+	m_radInnerBdr = 3.14159f / 12.f;
+	m_fInnerBdr = cos(m_fInnerBdr);
+	m_radOuterBdr = 3.14159f / 10.f;
+	m_fOuterBdr = cos(m_radOuterBdr);
 	m_Type = LightType::SpotLight;
 }
 
@@ -41,11 +45,15 @@ void LM::SpotLight::SetLightBoundary(float outer, float inner)
 {
 	if (inner > outer)
 	{
+		m_radInnerBdr = outer;
+		m_radOuterBdr = inner;
 		m_fOuterBdr = cosf(inner);
 		m_fInnerBdr = cosf(outer);
 	}
 	else
 	{
+		m_radInnerBdr = inner;
+		m_radOuterBdr = outer;
 		m_fOuterBdr = cosf(outer);
 		m_fInnerBdr = cosf(inner);
 	}
@@ -115,4 +123,25 @@ unsigned int LM::SpotLight::WriteBuffer(GLenum target, unsigned int offset)
 		offset += 8 * sizeof(float);
 	}
 	return offset;
+}
+
+void LM::SpotLight::LightEditor()
+{
+	PointLight::LightEditor();
+	ImGui::Text("Boundry");
+	ImGui::DragFloat("Inner Boundry", &m_radInnerBdr, 0.1f, 0.0f, PI / 2, "%.3f",
+		ImGuiSliderFlags_AlwaysClamp);
+	ImGui::DragFloat("Outer Boundry", &m_radOuterBdr, 0.1f, 0.0f, PI / 2, "%.3f",
+		ImGuiSliderFlags_AlwaysClamp);
+
+	if (m_radOuterBdr > m_radInnerBdr)
+	{
+		m_fInnerBdr = cosf(m_radInnerBdr);
+		m_fOuterBdr = cosf(m_radOuterBdr);
+	}
+	else
+	{
+		m_fInnerBdr = cosf(m_radOuterBdr);
+		m_fOuterBdr = cosf(m_radInnerBdr);
+	}
 }

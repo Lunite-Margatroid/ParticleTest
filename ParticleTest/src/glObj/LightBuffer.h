@@ -12,10 +12,12 @@ namespace ptt
 
 	public:
 		LightBuffer(int count, LM::Light* lights, LM::LightType lightType);
+		LightBuffer(int count, LM::Light** lights, LM::LightType lightType);
 		LightBuffer();
 		~LightBuffer();
 
 		void Init(int count, LM::Light* lights);
+		void Init(int count, LM::Light** lights);
 
 		void BindToShaderStorage(LM::Shader* shader, const std::string& bufferName);
 	};

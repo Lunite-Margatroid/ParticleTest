@@ -3,6 +3,27 @@
 
 namespace ptt
 {
+	Material::Texture& Material::GetTexture(LM::TextureType texType)
+	{
+		switch (texType)
+		{
+		case LM::texture_diffuse:
+			return m_texDiffuse;
+			break;
+		case LM::texture_specular:
+			return m_texSpecular;
+			break;
+		case LM::texture_normal:
+			return m_texNormal;
+			break;
+		case LM::texture_parallax:
+			return m_texParallax;
+			break;
+		default:
+			break;
+		}
+		return m_texDiffuse;
+	}
 	void Material::Init()
 	{
 		m_texDiffuse = Renderer::GetTexture("default texture");
@@ -48,6 +69,42 @@ namespace ptt
 		default:
 			break;
 		}
+	}
+
+	void Material::SetTextureScale(LM::TextureType texType, float x, float y)
+	{
+		Texture& tex = GetTexture(texType);
+		tex.scalex = x;
+		tex.scaley = y;
+	}
+
+	void Material::SetTextureOffset(LM::TextureType texType, float x, float y)
+	{
+		Texture& tex = GetTexture(texType);
+		tex.offsetx = x;
+		tex.offsety = y;
+	}
+
+	const Material::Texture& Material::GetTexture(LM::TextureType texType) const
+	{
+		switch (texType)
+		{
+		case LM::texture_diffuse:
+			return m_texDiffuse;
+			break;
+		case LM::texture_specular:
+			return m_texSpecular;
+			break;
+		case LM::texture_normal:
+			return m_texNormal;
+			break;
+		case LM::texture_parallax:
+			return m_texParallax;
+			break;
+		default:
+			break;
+		}
+		return m_texDiffuse;
 	}
 
 	void Material::MaterialEditor()
@@ -108,6 +165,33 @@ namespace ptt
 			glBindTexture(GL_TEXTURE_2D, textures[i].m_Texture->GetTexID());
 		}
 
+	}
+
+	void Material::SetTexture(LM::TextureType texType, LM::Texture* tex)
+	{
+		if (tex->GetTextureType() != texType)
+		{
+			// 纹理类型不匹配
+			return;
+		}
+
+		switch (texType)
+		{
+		case LM::texture_diffuse:
+			m_texDiffuse.m_Texture = tex;
+			break;
+		case LM::texture_specular:
+			m_texSpecular.m_Texture = tex;
+			break;
+		case LM::texture_normal:
+			m_texNormal.m_Texture = tex;
+			break;
+		case LM::texture_parallax:
+			m_texParallax.m_Texture = tex;
+			break;
+		default:
+			break;
+		}
 	}
 
 	void Material::SetUniformMaterial(LM::Shader* shader)

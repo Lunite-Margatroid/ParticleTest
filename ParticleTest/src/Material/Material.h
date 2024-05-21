@@ -7,7 +7,7 @@ namespace ptt
 {
 	class Material
 	{
-	protected:
+	public:
 		struct Texture
 		{
 			LM::Texture* m_Texture;
@@ -26,12 +26,19 @@ namespace ptt
 
 		float m_Shininess;
 
+		Texture& GetTexture(LM::TextureType);
+
 		void Init();
 	public:
 		Material();
 		virtual ~Material();
 
 		void SetTexture(LM::TextureType, const std::string& texName);
+		void SetTexture(LM::TextureType, LM::Texture*);
+		void SetTextureScale(LM::TextureType, float x, float y);
+		void SetTextureOffset(LM::TextureType, float x, float y);
+
+		const Texture& GetTexture(LM::TextureType) const;
 
 		virtual void MaterialEditor();
 		virtual void BindTexture();
