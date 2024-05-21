@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "PointLight.h"
 
-LM::PointLight::PointLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position):
-	Light(ambient, diffuse, specular),m_v3Position(position)
+LM::PointLight::PointLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, LightType type):
+	Light(ambient, diffuse, specular,type),m_v3Position(position)
 {
 	m_kConstant = 1.0f;
 	m_kLinear = 0.1f;
@@ -15,6 +15,7 @@ LM::PointLight::PointLight()
 	m_kConstant = 1.0f;
 	m_kLinear = 0.1f;
 	m_kQuadratic = 0.01f;
+	m_Type = LightType::PointLight;
 }
 
 LM::PointLight::~PointLight()
@@ -73,4 +74,60 @@ float LM::PointLight::GetKLinear() const
 float LM::PointLight::GetKQuadratic() const
 {
 	return m_kQuadratic;
+}
+
+unsigned int LM::PointLight::WriteBuffer(GLenum target, unsigned int offset)
+{
+	/*
+			struct PointLight
+			{
+				vec3 ambient;
+				vec3 diffuse;
+				vec3 specular;
+
+				vec3 position;
+				// 衰减
+				float kConstant;		// 常数项
+				float kLinear;			// 一次项
+				float kQuadratic;		// 2次项
+			};
+
+		*/
+	if (m_Lighted)
+	{
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Ambient.r);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Diffuse.r);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Specular.r);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
+		offset += 4 * sizeof(float);
+	}
+	else
+	{
+		float unlighted[3] = {0.0f, 0.0f, 0.0f};
+		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
+		offset += 4 * sizeof(float);
+
+		glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
+		offset += 4 * sizeof(float);
+	}
+
+	return offset;
 }

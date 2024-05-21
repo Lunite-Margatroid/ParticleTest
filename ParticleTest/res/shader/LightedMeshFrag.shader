@@ -8,6 +8,9 @@ in vec2 TexCoord;
 
 uniform vec4 u_Color;
 
+// 输出
+out vec4 FragColor;
+
 // 材质系统
 struct Material
 {
@@ -76,32 +79,128 @@ struct SpotLight
 	float outerbdr;			// 外边界的cos
 				// innerbdr > outerbdr
 			};
-layout(std140)buffer DirLights
+layout(std140， binding = 0)buffer DirLights
 {
 	int countDirLight;
-	struct dataDirLights[];
+	struct DirLight dataDirLights[];
 };
 
-layout(std140)buffer PointLights
+layout(std140,binding = 1)buffer PointLights
 {
-	int countDirLight;
-	struct dataPointLights[];
+	int countPointLight;
+	struct PointLight dataPointLights[];
 };
 
-layout(std140)buffer SpotLights
+layout(std140, binding = 2)buffer SpotLights
 {
-	int countDirLight;
-	struct dataSpotLights[];
+	int countSpotLight;
+	struct SpotLight dataSpotLights[];
 };
 
+void CulcDirLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
+{
+	ambient = vec3(0.0f);
+	diffuse = vec3(0.0f);
+	specular = vec3(0.0f);
+	
+	for(int i =0; i < countDirLight;i++)
+	{
+	DirLight light = dataDirLights[i];
+	vec3 dir = -normalize(light.direction);
+	// ambient
+		ambient = ambient + light.ambient;
+	// diffuse
+		diffuse = diffuse + max(dot(NormalVec , dir), 0.0f) * light.diffuse;
+	// specular
+		specular = specular + pow(max(dot(HalfVec , dir), 0.0f), u_Material.shininess) * light.specular;
+		
+	}
+}
 
-// 输出
-out vec4 FragColor;
+void CulcPointLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
+{
+	ambient = vec3(0.0f);
+	diffuse = vec3(0.0f);
+	specular = vec3(0.0f);
+	
+	for(int i =0;i<countPointLight;i++)
+	{
+		PointLight light = dataPointLights[i];
+		vec3 dir = light.position - FragPos;
+		float dist = length(dir);
+		dir = dir / dist;
+		// 衰减系数
+		float k = kConstant + (kLinear + kQuadratic * dist) * dist;
+		// ambient
+		ambient = ambient + light.ambient / k;
+		// diffuse
+		diffuse = diffuse + max(dot(dir, NormalVec), 0.0f) / k * light.diffuse;
+		// specular
+		specular = specular + pow(max(dot(HalfVec, dir). 0.0f), u_Material.shininess) / k * light.specular;
+	}
+}
+
+void CulcSpotLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
+{
+	ambient = vec3(0.0f);
+	diffuse = vec3(0.0f);
+	specular = vec3(0.0f);
+	
+	for(int i =0;i<countSpotLight;i++)
+	{
+		SpotLight light = dataSpotLights[i];
+		vec3 dir = light.position - FragPos;
+		float dist = length(dir);
+		dir = dir / dist;
+		
+		// 照射系数  判断是否在照射范围内
+		float kLight = dot(-dir , light.direction);
+		kLight = clamp((kLight - light.outerbdr) / (light.innerbdr - light.outerbdr), 0.0f, 1.0f );
+		// 衰减系数
+		float k = kConstant + (kLinear + kQuadratic * dist) * dist;
+		
+		kLight = kLight / k;
+		// ambient
+		ambient = ambient + light.ambient / k;
+		// diffuse
+		diffuse = diffuse + max(dot(dir, NormalVec), 0.0f) / kLight * light.diffuse;
+		// specular
+		specular = specular + pow(max(dot(HalfVec, dir). 0.0f), u_Material.shininess) / kLight * light.specular;
+	}
+}
 
 vec4 FragmentShader()
 {
+	// 先把输入单位化
+	NormalVec = normalize(NormalVec);
+	HalfVec = normalize(HalfVec);
+	// 计算光照
+	vec3 dirAmbient;
+	vec3 dirDiffuse;
+	vec3 dirSpecular;
+	CulcDirLight(dirAmbient, dirDiffuse, dirSpecular);
+	
+	vec3 pointAmbient;
+	vec3 pointDiffuse;
+	vec3 pointSpecuar;
+	CulcPointLight(pointAmbient, pointDiffuse, pointSpecuar);
+	
+	vec3 spotAmbient;
+	vec3 spotDiffuse;
+	vec3 spotSpecular;
+	CulcSpotLight(spotAmbient, spotDiffuse, spotSpecular);
+	
+	vec3 ambient = dirAmbient + pointAmbient + spotAmbient;
+	vec3 diffuse = dirDiffuse + pointDiffuse + spotDiffuse;
+	vec3 specular = dirSpecular + pointSpecular + spotSpecular;
+	
 	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
-	return texture2D(u_Material.DiffuseTex, texCoord) * u_Color;
+	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
+	
+	diffuseTexColor = texture2D(u_Material.DiffuseTex, texCoord);
+	specularTexColor = texture2D(u_Material.SpecularTex, specularTexCoord);
+	
+	return diffuseTexColor * vec4((ambient + diffuse),1.0f) + specularTexColor * vec4(specular, 1.0f);
 }
 
 

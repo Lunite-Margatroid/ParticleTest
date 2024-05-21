@@ -23,7 +23,7 @@ namespace LM
 
         
     public:
-        DirLight(glm::vec3 ambi, glm::vec3 diff, glm::vec3 spec, glm::vec3 dir);
+        DirLight(glm::vec3 ambi, glm::vec3 diff, glm::vec3 spec, glm::vec3 dir, LightType type = LightType::DirectionLight);
         DirLight();
         ~DirLight();
         void SetLightDirection(const glm::vec3& dir);
@@ -31,6 +31,8 @@ namespace LM
         void SetUniformDirection(const std::string& valName, Shader& shader);
 
         const glm::vec3& GetDirection() const;
+
+        unsigned int WriteBuffer(GLenum target, unsigned int offset) override;
     };
 }
 

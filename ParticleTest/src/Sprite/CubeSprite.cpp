@@ -36,7 +36,9 @@ namespace ptt
 		shader->SetUniformMatrix4f("u_MVTrans", false, glm::value_ptr(mvTrans));
 		shader->SetUniformMatrix3f("u_NormalTrans", false, glm::value_ptr(normalTrans));
 		shader->SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(camera->GetViewTrans()));
+		shader->SetUniformMatrix4f("u_MTrans", false, glm::value_ptr(modelTrans));
 		shader->SetUniform4f("u_Color", &m_Color[0].r);
+		shader->SetUniform3f("u_CameraPos", &(camera->GetPosition().x));
 
 		m_vao->DrawElement();
 	}

@@ -127,6 +127,8 @@
     <ClInclude Include="src\demoscene\DemoSceneB.h" />
     <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\demoscene\LightedDemoScene.h" />
+    <ClInclude Include="src\glObj\LightBuffer.h" />
+    <ClInclude Include="src\SceneObj\illuminant.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -221,5 +223,7 @@
     <ClCompile Include="src\demoscene\DemoSceneB.cpp" />
     <ClCompile Include="src\Material\Material.cpp" />
     <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp" />
+    <ClCompile Include="src\glObj\LightBuffer.cpp" />
+    <ClCompile Include="src\SceneObj\illuminant.cpp" />
   </ItemGroup>
 </Project>

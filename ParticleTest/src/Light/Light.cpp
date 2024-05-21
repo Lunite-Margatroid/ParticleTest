@@ -20,17 +20,20 @@ void LM::Light::SetLightColor(const glm::vec3& ambi, const glm::vec3& diff, cons
 	m_v3Specular = spec;
 }
 
-LM::Light::Light(glm::vec3 ambi, glm::vec3 diff, glm::vec3 spec):
-	m_v3Ambient(ambi),m_v3Diffuse(diff),m_v3Specular(spec)
+LM::Light::Light(glm::vec3 ambi, glm::vec3 diff, glm::vec3 spec, LightType type) :
+	m_v3Ambient(ambi), m_v3Diffuse(diff), m_v3Specular(spec), m_Type(type), m_Lighted(true)
 {
 
 }
 
 LM::Light::Light()
+	:m_v3Ambient(0.3f, 0.3f, 0.3f),
+	m_v3Diffuse(0.8f, 0.8f, 0.8f),
+	m_v3Specular(1.0f, 1.0f, 1.0f),
+	m_Type(LightType::UnknownLight),
+	m_Lighted(true)
 {
-	m_v3Ambient = glm::vec3(0.3f, 0.3f, 0.3f);
-	m_v3Diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
-	m_v3Specular = glm::vec3(1.0f, 1.0f, 1.0f);
+
 }
 
 LM::Light::~Light()
@@ -50,4 +53,14 @@ glm::vec3 LM::Light::GetDiffuse() const
 glm::vec3 LM::Light::GetSpecular() const
 {
 	return m_v3Specular;
+}
+
+bool LM::Light::IsLighted() const
+{
+	return m_Lighted;
+}
+
+void LM::Light::SetLighted(bool ifLight)
+{
+	m_Lighted = ifLight;
 }

@@ -153,6 +153,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
     <ClInclude Include="src\glObj\FrameBufferMS.h" />
+    <ClInclude Include="src\glObj\LightBuffer.h" />
     <ClInclude Include="src\glObj\oitContext.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\Input.h" />
@@ -166,6 +167,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Rand\Rand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\TransparencySprite.h" />
+    <ClInclude Include="src\SceneObj\illuminant.h" />
     <ClInclude Include="src\SceneObj\SceneObj.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Shader\tfbShader.h" />
@@ -203,6 +205,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
     <ClCompile Include="src\glObj\FrameBufferMS.cpp" />
+    <ClCompile Include="src\glObj\LightBuffer.cpp" />
     <ClCompile Include="src\glObj\oitContext.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\Input.cpp" />
@@ -216,6 +219,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Rand\Rand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\TransparencySprite.cpp" />
+    <ClCompile Include="src\SceneObj\illuminant.cpp" />
     <ClCompile Include="src\SceneObj\SceneObj.cpp" />
     <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\Shader\tfbShader.cpp" />

@@ -33,7 +33,7 @@ namespace LM
 		float m_fOuterBdr;
 		float m_fInnerBdr;
 	public:
-		SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position,glm::vec3 direction);
+		SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position,glm::vec3 direction, LightType type = LightType::SpotLight);
 		SpotLight();
 		~SpotLight();
 		void SetUniformLight(const std::string& valName, Shader&shader);
@@ -44,5 +44,6 @@ namespace LM
 		/// <param name="outer"></param>
 		/// <param name="inner"></param>
 		void SetLightBoundary(float outer, float inner);
+		unsigned int WriteBuffer(GLenum target, unsigned int offset) override;
 	};
 }

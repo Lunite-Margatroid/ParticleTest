@@ -30,7 +30,7 @@ namespace LM
 		float m_kLinear;			// 一次项
 		float m_kQuadratic;		// 2次项
 	public:
-		PointLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position);
+		PointLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, LightType type = LightType::PointLight);
 		PointLight();
 		virtual ~PointLight();
 		void SetUniformLight(const std::string& valName, Shader& shader);
@@ -43,6 +43,8 @@ namespace LM
 		float GetKConstant() const;
 		float GetKLinear() const;
 		float GetKQuadratic() const;
+
+		unsigned int WriteBuffer(GLenum target, unsigned int offset) override;
 	};
 
 }
