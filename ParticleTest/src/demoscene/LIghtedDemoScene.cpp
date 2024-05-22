@@ -25,6 +25,7 @@ namespace ptt
 
 		// cube
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new CubeSprite()), "cube1");
+		obj->SetPosition(glm::vec3(1.5f, 1.4f, 1.4f));
 		material = dynamic_cast<Material*>(obj->GetSprite());
 		if (material)
 		{
@@ -36,7 +37,20 @@ namespace ptt
 
 		// π‚‘¥
 		Illuminant* lightedObj = new Illuminant(m_RootObj.get(), nullptr, "DirLight1", 
-			dynamic_cast<LM::DirLight*>(new LM::DirLight()));
+			dynamic_cast<LM::Light*>(new LM::DirLight()));
+		AddLight(lightedObj->GetLight());
+
+		lightedObj = new Illuminant(m_RootObj.get(), new CubeSprite(), "PointLight1",
+			dynamic_cast<LM::Light*>(new LM::PointLight()));
+		lightedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
+		lightedObj->SetPosition(glm::vec3(0.0f, 5.0f, 0.f));
+		AddLight(lightedObj->GetLight());
+
+		lightedObj = new Illuminant(m_RootObj.get(), new CubeSprite(), "SpotLight1",
+			dynamic_cast<LM::Light*>(new LM::SpotLight()));
+		lightedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
+		lightedObj->SetPosition(glm::vec3(2.0f, 5.0f, 0.f));
+		AddLight(lightedObj->GetLight());
 
 	}
 	void LightedDemoScene::LightEditor()
@@ -105,5 +119,11 @@ namespace ptt
 		case LM::LightType::SpotLight:		m_SpotLights.push_back(light); break;
 		default:break;
 		}
+	}
+	void LightedDemoScene::BindLightBuffer()
+	{
+		m_DirLightBuffer.BindToShaderStorage(nullptr, "");
+		m_PointLightBuffer.BindToShaderStorage(nullptr, "");
+		m_SpotLightBuffer.BindToShaderStorage(nullptr, "");
 	}
 }

@@ -150,7 +150,7 @@ namespace ptt
 				ImGuiSliderFlags_AlwaysClamp);
 			ImGui::Separator();
 		}
-		ImGui::DragFloat("shininess", &m_Shininess, 0.5, 1.0f, 64.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+		ImGui::DragFloat("shininess", &m_Shininess, 0.5, 1.0f, 128.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
 
 		ImGui::EndChild();
 

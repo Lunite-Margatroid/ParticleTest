@@ -114,8 +114,6 @@ void CulcDirLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 	// specular
 		specular = specular + pow(max(dot(HalfVec_ , dir), 0.0f), u_Material.shininess) * light.specular;
 		
-	//ambient = vec3(0.3f);
-		
 	}
 }
 
@@ -156,7 +154,7 @@ void CulcSpotLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		dir = dir / dist;
 		
 		// 照射系数  判断是否在照射范围内
-		float kLight = dot(-dir , light.direction);
+		float kLight = dot(-dir , normalize(light.direction));
 		kLight = clamp((kLight - light.outerbdr) / (light.innerbdr - light.outerbdr), 0.0f, 1.0f );
 		// 衰减系数
 		float k = light.kConstant + (light.kLinear + light.kQuadratic * dist) * dist;

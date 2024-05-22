@@ -30,11 +30,13 @@ namespace LM
 			};
 		*/
 	protected:
-		float m_fOuterBdr;
 		float m_fInnerBdr;
+		float m_fOuterBdr;
+		
 
-		float m_radOuterBdr;
 		float m_radInnerBdr;
+		float m_radOuterBdr;
+		
 	public:
 		SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position,glm::vec3 direction, LightType type = LightType::SpotLight);
 		SpotLight();

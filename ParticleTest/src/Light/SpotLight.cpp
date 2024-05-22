@@ -3,12 +3,12 @@
 
 LM::SpotLight::SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, glm::vec3 direction, LightType type)
 	:
-	Light(ambient,diffuse,specular, type)
+	Light(ambient, diffuse, specular, type)
 {
 	m_v3Position = position;
 	m_v3Direction = direction;
 	m_radInnerBdr = 3.14159f / 12.f;
-	m_fInnerBdr = cos(m_fInnerBdr);
+	m_fInnerBdr = cos(m_radInnerBdr);
 	m_radOuterBdr = 3.14159f / 10.f;
 	m_fOuterBdr = cos(m_radOuterBdr);
 }
@@ -16,7 +16,7 @@ LM::SpotLight::SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specula
 LM::SpotLight::SpotLight()
 {
 	m_radInnerBdr = 3.14159f / 12.f;
-	m_fInnerBdr = cos(m_fInnerBdr);
+	m_fInnerBdr = cos(m_radInnerBdr);
 	m_radOuterBdr = 3.14159f / 10.f;
 	m_fOuterBdr = cos(m_radOuterBdr);
 	m_Type = LightType::SpotLight;
@@ -81,47 +81,26 @@ unsigned int LM::SpotLight::WriteBuffer(GLenum target, unsigned int offset)
 				// innerbdr > outerbdr
 			};
 		*/
-	if (m_Lighted)
-	{
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Ambient.r);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Ambient.r);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Diffuse.r);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Diffuse.r);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Specular.r);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Specular.r);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Direction.x);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Direction.x);
+	offset += 3 * sizeof(float);
 
-		glBufferSubData(target, offset, 5 * sizeof(float), &m_kConstant);
-		offset += 8 * sizeof(float);
-	}
-	else
-	{
-		float unlighted[3] = {0.0f,0.0f,0.0f};
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
+	offset += 3 * sizeof(float);
+	glBufferSubData(target, offset, 2 * sizeof(float), &m_fInnerBdr);
+	offset += 6 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Direction.x);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 5 * sizeof(float), &m_kConstant);
-		offset += 8 * sizeof(float);
-	}
 	return offset;
 }
 
@@ -129,9 +108,9 @@ void LM::SpotLight::LightEditor()
 {
 	PointLight::LightEditor();
 	ImGui::Text("Boundry");
-	ImGui::DragFloat("Inner Boundry", &m_radInnerBdr, 0.1f, 0.0f, PI / 2, "%.3f",
+	ImGui::DragFloat("Inner Boundry", &m_radInnerBdr, 0.01f, 0.0f, PI / 2, "%.3f",
 		ImGuiSliderFlags_AlwaysClamp);
-	ImGui::DragFloat("Outer Boundry", &m_radOuterBdr, 0.1f, 0.0f, PI / 2, "%.3f",
+	ImGui::DragFloat("Outer Boundry", &m_radOuterBdr, 0.01f, 0.0f, PI / 2, "%.3f",
 		ImGuiSliderFlags_AlwaysClamp);
 
 	if (m_radOuterBdr > m_radInnerBdr)

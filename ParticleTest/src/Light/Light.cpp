@@ -58,6 +58,7 @@ glm::vec3 LM::Light::GetSpecular() const
 void LM::Light::LightEditor()
 {
 	ImGui::SeparatorText("Light Editor");
+	ImGui::Checkbox("Enable", &m_Lighted);
 	ImGui::ColorEdit3("Ambient", &m_v3Ambient.r);
 	ImGui::ColorEdit3("Diffuse", &m_v3Diffuse.r);
 	ImGui::ColorEdit3("Specular", &m_v3Specular.r);

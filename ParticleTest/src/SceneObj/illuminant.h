@@ -18,6 +18,8 @@ namespace ptt
 		void AttachLight(LM::Light* light);
 		void RemoveLight();
 
+		LM::Light* GetLight();
+
 
 	};
 }

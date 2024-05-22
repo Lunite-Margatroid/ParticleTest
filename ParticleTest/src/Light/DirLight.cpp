@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "DirLight.h"
 
-LM::DirLight::DirLight(glm::vec3 ambi, glm::vec3 diff, glm::vec3 spec, glm::vec3 dir, LightType type):
-	Light(ambi, diff, spec, type),m_v3Direction(dir)
+LM::DirLight::DirLight(glm::vec3 ambi, glm::vec3 diff, glm::vec3 spec, glm::vec3 dir, LightType type) :
+	Light(ambi, diff, spec, type), m_v3Direction(dir)
 {
 }
 
@@ -52,35 +52,17 @@ unsigned int LM::DirLight::WriteBuffer(GLenum target, unsigned int offset)
 		vec3 direction;			// π‚’’∑ΩœÚ
 	};
 	*/
-	if (m_Lighted)
-	{// lighted
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Ambient.r);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Ambient.r);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Diffuse.r);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Diffuse.r);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Specular.r);
-		offset += 4 * sizeof(float);
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Specular.r);
+	offset += 4 * sizeof(float);
 
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Direction.x);
-		offset += 4 * sizeof(float);
-	}
-	else
-	{// unlighted
-		float unlighted[3] = {0.0f, 0.0f, 0.0f};
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Direction.x);
-		offset += 4 * sizeof(float);
-	}
+	glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Direction.x);
+	offset += 4 * sizeof(float);
 
 	return offset;
 }

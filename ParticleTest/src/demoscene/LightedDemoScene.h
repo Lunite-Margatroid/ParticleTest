@@ -28,5 +28,7 @@ namespace ptt
 
 		bool RemoveLight(LM::Light* light);
 		void AddLight(LM::Light* light);
+
+		virtual void BindLightBuffer();
 	};
 }

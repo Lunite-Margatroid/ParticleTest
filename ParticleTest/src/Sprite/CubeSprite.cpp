@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CubeSprite.h"
+#include "Application.h"
+#include "demoscene/LightedDemoScene.h"
 
 namespace ptt
 {
@@ -21,7 +23,12 @@ namespace ptt
 			return;
 		LM::Shader* shader;
 		if (m_Lighted)
+		{
 			shader = Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T);
+			LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(Application::GetCurrentScene());
+			if (scene)
+				scene->BindLightBuffer();
+		}
 		else
 			shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
 		if (shader == nullptr)

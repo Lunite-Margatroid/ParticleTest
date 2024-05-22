@@ -14,8 +14,10 @@ namespace ptt
 		{
 			scene->AddLight(m_Light);
 		}*/
-		LightedDemoScene* scene = (LightedDemoScene*)(Application::GetCurrentScene());
-		scene->AddLight(m_Light);
+		//LightedDemoScene* scene = (LightedDemoScene*)(Application::GetCurrentScene());
+		//scene->AddLight(m_Light);
+
+		// 动态创建的时候要注意 保存光照对象
 	}
 	Illuminant::~Illuminant()
 	{
@@ -73,5 +75,9 @@ namespace ptt
 			delete m_Light;
 			m_Light = nullptr;
 		}
+	}
+	LM::Light* Illuminant::GetLight()
+	{
+		return m_Light;
 	}
 }

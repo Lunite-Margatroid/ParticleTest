@@ -32,29 +32,38 @@ namespace ptt
 	}
 	void LightBuffer::Init(int count, LM::Light* lights)
 	{
-		unsigned int offset = 0;
+		unsigned int offset = 4 * sizeof(float);
+		m_Count = 0;
 		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_Buffer);
-		glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, sizeof(int), &m_Count);
-		offset += 4 * sizeof(float);
 
 		for (int i = 0; i < count; i++)
 		{
-			offset = lights[i].WriteBuffer(GL_SHADER_STORAGE_BUFFER, offset);
-			ASSERT(offset < m_MaxSize);
+			if (lights[i].IsLighted())
+			{
+				offset = lights[i].WriteBuffer(GL_SHADER_STORAGE_BUFFER, offset);
+				ASSERT(offset < m_MaxSize);
+				m_Count++;
+			}
 		}
+		glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(int), &m_Count);
 	}
 	void LightBuffer::Init(int count, LM::Light** lights)
 	{
 		unsigned int offset = 0;
+		m_Count = 0;
 		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_Buffer);
-		glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, sizeof(int), &m_Count);
 		offset += 4 * sizeof(float);
 
 		for (int i = 0; i < count; i++)
 		{
-			offset = lights[i]->WriteBuffer(GL_SHADER_STORAGE_BUFFER, offset);
-			ASSERT(offset < m_MaxSize);
+			if (lights[i]->IsLighted())
+			{
+				offset = lights[i]->WriteBuffer(GL_SHADER_STORAGE_BUFFER, offset);
+				ASSERT(offset < m_MaxSize);
+				m_Count++;
+			}
 		}
+		glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(int), &m_Count);
 	}
 	void LightBuffer::BindToShaderStorage(LM::Shader* shader, const std::string& bufferName)
 	{

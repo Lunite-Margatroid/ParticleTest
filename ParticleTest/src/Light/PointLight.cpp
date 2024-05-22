@@ -93,8 +93,6 @@ unsigned int LM::PointLight::WriteBuffer(GLenum target, unsigned int offset)
 			};
 
 		*/
-	if (m_Lighted)
-	{
 		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Ambient.r);
 		offset += 4 * sizeof(float);
 
@@ -105,30 +103,10 @@ unsigned int LM::PointLight::WriteBuffer(GLenum target, unsigned int offset)
 		offset += 4 * sizeof(float);
 
 		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
-		offset += 4 * sizeof(float);
+		offset += 3 * sizeof(float);
 
 		glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
 		offset += 4 * sizeof(float);
-	}
-	else
-	{
-		float unlighted[3] = {0.0f, 0.0f, 0.0f};
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), unlighted);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_v3Position.x);
-		offset += 4 * sizeof(float);
-
-		glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
-		offset += 4 * sizeof(float);
-	}
-
 	return offset;
 }
 
