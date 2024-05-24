@@ -6,9 +6,9 @@ namespace ptt
 	void LightedDemoScene::Init()
 	{
 		// 绑定光照缓存
-		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T), "DirLights");
-		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T), "PointLights");
-		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T), "SpotLights");
+		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "DirLights");
+		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "PointLights");
+		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
 		// 相机
 		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
 		Renderer::SetCurrentCamera(m_Camera);
@@ -45,6 +45,10 @@ namespace ptt
 			tex = Renderer::LoadTexture("./res/img/img_2.png", LM::texture_diffuse);
 			material->SetTexture(LM::texture_diffuse, tex);
 		}
+
+		// sphere
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere");
+		obj->SetPosition(glm::vec3(-2.0,2.0f, -2.0f));
 
 		// 光源
 		Illuminant* lightedObj = new Illuminant(m_RootObj.get(), nullptr, "DirLight1", 

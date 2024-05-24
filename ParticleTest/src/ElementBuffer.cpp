@@ -26,6 +26,12 @@ void LM::ElementBuffer::Init(unsigned int count, void* data, GLenum usage)
 	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, usage));
 }
 
+void LM::ElementBuffer::SetData(unsigned int offset, unsigned int size, unsigned int* data)
+{
+	Bind();
+	GLCall(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, data));
+}
+
 void LM::ElementBuffer::Bind() const
 {
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id));

@@ -118,6 +118,9 @@ namespace ptt
 		for (int i = 0; i < 4; i++)
 		{// 对于每一个 m_Texture 都有一个combo
 			
+			ImGui::BeginChild(Renderer::GetTextureComboName(i + 1).c_str(),
+				ImVec2(0.0f, 0.0f),
+				ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeY);
 			if (ImGui::BeginCombo(textures[i].m_Texture->GetTexType().c_str(), textures[i].m_Texture->GetTextureName().c_str()))
 			{
 				int n = Renderer::GetTextureCount();
@@ -149,6 +152,7 @@ namespace ptt
 				"%.3f",
 				ImGuiSliderFlags_AlwaysClamp);
 			ImGui::Separator();
+			ImGui::EndChild();
 		}
 		ImGui::DragFloat("shininess", &m_Shininess, 0.5, 1.0f, 128.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
 
@@ -198,25 +202,29 @@ namespace ptt
 	{
 		/*
 		struct Material
-		{
-			sampler2D DiffuseTex;
-			vec2 DiffuseTexOffset;
-			vec2 DiffuseTexScale;
+{
+	sampler2D DiffuseTex;
+	vec2 DiffuseTexOffset;
+	vec2 DiffuseTexScale;
+	float DiffuseTexWeight;
 	
-			sampler2D SpecularTex;
-			vec2 SpecularTexOffset;
-			vec2 SpecularTexScale;
+	sampler2D SpecularTex;
+	vec2 SpecularTexOffset;
+	vec2 SpecularTexScale;
+	float SpecularTexWeight;
 	
-			sampler2D NormalTex;
-			vec2 NormalTexOffset;
-			vec2 NormalTexScale;
+	sampler2D NormalTex;
+	vec2 NormalTexOffset;
+	vec2 NormalTexScale;
+	float NormalTexWeight;
 	
-			sampler2D ParallaxTex;
-			vec2 ParallaxTexOffset;
-			vec2 ParallaxTexScale;
+	sampler2D ParallaxTex;
+	vec2 ParallaxTexOffset;
+	vec2 ParallaxTexScale;
+	float ParallaxTexWeight;
 	
-			float shininess;
-		};
+	float shininess;
+};
 
 		uniform Material u_Material;
 		*/
@@ -225,18 +233,22 @@ namespace ptt
 		shader->SetUniformTexture("u_Material.DiffuseTex", 0);
 		shader->SetUniform2f("u_Material.DiffuseTexOffset", &m_texDiffuse.offsetx);
 		shader->SetUniform2f("u_Material.DiffuseTexScale", &m_texDiffuse.scalex);
+		shader->SetUniform1f("u_Material.DiffuseTexWeight", m_texDiffuse.weight);
 
 		shader->SetUniformTexture("u_Material.SpecularTex", 1);
 		shader->SetUniform2f("u_Material.SpecularTexOffset", &m_texSpecular.offsetx);
 		shader->SetUniform2f("u_Material.SpecularTexScale", &m_texSpecular.scalex);
+		shader->SetUniform1f("u_Material.SpecularTexWeight", m_texSpecular.weight);
 
 		shader->SetUniformTexture("u_Material.NormalTex", 2);
 		shader->SetUniform2f("u_Material.NormalTexOffset", &m_texNormal.offsetx);
 		shader->SetUniform2f("u_Material.NormalTexScale", &m_texNormal.scalex);
+		shader->SetUniform1f("u_Material.NormalTexWeight", m_texNormal.weight);
 
 		shader->SetUniformTexture("u_Material.ParallaxTex", 3);
 		shader->SetUniform2f("u_Material.ParallaxTexOffset", &m_texParallax.offsetx);
 		shader->SetUniform2f("u_Material.ParallaxTexScale", &m_texParallax.scalex);
+		shader->SetUniform1f("u_Material.ParallaxTexWeight", m_texParallax.weight);
 
 		shader->SetUniform1f("u_Material.shininess", m_Shininess);
 	}

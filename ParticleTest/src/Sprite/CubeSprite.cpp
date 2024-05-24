@@ -7,7 +7,7 @@ namespace ptt
 {
 	void CubeSprite::Init()
 	{
-		m_vao = Renderer::GetVertexArray(Renderer::VertexArrays::Cube_V_N_T);
+		m_vao = Renderer::GetVertexArray(Renderer::VertexArrays::Cube_P_N_T_TG);
 	}
 	CubeSprite::CubeSprite(bool init)
 		:QuadSprite(false)
@@ -21,21 +21,10 @@ namespace ptt
 		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
 		if (camera == nullptr)
 			return;
-		LM::Shader* shader;
-		if (m_Lighted)
-		{
-			shader = Renderer::GetShader(Renderer::Shaders::LightedMesh_V_N_T);
-			LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(Application::GetCurrentScene());
-			if (scene)
-				scene->BindLightBuffer();
-		}
-		else
-			shader = Renderer::GetShader(Renderer::Shaders::Mesh_V_N_T);
-		if (shader == nullptr)
-			return;
+		SelectShader();
 
-		shader->Bind();
-		SetUniformMaterial(shader);
+		m_Shader->Bind();
+		SetUniformMaterial(m_Shader);
 
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
 		glm::mat3& normalTrans = Renderer::GetNormalTrans();
@@ -43,13 +32,13 @@ namespace ptt
 		mvTrans = camera->GetViewTrans() * modelTrans;
 		mvpTrans = camera->GetProjectionTrans() * mvTrans;
 		normalTrans = glm::transpose(glm::inverse(glm::mat3(modelTrans)));
-		shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
-		shader->SetUniformMatrix4f("u_MVTrans", false, glm::value_ptr(mvTrans));
-		shader->SetUniformMatrix3f("u_NormalTrans", false, glm::value_ptr(normalTrans));
-		shader->SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(camera->GetViewTrans()));
-		shader->SetUniformMatrix4f("u_MTrans", false, glm::value_ptr(modelTrans));
-		shader->SetUniform4f("u_Color", &m_Color[0].r);
-		shader->SetUniform3f("u_CameraPos", &(camera->GetPosition().x));
+		m_Shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
+		m_Shader->SetUniformMatrix4f("u_MVTrans", false, glm::value_ptr(mvTrans));
+		m_Shader->SetUniformMatrix3f("u_NormalTrans", false, glm::value_ptr(normalTrans));
+		m_Shader->SetUniformMatrix4f("u_VTrans", false, glm::value_ptr(camera->GetViewTrans()));
+		m_Shader->SetUniformMatrix4f("u_MTrans", false, glm::value_ptr(modelTrans));
+		m_Shader->SetUniform4f("u_Color", &m_Color[0].r);
+		m_Shader->SetUniform3f("u_CameraPos", &(camera->GetPosition().x));
 
 		m_vao->DrawElement();
 	}

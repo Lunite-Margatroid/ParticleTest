@@ -18,18 +18,22 @@ struct Material
 	sampler2D DiffuseTex;
 	vec2 DiffuseTexOffset;
 	vec2 DiffuseTexScale;
+	float DiffuseTexWeight;
 	
 	sampler2D SpecularTex;
 	vec2 SpecularTexOffset;
 	vec2 SpecularTexScale;
+	float SpecularTexWeight;
 	
 	sampler2D NormalTex;
 	vec2 NormalTexOffset;
 	vec2 NormalTexScale;
+	float NormalTexWeight;
 	
 	sampler2D ParallaxTex;
 	vec2 ParallaxTexOffset;
 	vec2 ParallaxTexScale;
+	float ParallaxTexWeight;
 	
 	float shininess;
 };
@@ -181,10 +185,15 @@ vec4 FragmentShader()
 	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
 	
 	vec4 diffuseTexColor = texture2D(u_Material.DiffuseTex, texCoord);
+	diffuseTexColor = diffuseTexColor * u_Material.DiffuseTexWeight;
+	
 	vec4 specularTexColor = texture2D(u_Material.SpecularTex, specularTexCoord);
+	specularTexColor = specularTexColor * u_Material.SpecularTexWeight;
 		// 法线贴图
 	vec2 normalTexCoord = TexCoord / u_Material.NormalTexScale + u_Material.NormalTexOffset;
 	vec4 normalTexColor = texture2D(u_Material.NormalTex, normalTexCoord) - vec4(0.5f);
+	normalTexColor.x = normalTexColor.x * u_Material.NormalTexWeight;
+	normalTexColor.y = normalTexColor.y * u_Material.NormalTexWeight;
 	NormalVec_ = normalize(InverseLocalTrans *  normalTexColor.xyz);
 	// 计算光照
 	vec3 dirAmbient;

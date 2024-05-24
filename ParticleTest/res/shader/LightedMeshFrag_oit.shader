@@ -19,18 +19,22 @@ struct Material
 	sampler2D DiffuseTex;
 	vec2 DiffuseTexOffset;
 	vec2 DiffuseTexScale;
+	float DiffuseTexWeight;
 	
 	sampler2D SpecularTex;
 	vec2 SpecularTexOffset;
 	vec2 SpecularTexScale;
+	float SpecularTexWeight;
 	
 	sampler2D NormalTex;
 	vec2 NormalTexOffset;
 	vec2 NormalTexScale;
+	float NormalTexWeight;
 	
 	sampler2D ParallaxTex;
 	vec2 ParallaxTexOffset;
 	vec2 ParallaxTexScale;
+	float ParallaxTexWeight;
 	
 	float shininess;
 };
@@ -177,22 +181,21 @@ vec4 FragmentShader()
 	// 先把输入单位化
 	NormalVec_ = normalize(NormalVec);
 	HalfVec_ = normalize(HalfVec);
-
-	// 先把输入单位化
-	NormalVec_ = normalize(NormalVec);
-	HalfVec_ = normalize(HalfVec);
-
 	// 纹理颜色
 	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
 	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
-
+	
 	vec4 diffuseTexColor = texture2D(u_Material.DiffuseTex, texCoord);
+	diffuseTexColor = diffuseTexColor * u_Material.DiffuseTexWeight;
+	
 	vec4 specularTexColor = texture2D(u_Material.SpecularTex, specularTexCoord);
-			// 法线贴图
+	specularTexColor = specularTexColor * u_Material.SpecularTexWeight;
+		// 法线贴图
 	vec2 normalTexCoord = TexCoord / u_Material.NormalTexScale + u_Material.NormalTexOffset;
 	vec4 normalTexColor = texture2D(u_Material.NormalTex, normalTexCoord) - vec4(0.5f);
-	NormalVec_ = normalize(InverseLocalTrans * normalTexColor.xyz);
-
+	normalTexColor.x = normalTexColor.x * u_Material.NormalTexWeight;
+	normalTexColor.y = normalTexColor.y * u_Material.NormalTexWeight;
+	NormalVec_ = normalize(InverseLocalTrans *  normalTexColor.xyz);
 	// 计算光照
 	vec3 dirAmbient;
 	vec3 dirDiffuse;
@@ -213,12 +216,15 @@ vec4 FragmentShader()
 	vec3 diffuse = dirDiffuse + pointDiffuse + spotDiffuse;
 	vec3 specular = dirSpecular + pointSpecular + spotSpecular;
 	
+	
+	
 	return (
 			diffuseTexColor * vec4((ambient + diffuse),1.0f)
 			+ specularTexColor * vec4(specular, 1.0f)
 			)
 			* u_Color;
 }
+
 
 /*---------------OIT--------------------*/
 

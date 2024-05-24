@@ -3,6 +3,7 @@
 #include "SceneObj/illuminant.h"
 #include "glObj/LightBuffer.h"
 #include "Light/Light.h"
+#include "Sprite/SphereSprite.h"
 namespace ptt
 {
 	class LightedDemoScene : public DemoSceneA

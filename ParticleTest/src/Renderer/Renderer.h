@@ -12,9 +12,11 @@ namespace ptt
 	class Renderer
 	{
 	public:
+		// P 顶点坐标   N 法向量  T 纹理坐标 TG 切线
 		enum class Shaders
 		{
-			FireWork, Hanabi, HanabiSpark, Mesh_V_N_T, QuadMesh, OIT, LightedMesh_V_N_T
+			FireWork, Hanabi, HanabiSpark, Mesh_P_N_T_TG, QuadMesh, OIT, LightedMesh_P_N_T_TG,
+			Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG
 		};
 		enum class Cameras
 		{
@@ -23,7 +25,7 @@ namespace ptt
 
 		enum class VertexArrays
 		{
-			Quad_V_N_T, Cube_V_N_T
+			Quad_P_N_T_TG, Cube_P_N_T_TG, Sphere_P_T_TG
 		};
 	protected:
 		glm::mat4 m_ViewTrans;

@@ -7,7 +7,7 @@ namespace ptt
 	Renderer* Renderer::s_Instance = nullptr;
 
 
-	Renderer::Renderer():
+	Renderer::Renderer() :
 		m_ViewTrans(1.0f),
 		m_ModelTrans(1.0f),
 		m_ProjectionTrans(1.0f),
@@ -21,7 +21,7 @@ namespace ptt
 		InitCamera();
 		InitTexture();
 		InitVertexArray();
-		if(m_oitRender)
+		if (m_oitRender)
 			InitOIT();
 	}
 
@@ -53,23 +53,34 @@ namespace ptt
 		m_ShaderMap[Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
 
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag.shader");
-		m_ShaderMap[Shaders::Mesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
+		m_ShaderMap[Shaders::Mesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::Mesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[Shaders::Mesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
 
 		shd = new LM::Shader("./res/shader/OIT_Vertex.shader", "./res/shader/OIT_Fragment.shader");
 		m_ShaderMap[Shaders::OIT] = dynamic_cast<LM::Shader*>(shd);
 
 		shd = new LM::Shader("./res/shader/LightedMeshVertex.shader", "./res/shader/LightedMeshFrag.shader");
-		m_ShaderMap[Shaders::LightedMesh_V_N_T] = shd;
+		m_ShaderMap[Shaders::LightedMesh_P_N_T_TG] = shd;
 		shd = new LM::Shader("./res/shader/LightedMeshVertex.shader", "./res/shader/LightedMeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::LightedMesh_V_N_T] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[Shaders::LightedMesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
+
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_Sphere.shader", "./res/shader/LightedMeshFrag.shader");
+		m_ShaderMap[Shaders::LightedMesh_Sphere_P_T_TG] = shd;
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_Sphere.shader", "./res/shader/LightedMeshFrag_oit.shader");
+		m_oitShaderMap[Shaders::LightedMesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
+
+		shd = new LM::Shader("./res/shader/MeshVertex_Sphere.shader", "./res/shader/MeshFrag.shader");
+		m_ShaderMap[Shaders::Mesh_Sphere_P_T_TG] = shd;
+		shd = new LM::Shader("./res/shader/MeshVertex_Sphere.shader", "./res/shader/MeshFrag_oit.shader");
+		m_oitShaderMap[Shaders::Mesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
+
 	}
 	void Renderer::InitTexture()
 	{
 		LM::Texture* tex = new LM::Texture();
 		tex->SetTextureName("default texture");
-		m_Textures[tex->GetTextureName()] =  tex;
+		m_Textures[tex->GetTextureName()] = tex;
 
 		tex = new LM::Texture(LM::texture_normal);
 		tex->SetTextureName("default normal texture");
@@ -144,6 +155,52 @@ namespace ptt
 			-1.0f,1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 1.0f,		0.0f,0.0f,1.0f
 		};
 
+		// ÇòÌå¶¥µã×ø±ê
+		const int xSegments = 70;
+		const int ySegments = 30;
+		const size_t sphereVerticeSize = (xSegments + 1) * (ySegments + 1) * 7 * sizeof(float);
+		const size_t sphereIndiceCount = xSegments * ySegments * 2;
+		totalSize += sphereVerticeSize;
+		eleBufferCount += sphereIndiceCount;
+		float* sphereVertice = new float[sphereVerticeSize];
+		// positon float3  texture coord float2		tangent float2
+		int p = 0;
+		for (int i = 0; i <= xSegments; i++)
+			for (int j = 0; j <= ySegments; j++)
+			{
+				float* temp = sphereVertice + p;
+				p += 7;
+				float u = float(i) / xSegments;
+				float v = float(j) / ySegments;
+				float alpha = 2 * PI * u;
+				float beta = PI * v;
+				temp[0] = sinf(alpha) * sinf(beta);
+				temp[1] = cosf(beta);
+				temp[2] = cosf(alpha) * sinf(beta);
+
+				temp[3] = u;
+				temp[4] = 1.0f - v;
+
+				temp[5] = cosf(alpha);
+				temp[6] = -sinf(alpha);
+			}
+		unsigned int* sphereIndice = new unsigned[sphereIndiceCount];
+		p = 0;
+		for (int i = 0; i < xSegments; i++)
+		{
+			for (int j = 0; j < ySegments; j++)
+			{
+				sphereIndice[p++] = i * (ySegments + 1) + j;
+				sphereIndice[p++] = (i + 1) * (ySegments + 1) + j + 1;
+			}
+			if (++i >= xSegments)
+				break;
+			for (int j = ySegments - 1; j >= 0; j--)
+			{
+				sphereIndice[p++] = (i + 1) * (ySegments + 1) + j + 1;
+				sphereIndice[p++] = i * (ySegments + 1) + j;
+			}
+		}
 		unsigned int indices[] =
 		{
 		0, 1,2,0,2,3,
@@ -154,8 +211,12 @@ namespace ptt
 		20, 21,22,20,22,23
 		};
 
-		m_VertexBuffer.Init(totalSize, vertice, GL_STATIC_DRAW);
-		m_ElementBuffer.Init(eleBufferCount, indices, GL_STATIC_DRAW);
+		m_VertexBuffer.Init(totalSize, NULL, GL_STATIC_DRAW);
+		m_VertexBuffer.SetData(0, quadBufferSize + cubeBufferSize, vertice);
+		m_VertexBuffer.SetData(quadBufferSize + cubeBufferSize, sphereVerticeSize, sphereVertice);
+		m_ElementBuffer.Init(eleBufferCount, NULL, GL_STATIC_DRAW);
+		m_ElementBuffer.SetData(0, cubeEleBufferCount * sizeof(unsigned int), indices);
+		m_ElementBuffer.SetData(cubeEleBufferCount * sizeof(unsigned int), sphereIndiceCount * sizeof(unsigned int), sphereIndice);
 
 		// quad
 		LM::VertexArray* va = new LM::VertexArray();
@@ -167,21 +228,38 @@ namespace ptt
 		va->PushAttrib<float>(2);
 		va->PushAttrib<float>(3);
 		va->ApplyLayout(0);
-		m_VertexArrayMap[VertexArrays::Quad_V_N_T] = va;
+		m_VertexArrayMap[VertexArrays::Quad_P_N_T_TG] = va;
 
 		// cube
 		va = new LM::VertexArray();
 		va->SetVB(m_VertexBuffer.GetID());
 		va->SetEB(m_ElementBuffer.GetID());
 		va->SetMetaType(GL_TRIANGLES);
-		va->SetCount(36);
+		va->SetCount(cubeEleBufferCount);
 		va->SetElementOffset(0);
 		va->PushAttrib<float>(3);
 		va->PushAttrib<float>(3);
 		va->PushAttrib<float>(2);
 		va->PushAttrib<float>(3);
 		va->ApplyLayout(quadBufferSize);
-		m_VertexArrayMap[VertexArrays::Cube_V_N_T] = va;
+		m_VertexArrayMap[VertexArrays::Cube_P_N_T_TG] = va;
+
+		// sphere
+		va = new LM::VertexArray();
+		va->SetVB(m_VertexBuffer.GetID());
+		va->SetEB(m_ElementBuffer.GetID());
+		va->SetMetaType(GL_TRIANGLE_STRIP);
+		va->SetCount(sphereIndiceCount);
+		va->SetElementOffset(cubeEleBufferCount * sizeof(unsigned int));
+		va->PushAttrib<float>(3);
+		va->PushAttrib<float>(2);
+		va->PushAttrib<float>(2);
+		va->ApplyLayout(quadBufferSize + cubeBufferSize);
+		m_VertexArrayMap[VertexArrays::Sphere_P_T_TG] = va;
+
+		delete[] sphereIndice;
+		delete[] sphereVertice;
+
 	}
 	Renderer::~Renderer()
 	{
@@ -224,7 +302,7 @@ namespace ptt
 	}
 	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type)
 	{
-		auto& textures =  GetInstance()->m_Textures;
+		auto& textures = GetInstance()->m_Textures;
 		//-----------------Get file name------------
 		std::string::const_iterator begin;
 		auto i = path.begin();
@@ -281,7 +359,7 @@ namespace ptt
 		{
 			return names[texCombo];
 		}
-		
+
 		std::string temp = "texture ";
 		int i = names.size();
 		for (; i < 100 && i <= texCombo; i++)
@@ -289,7 +367,7 @@ namespace ptt
 			std::string tt = std::to_string(i);
 			names.push_back(temp + tt);
 		}
-		return names[i-1];
+		return names[i - 1];
 	}
 	unsigned int Renderer::GetTextureCount()
 	{
@@ -351,7 +429,7 @@ namespace ptt
 	void Renderer::LoadCamera(Cameras cameraName, Camera* camera)
 	{
 		auto& map = GetInstance()->m_CameraMap;
-		if (map.find(cameraName)== map.end())
+		if (map.find(cameraName) == map.end())
 		{
 			map[cameraName] = camera;
 		}
@@ -463,7 +541,7 @@ namespace ptt
 	}
 	LM::VertexArray* Renderer::GetVertexArray(VertexArrays va)
 	{
-		std::unordered_map<VertexArrays, LM::VertexArray*> &vaMap = GetInstance()->m_VertexArrayMap;
+		std::unordered_map<VertexArrays, LM::VertexArray*>& vaMap = GetInstance()->m_VertexArrayMap;
 		if (vaMap.find(va) == vaMap.end())
 			return nullptr;
 		return vaMap[va];

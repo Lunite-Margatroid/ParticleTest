@@ -22,5 +22,7 @@ namespace ptt
 		virtual ~QuadSprite();
 		virtual void Render(const glm::mat4& modelTrans) override;
 		virtual void RenderImGui() override;
+
+		virtual void SelectShader() override;
 	};
 }

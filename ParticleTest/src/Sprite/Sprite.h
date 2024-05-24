@@ -6,7 +6,7 @@ namespace ptt
 	class Sprite : public ImGuiInterface
 	{
 	protected:
-		LM::Shader* m_Shader;	// 冗余 迁移的时候记得删掉
+		LM::Shader* m_Shader;
 		bool m_Transparency;
 		bool m_Visible;
 		bool m_Lighted;
@@ -23,5 +23,6 @@ namespace ptt
 		void SetLighted(bool lighted);
 
 		virtual void RenderImGui() override;
+		virtual void SelectShader();
 	};
 }

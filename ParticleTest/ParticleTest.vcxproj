@@ -179,6 +179,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Sprite\Hanabi.h" />
     <ClInclude Include="src\Sprite\QuadMeshSprite.h" />
     <ClInclude Include="src\Sprite\QuadSprite.h" />
+    <ClInclude Include="src\Sprite\SphereSprite.h" />
     <ClInclude Include="src\Sprite\Sprite.h" />
     <ClInclude Include="src\Sprite\udSprite.h" />
     <ClInclude Include="src\VertexArray.h" />
@@ -233,6 +234,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Sprite\Hanabi.cpp" />
     <ClCompile Include="src\Sprite\QuadMeshSprite.cpp" />
     <ClCompile Include="src\Sprite\QuadSprite.cpp" />
+    <ClCompile Include="src\Sprite\SphereSprite.cpp" />
     <ClCompile Include="src\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Sprite\udSprite.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />

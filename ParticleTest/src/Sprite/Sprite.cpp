@@ -44,4 +44,7 @@ namespace ptt
 		ImGui::Checkbox("Transparency", &m_Transparency);
 		ImGui::Checkbox("Lighted", &m_Lighted);
 	}
+	void Sprite::SelectShader()
+	{
+	}
 }

@@ -131,6 +131,7 @@
     <ClInclude Include="src\SceneObj\illuminant.h" />
     <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h" />
     <ClInclude Include="src\ImGuiWindows\StyleEditor.h" />
+    <ClInclude Include="src\Sprite\SphereSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="src\SceneObj\illuminant.cpp" />
     <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp" />
     <ClCompile Include="src\ImGuiWindows\StyleEditor.cpp" />
+    <ClCompile Include="src\Sprite\SphereSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\FireLoopFrag.shader" />

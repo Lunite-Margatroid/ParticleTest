@@ -14,6 +14,8 @@ namespace LM
 
 		void Init(unsigned int count, void* data, GLenum usage = GL_STATIC_DRAW);
 
+		void SetData(unsigned int offset, unsigned int size, unsigned int * data);
+
 		void Bind() const;
 		void Unbind() const;
 
