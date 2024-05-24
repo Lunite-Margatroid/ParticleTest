@@ -93,24 +93,24 @@ namespace LM
 		m_ubTextureIndex(0),
 		m_type(type)
 	{// Ä¬ÈÏÎÆÀí 1 * 1 
-		float defaultColor;
+		float white[4] = { 0.0f,0.0f ,0.0f,0.0f};
 		switch (m_type)
 		{
 		case LM::texture_diffuse:
 			m_strType = "texture_diffuse";
-			defaultColor = 1.0f;
+			white[0] = 1.0f; white[1] = 1.0f; white[2] = 1.0f; white[3] = 1.0f;
 			break;
 		case LM::texture_specular:
 			m_strType = "texture_specular";
-			defaultColor = 1.0f;
+			white[0] = 1.0f; white[1] = 1.0f; white[2] = 1.0f; white[3] = 1.0f;
 			break;
 		case LM::texture_normal:
 			m_strType = "texture_normal";
-			defaultColor = 0.0f;
+			white[2] = 1.0f;
 			break;
 		case LM::texture_parallax:
 			m_strType = "texture_parallax";
-			defaultColor = 0.0f;
+			
 			break;
 		default:
 			m_type = texture_unknown;
@@ -120,7 +120,7 @@ namespace LM
 
 		glGenTextures(1, &m_uTextureID);
 		glBindTexture(GL_TEXTURE_2D, m_uTextureID);
-		float white[4] = { defaultColor,defaultColor ,defaultColor,defaultColor };
+		
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_FLOAT, white);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

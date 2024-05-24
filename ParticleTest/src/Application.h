@@ -5,6 +5,7 @@
 #include "Renderer/Renderer.h"
 #include "glObj/FrameBuffer.h"
 #include "glObj/FrameBufferMS.h"
+#include "vendor/ImGuiFileDialog/ImGuiFileDialog.h"
 
 namespace ptt
 {
@@ -50,6 +51,9 @@ namespace ptt
 		virtual void Render();
 		virtual void RenderImGui();
 		virtual void Run();
+
+		virtual void RenderMenuBar();
+
 
 		static Application* GetInstance();
 		static LM::FrameBuffer* GetFramebuffer();

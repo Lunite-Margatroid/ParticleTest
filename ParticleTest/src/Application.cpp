@@ -90,7 +90,10 @@ namespace ptt
 	{
 		m_ImGuiCtx->ImGuiBegin();
 
+		RenderMenuBar();
 		m_Menu->RenderImGui();
+
+
 		m_ImGuiCtx->ImGuiEnd();
 	}
 
@@ -104,6 +107,76 @@ namespace ptt
 			Render();
 			glFlush();
 		}
+	}
+
+	void Application::RenderMenuBar()
+	{
+		if (ImGui::BeginMainMenuBar())
+		{
+			if (ImGui::BeginMenu("File"))
+			{
+				if (ImGui::MenuItem("Open"))
+				{
+				}
+				if (ImGui::MenuItem("New"))
+				{
+				}
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("View"))
+			{
+				if (ImGui::MenuItem("Style Edit"))
+				{
+					m_ImGuiCtx->OpenWindow("Style Editor");
+				}
+				if (ImGui::MenuItem("Load Style"))
+				{
+					IGFD::FileDialogConfig config;
+					config.path = "./res/ImGuiStyle";
+					ImGuiFileDialog::Instance()->OpenDialog("Load Style", "Choose File", ".style", config);
+				}
+				if (ImGui::MenuItem("Save Style"))
+				{
+					IGFD::FileDialogConfig config;
+					config.path = "./res/ImGuiStyle";
+					ImGuiFileDialog::Instance()->OpenDialog("Save Style", "Choose File", ".style", config);
+				}
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMainMenuBar();
+		}
+
+
+		// ---------------- Load Style Dialog -------------------
+		if (ImGuiFileDialog::Instance()->Display("Load Style")) {
+			if (ImGuiFileDialog::Instance()->IsOk()) { // action if OK
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+				// action
+				m_ImGuiCtx->LoadStyle(filePathName);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
+
+
+		// ---------------- Save Style Dialog -------------------
+		if (ImGuiFileDialog::Instance()->Display("Save Style")) {
+			if (ImGuiFileDialog::Instance()->IsOk()) { // action if OK
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+				// action
+				m_ImGuiCtx->SaveStyle(filePathName);
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
+		// ----------------Style Editor------------------------
+		m_ImGuiCtx->ShowWindow("Style Editor");
 	}
 
 	Application* Application::GetInstance()

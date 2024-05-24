@@ -35,6 +35,17 @@ namespace ptt
 			material->SetTexture(LM::texture_specular, tex);
 		}
 
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new CubeSprite()), "cube2");
+		obj->SetPosition(glm::vec3(-1.5f, 1.4f, 1.4f));
+		material = dynamic_cast<Material*>(obj->GetSprite());
+		if (material)
+		{
+			LM::Texture* tex = Renderer::LoadTexture("./res/img/normalTex1.jpg", LM::texture_normal);
+			material->SetTexture(LM::texture_normal, tex);
+			tex = Renderer::LoadTexture("./res/img/img_2.png", LM::texture_diffuse);
+			material->SetTexture(LM::texture_diffuse, tex);
+		}
+
 		// นโิด
 		Illuminant* lightedObj = new Illuminant(m_RootObj.get(), nullptr, "DirLight1", 
 			dynamic_cast<LM::Light*>(new LM::DirLight()));

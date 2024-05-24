@@ -94,8 +94,8 @@ namespace ptt
 	void Renderer::InitVertexArray()
 	{
 		size_t totalSize = 0;
-		size_t quadBufferSize = 4 * 8 * sizeof(float);
-		size_t cubeBufferSize = 4 * 6 * 8 * sizeof(float);
+		size_t quadBufferSize = 4 * 11 * sizeof(float);
+		size_t cubeBufferSize = 4 * 6 * 11 * sizeof(float);
 		totalSize += quadBufferSize + cubeBufferSize;
 
 		size_t eleBufferCount = 0;
@@ -105,43 +105,43 @@ namespace ptt
 		float vertice[]
 		{
 			// ---------------------- Quad ---------------------------------
-			// postion float 3		normal vec float3    texture coordiate float 2
-			-1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		0.0f, 0.0f,
-			1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		1.0f, 0.0f,
-			1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		1.0f, 1.0f,
-			-1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		0.0f, 1.0f,
+			// postion float 3		normal vec float3    texture coordiate float 2		表面切线float3
+			-1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		0.0f, 0.0f,		1.0f, 0.0f,0.0f,
+			1.0f, 0.0f, -1.0f,   0.0f, 1.0f,0.0f,		1.0f, 0.0f,		1.0f, 0.0f,0.0f,
+			1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		1.0f, 1.0f,		1.0f, 0.0f,0.0f,
+			-1.0f, 0.0f, 1.0f,   0.0f, 1.0f,0.0f,		0.0f, 1.0f,		1.0f, 0.0f,0.0f,
 
 			// ----------------------- Cube --------------------------------
 			// 位置坐标					法线向量					纹理坐标
-			-1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 0.0f,
-			1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 0.0f,
-			1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 1.0f,
-			-1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 1.0f,
+			-1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 0.0f,		1.0f, 0.0f,0.0f,
+			1.0f, -1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 0.0f,		1.0f, 0.0f,0.0f,
+			1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			1.0f, 1.0f,		1.0f, 0.0f,0.0f,
+			-1.0f, 1.0f, 1.0f,		0.0f, 0.0f, 1.0f,			0.0f, 1.0f,		1.0f, 0.0f,0.0f,
 
-			-1.0f, -1.0f, -1.0f,	0.0f, 0.0f, -1.0f,			0.0f, 0.0f,
-			-1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 0.0f,
-			1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 1.0f,
-			1.0f, -1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			0.0f, 1.0f,
+			-1.0f, -1.0f, -1.0f,	0.0f, 0.0f, -1.0f,			0.0f, 0.0f,		 0.0f, 1.0f, 0.0f,
+			-1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 0.0f,		 0.0f, 1.0f, 0.0f,
+			1.0f, 1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			1.0f, 1.0f,		 0.0f, 1.0f, 0.0f,
+			1.0f, -1.0f, -1.0f,		0.0f, 0.0f, -1.0f,			0.0f, 1.0f,		 0.0f, 1.0f, 0.0f,
 
-			-1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 0.0f,
-			-1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 0.0f,
-			1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 1.0f,
-			1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 1.0f,
+			-1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 0.0f,		 0.0f,  0.0f,1.0f,
+			-1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 0.0f,		0.0f,  0.0f,1.0f,
+			1.0f, 1.0f,1.0f,		0.0f, 1.0f, 0.0f,			1.0f, 1.0f,		0.0f,  0.0f,1.0f,
+			1.0f, 1.0f,-1.0f,		0.0f, 1.0f, 0.0f,			0.0f, 1.0f,		0.0f,  0.0f,1.0f,
 
-			-1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 0.0f,
-			1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 0.0f,
-			1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 1.0f,
-			-1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 1.0f,
+			-1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 0.0f,		1.0f, 0.0f,0.0f,
+			1.0f, -1.0f,-1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 0.0f,		1.0f, 0.0f,0.0f,
+			1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			1.0f, 1.0f,		1.0f, 0.0f,0.0f,
+			-1.0f, -1.0f,1.0f,		0.0f, -1.0f, 0.0f,			0.0f, 1.0f,		1.0f, 0.0f,0.0f,
 
-			1.0f,-1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 0.0f,
-			1.0f,1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 0.0f,
-			1.0f,1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 1.0f,
-			1.0f,-1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 1.0f,
+			1.0f,-1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 0.0f,		0.0f,1.0f, 0.0f,
+			1.0f,1.0f, -1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 0.0f,		0.0f,1.0f, 0.0f,
+			1.0f,1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			1.0f, 1.0f,		0.0f,1.0f, 0.0f,
+			1.0f,-1.0f, 1.0f,		1.0f, 0.0f,  0.0f,			0.0f, 1.0f,		0.0f,1.0f, 0.0f,
 
-			-1.0f,-1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 0.0f,
-			-1.0f,-1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 0.0f,
-			-1.0f,1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 1.0f,
-			-1.0f,1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 1.0f
+			-1.0f,-1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 0.0f,		0.0f,0.0f,1.0f,
+			-1.0f,-1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 0.0f,		0.0f,0.0f,1.0f,
+			-1.0f,1.0f, 1.0f,		-1.0f, 0.0f,  0.0f,			1.0f, 1.0f,		0.0f,0.0f,1.0f,
+			-1.0f,1.0f, -1.0f,		-1.0f, 0.0f,  0.0f,			0.0f, 1.0f,		0.0f,0.0f,1.0f
 		};
 
 		unsigned int indices[] =
@@ -165,6 +165,7 @@ namespace ptt
 		va->PushAttrib<float>(3);
 		va->PushAttrib<float>(3);
 		va->PushAttrib<float>(2);
+		va->PushAttrib<float>(3);
 		va->ApplyLayout(0);
 		m_VertexArrayMap[VertexArrays::Quad_V_N_T] = va;
 
@@ -178,6 +179,7 @@ namespace ptt
 		va->PushAttrib<float>(3);
 		va->PushAttrib<float>(3);
 		va->PushAttrib<float>(2);
+		va->PushAttrib<float>(3);
 		va->ApplyLayout(quadBufferSize);
 		m_VertexArrayMap[VertexArrays::Cube_V_N_T] = va;
 	}

@@ -5,9 +5,10 @@ in vec3 NormalVec;	vec3 NormalVec_;
 in vec3 HalfVec;	vec3 HalfVec_;
 in vec3 FragPos;		// 相机坐标系的顶点坐标
 in vec2 TexCoord;
+in mat3 InverseLocalTrans;
 
 uniform vec4 u_Color;
-
+uniform vec3 u_CameraPos;
 // 输出
 out vec4 FragColor;
 
@@ -175,6 +176,16 @@ vec4 FragmentShader()
 	// 先把输入单位化
 	NormalVec_ = normalize(NormalVec);
 	HalfVec_ = normalize(HalfVec);
+	// 纹理颜色
+	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
+	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
+	
+	vec4 diffuseTexColor = texture2D(u_Material.DiffuseTex, texCoord);
+	vec4 specularTexColor = texture2D(u_Material.SpecularTex, specularTexCoord);
+		// 法线贴图
+	vec2 normalTexCoord = TexCoord / u_Material.NormalTexScale + u_Material.NormalTexOffset;
+	vec4 normalTexColor = texture2D(u_Material.NormalTex, normalTexCoord) - vec4(0.5f);
+	NormalVec_ = normalize(InverseLocalTrans *  normalTexColor.xyz);
 	// 计算光照
 	vec3 dirAmbient;
 	vec3 dirDiffuse;
@@ -195,11 +206,7 @@ vec4 FragmentShader()
 	vec3 diffuse = dirDiffuse + pointDiffuse + spotDiffuse;
 	vec3 specular = dirSpecular + pointSpecular + spotSpecular;
 	
-	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
-	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
 	
-	vec4 diffuseTexColor = texture2D(u_Material.DiffuseTex, texCoord);
-	vec4 specularTexColor = texture2D(u_Material.SpecularTex, specularTexCoord);
 	
 	return (
 			diffuseTexColor * vec4((ambient + diffuse),1.0f)

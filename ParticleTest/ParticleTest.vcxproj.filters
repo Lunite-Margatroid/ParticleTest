@@ -129,6 +129,8 @@
     <ClInclude Include="src\demoscene\LightedDemoScene.h" />
     <ClInclude Include="src\glObj\LightBuffer.h" />
     <ClInclude Include="src\SceneObj\illuminant.h" />
+    <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h" />
+    <ClInclude Include="src\ImGuiWindows\StyleEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -225,6 +227,8 @@
     <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp" />
     <ClCompile Include="src\glObj\LightBuffer.cpp" />
     <ClCompile Include="src\SceneObj\illuminant.cpp" />
+    <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp" />
+    <ClCompile Include="src\ImGuiWindows\StyleEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\FireLoopFrag.shader" />
@@ -250,5 +254,6 @@
     <None Include="res\shader\ScreenTexVertex.shader" />
     <None Include="res\shader\SinWaveFrag.shader" />
     <None Include="res\shader\SinWaveVertex.shader" />
+    <None Include="res\shader\LightedMeshFrag_oit.shader" />
   </ItemGroup>
 </Project>

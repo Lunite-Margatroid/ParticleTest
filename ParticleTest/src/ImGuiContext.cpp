@@ -39,6 +39,8 @@ namespace ptt
 
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
+
+        m_ImGuiWindows["Style Editor"] = new StyleEditor("Style Editor");
         
 	}
     void ImGuiContext::Terminate()
@@ -46,6 +48,11 @@ namespace ptt
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
+
+        for (auto& windows : m_ImGuiWindows)
+        {
+            delete windows.second;
+        }
     }
     ImGuiContext::ImGuiContext():
          m_Init(false)
@@ -121,6 +128,34 @@ namespace ptt
         inFile.read((char*)style, size);
         inFile.close();
 
+    }
+    void ImGuiContext::ShowWindow(const std::string& keyString)
+    {
+        std::unordered_map<std::string, ImGuiWindows*>& windows = GetInstance()->m_ImGuiWindows;
+        if (windows.find(keyString) != windows.end())
+        {
+            ImGuiWindows* window = windows[keyString];
+            if (window->IsOpen())
+                window->ShowWindow();
+        }
+    }
+    void ImGuiContext::OpenWindow(const std::string& keyString)
+    {
+        std::unordered_map<std::string, ImGuiWindows*>& windows = GetInstance()->m_ImGuiWindows;
+        if (windows.find(keyString) != windows.end())
+        {
+            ImGuiWindows* window = windows[keyString];
+            window->OpenWindow();
+        }
+    }
+    void ImGuiContext::CloseWindow(const std::string& keyString)
+    {
+        std::unordered_map<std::string, ImGuiWindows*>& windows = GetInstance()->m_ImGuiWindows;
+        if (windows.find(keyString) != windows.end())
+        {
+            ImGuiWindows* window = windows[keyString];
+            window->CloseWindow();
+        }
     }
     ImGuiContext* ImGuiContext::GetInstance()
     {

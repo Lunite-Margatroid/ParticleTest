@@ -1,4 +1,5 @@
 #pragma once
+#include "ImGuiWindows/StyleEditor.h"
 namespace ptt
 {
 	class ImGuiContext
@@ -7,6 +8,8 @@ namespace ptt
 		bool m_Init;
 
 		static ImGuiContext* s_Instance;
+
+		std::unordered_map<std::string, ImGuiWindows*> m_ImGuiWindows;
 
 		void Terminate();
 	public:
@@ -20,6 +23,11 @@ namespace ptt
 		static ImGuiContext* GetInstance();
 		static void SaveStyle(const std::string& fileName);
 		static void LoadStyle(const std::string& fileName);
+
+		static void ShowWindow(const std::string& keyString);
+		static void OpenWindow(const std::string& keyString);
+		static void CloseWindow(const std::string& keyString);
+
 
 	};
 }

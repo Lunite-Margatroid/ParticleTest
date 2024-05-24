@@ -156,6 +156,8 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\glObj\LightBuffer.h" />
     <ClInclude Include="src\glObj\oitContext.h" />
     <ClInclude Include="src\ImGuiContext.h" />
+    <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h" />
+    <ClInclude Include="src\ImGuiWindows\StyleEditor.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Interface\ImGuiInterface.h" />
     <ClInclude Include="src\Light\DirLight.h" />
@@ -208,6 +210,8 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\glObj\LightBuffer.cpp" />
     <ClCompile Include="src\glObj\oitContext.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
+    <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp" />
+    <ClCompile Include="src\ImGuiWindows\StyleEditor.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Interface\ImGuiInterface.cpp" />
     <ClCompile Include="src\Light\DirLight.cpp" />
@@ -270,6 +274,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <None Include="res\shader\HanabiSparkVertex.shader" />
     <None Include="res\shader\HanabiVertex.shader" />
     <None Include="res\shader\LightedMeshFrag.shader" />
+    <None Include="res\shader\LightedMeshFrag_oit.shader" />
     <None Include="res\shader\LightedMeshVertex.shader" />
     <None Include="res\shader\MeshFrag.shader" />
     <None Include="res\shader\MeshFrag_oit.shader" />
