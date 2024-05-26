@@ -13,29 +13,30 @@ namespace ptt
 		m_SceneHeight = 1080;
 
 		m_GlfwCtx = std::make_unique<GlfwContext>();
-		m_ImGuiCtx= std::make_unique<ImGuiContext>();
+		m_ImGuiCtx = std::make_unique<ImGuiContext>();
 
 		m_GlfwCtx->Init(m_Width, m_Height);
 		m_Window = m_GlfwCtx->GetGlfwWindow();
 		m_ImGuiCtx->Init(m_Window);
 
-
-		m_Menu = std::make_unique<MenuScene>();
 		m_Renderer = Renderer::GetInstance();
-		
-		m_Framebuffer.Init(m_SceneWidth, m_SceneHeight);
-		m_FramebufferMS.Init(m_SceneWidth, m_SceneHeight, 4);
 
 		// 截断ImGui消息
 		glfwSetKeyCallback(m_Window, PreCallbackKey);
+
+		m_SceneWindow.Init(m_SceneWidth, m_SceneHeight);
 	}
 	Application::Application()
+		:m_DemosceneWindow("Demoscene"),
+		m_SceneWindow("Scene"),
+		m_SceneProperty("Scene Propterty", nullptr)
 	{
 		ASSERT(s_Instance == nullptr);
 		s_Instance = this;
 		m_Run = true;
 		m_FullScreen = false;
 		m_MultiSample = true;
+		m_CurrentScene = nullptr;
 		m_FPS = 0.0f;
 		Init();
 	}
@@ -47,39 +48,8 @@ namespace ptt
 	}
 	void Application::Render()
 	{
-		if (m_MultiSample)
-		{
-			// render scene to multisample framebuffer
-			m_FramebufferMS.Bind();
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-			glViewport(0, 0, m_FramebufferMS.GetWidth(), m_FramebufferMS.GetHeight());
-			m_Menu->Render();
-			m_FramebufferMS.BlitFrameBuffer(m_Framebuffer);
-			m_FramebufferMS.Unbind();
-		}
-		else
-		{
-			// render scene to framebuffer
-			m_Framebuffer.Bind();
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-			glViewport(0, 0, m_Framebuffer.GetWidth(), m_Framebuffer.GetHeight());
-			m_Menu->Render();
-			m_Framebuffer.Unbind();
-		}
-
-		// 关闭深度测试
-		GLboolean depthEnable = glIsEnabled(GL_DEPTH_TEST);
-		glDisable(GL_DEPTH_TEST);
-		// render
-		m_Framebuffer.Bind();
-		Renderer::GetOITContext()->Render();
-		m_Framebuffer.Unbind();
-		// 复原
-		if (depthEnable)
-			glEnable(GL_DEPTH_TEST);
-		
 		// render ui
-		glClear(GL_COLOR_BUFFER_BIT);
+		// glClear(GL_COLOR_BUFFER_BIT);
 		RenderImGui();
 
 		// swap default framebuffer
@@ -91,9 +61,20 @@ namespace ptt
 		m_ImGuiCtx->ImGuiBegin();
 
 		RenderMenuBar();
-		m_Menu->RenderImGui();
 
+		if (m_DemosceneWindow.IsOpen())
+			m_DemosceneWindow.ShowWindow();
 
+		m_CurrentScene = m_DemosceneWindow.GetScene();
+		m_SceneWindow.SetScene(m_CurrentScene);
+		m_SceneProperty.SetScene(m_CurrentScene);
+
+		if (m_SceneWindow.IsOpen())
+			m_SceneWindow.ShowWindow();
+		if (m_SceneProperty.IsOpen())
+			m_SceneProperty.ShowWindow();
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		m_ImGuiCtx->ImGuiEnd();
 	}
 
@@ -145,6 +126,14 @@ namespace ptt
 				ImGui::EndMenu();
 			}
 
+			if (ImGui::BeginMenu("Winodw"))
+			{
+				ImGui::Checkbox("Demoscne Loader", m_DemosceneWindow.GetBoolPtr());
+				ImGui::Checkbox("Scene Window", m_SceneWindow.GetBoolPtr());
+				ImGui::Checkbox("Scene Proterty", m_SceneProperty.GetBoolPtr());
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMainMenuBar();
 		}
 
@@ -183,20 +172,6 @@ namespace ptt
 	{
 		ASSERT(s_Instance);
 		return s_Instance;
-	}
-
-	LM::FrameBuffer* Application::GetFramebuffer()
-	{
-		Application* instance = GetInstance();
-		ASSERT(instance);
-		return &(instance->m_Framebuffer);
-	}
-	LM::FrameBuffer* Application::GetCurrentFramebuffer()
-	{
-		Application* app = GetInstance();
-		if (app->m_MultiSample)
-			return &(app->m_FramebufferMS);
-		return &(app->m_Framebuffer);
 	}
 	bool Application::IsFullScreen()
 	{
@@ -247,11 +222,11 @@ namespace ptt
 	}
 	DemoScene* Application::GetCurrentScene()
 	{
-		return GetInstance()->m_Menu->GetCurrentScene();
+		return GetInstance()->m_CurrentScene;
 	}
 	float Application::GetFPS()
 	{
-		return GetInstance() -> m_FPS;
+		return GetInstance()->m_FPS;
 	}
 	void Application::UpdateTime()
 	{
@@ -271,8 +246,10 @@ namespace ptt
 	void Application::Update()
 	{
 		UpdateTime();
-		m_Menu->Update(m_DeltaTime);
 		if (m_DeltaTime > 0.0f)
 			m_FPS = 1.0f / m_DeltaTime;
+
+		m_SceneWindow.Update(m_DeltaTime);
+		m_MultiSample = m_SceneWindow.IsMultisample();
 	}
 }

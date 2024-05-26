@@ -6,12 +6,12 @@
 #include "glObj/FrameBuffer.h"
 #include "glObj/FrameBufferMS.h"
 #include "vendor/ImGuiFileDialog/ImGuiFileDialog.h"
+#include "ImGuiWindows/DemosceneLoader.h"
+#include "ImGuiWindows/SceneWindow.h"
+#include "ImGuiWindows/SceneProperty.h"
 
 namespace ptt
 {
-	class DemoScene;
-	class MenuScene;
-
 	class Application
 	{
 		static Application* s_Instance;
@@ -20,7 +20,6 @@ namespace ptt
 
 		std::unique_ptr<ImGuiContext> m_ImGuiCtx;
 		std::unique_ptr<GlfwContext> m_GlfwCtx;
-		std::unique_ptr<MenuScene> m_Menu;
 
 		Renderer* m_Renderer;
 
@@ -36,13 +35,16 @@ namespace ptt
 
 		float m_FPS;
 
+		DemosceneLoader m_DemosceneWindow;
+		SceneWindow m_SceneWindow;
+		SceneProperty m_SceneProperty;
+
+		DemoScene* m_CurrentScene;
+
 		void UpdateTime();
 		void Update();
 		virtual void Init();
 	public:
-
-		LM::FrameBuffer m_Framebuffer;
-		LM::FrameBufferMS m_FramebufferMS;
 		LM::FrameBuffer* m_Current;
 
 		Application();
@@ -56,8 +58,6 @@ namespace ptt
 
 
 		static Application* GetInstance();
-		static LM::FrameBuffer* GetFramebuffer();
-		static LM::FrameBuffer* GetCurrentFramebuffer();
 
 		static bool IsFullScreen();
 

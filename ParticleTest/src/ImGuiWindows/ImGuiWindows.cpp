@@ -4,10 +4,13 @@
 namespace ptt
 {
 	ImGuiWindows::ImGuiWindows(const std::string& keyString)
-		:m_keyString(keyString), m_Open(false)
+		:m_keyString(keyString), m_Open(true)
 	{
 	}
 	ImGuiWindows::~ImGuiWindows()
+	{
+	}
+	void ImGuiWindows::Update(float deltaTime)
 	{
 	}
 	bool ImGuiWindows::IsOpen() const
@@ -25,5 +28,13 @@ namespace ptt
 	const std::string& ImGuiWindows::GetWindowString() const
 	{
 		return m_keyString;
+	}
+	ImGuiWindows::operator bool()
+	{
+		return m_Open;
+	}
+	bool* ImGuiWindows::GetBoolPtr()
+	{
+		return &m_Open;
 	}
 }

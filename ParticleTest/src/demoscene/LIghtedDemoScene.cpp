@@ -5,6 +5,7 @@ namespace ptt
 {
 	void LightedDemoScene::Init()
 	{
+		m_SelectedObj = m_RootObj.get();
 		// 绑定光照缓存
 		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "DirLights");
 		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "PointLights");
@@ -12,20 +13,26 @@ namespace ptt
 		// 相机
 		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
 		Renderer::SetCurrentCamera(m_Camera);
+		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
+		if (camera)
+			camera->SetPos(glm::vec3(0.0f, 4.0f, 10.0f));
 		// 地板
-		SceneObj* obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new QuadSprite()), "floor");
+		SceneObj* obj;
+		Material* material;
+		 obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new QuadSprite()), "floor");
 		obj->SetScale(glm::vec3(50.0f, 1.0f, 50.0f));
-		Material* material  = dynamic_cast<Material*>(obj->GetSprite());
+		material  = dynamic_cast<Material*>(obj->GetSprite());
 		if (material)
 		{
 			material->SetTextureScale(LM::texture_diffuse, 0.02f, 0.02f);
 			LM::Texture* tex = Renderer::LoadTexture("./res/img/floor2.jpg", LM::texture_diffuse);
 			material->SetTexture(LM::texture_diffuse, tex);
 		}
-
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new CubeSprite()), "cube");
+		obj->SetPosition(glm::vec3(10.f, 1.f, -3.f));
 		// cube
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new CubeSprite()), "cube1");
-		obj->SetPosition(glm::vec3(1.5f, 1.4f, 1.4f));
+		obj->SetPosition(glm::vec3(1.5f, 1.4f, 6.4f));
 		material = dynamic_cast<Material*>(obj->GetSprite());
 		if (material)
 		{
@@ -36,7 +43,7 @@ namespace ptt
 		}
 
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new CubeSprite()), "cube2");
-		obj->SetPosition(glm::vec3(-1.5f, 1.4f, 1.4f));
+		obj->SetPosition(glm::vec3(-7.f, 1.4f, 1.4f));
 		material = dynamic_cast<Material*>(obj->GetSprite());
 		if (material)
 		{
@@ -45,11 +52,13 @@ namespace ptt
 			tex = Renderer::LoadTexture("./res/img/img_2.png", LM::texture_diffuse);
 			material->SetTexture(LM::texture_diffuse, tex);
 		}
-
 		// sphere
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere");
-		obj->SetPosition(glm::vec3(-2.0,2.0f, -2.0f));
-
+		obj->SetPosition(glm::vec3(-2.0, 2.0f, -2.0f));
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere2");
+		obj->SetPosition(glm::vec3(0.0, 2.f, 0.0f));
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere3");
+		obj->SetPosition(glm::vec3(20.0, 0.f, 0.0f));
 		// 光源
 		Illuminant* lightedObj = new Illuminant(m_RootObj.get(), nullptr, "DirLight1", 
 			dynamic_cast<LM::Light*>(new LM::DirLight()));

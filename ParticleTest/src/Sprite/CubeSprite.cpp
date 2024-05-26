@@ -22,7 +22,8 @@ namespace ptt
 		if (camera == nullptr)
 			return;
 		SelectShader();
-
+		if (m_Shader == nullptr)
+			return;
 		m_Shader->Bind();
 		SetUniformMaterial(m_Shader);
 

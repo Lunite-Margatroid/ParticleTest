@@ -1,9 +1,7 @@
 #pragma once
 #include "Interface/ImGuiInterface.h"
 #include "glObj/FrameBuffer.h"
-#include "Application.h"
 #include "Camera3D.h"
-#include "Renderer/Renderer.h"
 
 namespace ptt
 {
@@ -20,39 +18,5 @@ namespace ptt
 		virtual void Render();
 		virtual void RenderImGui();
 	
-	};
-
-	typedef std::pair<std::function<DemoScene* ()>, std::string> SceneItem;
-
-
-	class MenuScene :public DemoScene
-	{
-	private:
-		std::vector<SceneItem> m_Menu;
-		DemoScene* m_CurrentScene;
-	public:
-		MenuScene();
-		~MenuScene();
-		void RenderImGui();
-		void Render();
-		void Update(float deltaTime);
-
-		DemoScene* GetCurrentScene();
-
-		template<typename T>
-		void RegistDemoScene(const std::string& title)
-		{
-			m_Menu.emplace_back(
-				std::make_pair
-				(
-					[]()
-						{
-							return new T();
-						}
-					,
-					title
-				)
-			);
-		}
 	};
 }

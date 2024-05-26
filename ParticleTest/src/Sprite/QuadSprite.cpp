@@ -64,9 +64,8 @@ namespace ptt
 		if (m_Shader == nullptr)
 			return;
 		m_Shader->Bind();
+
 		SetUniformMaterial(m_Shader);
-
-
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
 		glm::mat3& normalTrans = Renderer::GetNormalTrans();
 		glm::mat4& mvTrans = Renderer::GetMVTrans();

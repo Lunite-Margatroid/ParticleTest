@@ -8,7 +8,7 @@ namespace ptt
 		ColoredSprite<1>* sprite;
 		m_SelectedObj = m_RootObj.get();
 
-		m_SelectedObj = new SceneObj(nullptr, new CubeSprite(), "cube1");
+		m_SelectedObj = new SceneObj(nullptr, dynamic_cast<Sprite*>(new CubeSprite()), "cube1");
 		m_RootObj->PushChild(m_SelectedObj);
 		m_SelectedObj->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
 		m_SelectedObj->GetSprite()->SetTransparency(true);
@@ -16,7 +16,7 @@ namespace ptt
 		if(sprite)
 			sprite->SetColor(glm::vec4(1.0f, 0.0f,0.0f, 0.7f),0);
 
-		m_SelectedObj = new SceneObj(nullptr, new CubeSprite(), "cube2");
+		m_SelectedObj = new SceneObj(nullptr, dynamic_cast<Sprite*>(new CubeSprite()), "cube2");
 		m_RootObj->PushChild(m_SelectedObj);
 		m_SelectedObj->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
 		m_SelectedObj->SetPosition(glm::vec3(2.0f, 2.0f, 2.0f));

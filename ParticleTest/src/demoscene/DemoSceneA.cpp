@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DemoSceneA.h"
+#include "Application.h"
 
 namespace ptt
 {

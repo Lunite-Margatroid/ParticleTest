@@ -1,4 +1,5 @@
 #pragma once
+#include "demoscene/DemoScene.h"
 
 namespace ptt
 {
@@ -12,9 +13,13 @@ namespace ptt
 		virtual ~ImGuiWindows();
 
 		virtual void ShowWindow() = 0;
+		virtual void Update(float deltaTime);
+
 		bool IsOpen()const;
 		void CloseWindow();
 		void OpenWindow();
 		const std::string& GetWindowString() const;
+		operator bool();
+		bool* GetBoolPtr();
 	};
 }

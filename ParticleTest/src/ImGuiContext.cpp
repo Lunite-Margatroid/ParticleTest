@@ -41,6 +41,7 @@ namespace ptt
         ImGui_ImplGlfw_InitForOpenGL(window, true);
 
         m_ImGuiWindows["Style Editor"] = new StyleEditor("Style Editor");
+        m_ImGuiWindows["Style Editor"]->CloseWindow();
         
 	}
     void ImGuiContext::Terminate()

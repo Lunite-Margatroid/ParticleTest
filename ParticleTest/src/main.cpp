@@ -15,16 +15,17 @@ class MyApp :public ptt::Application
 public:
 	MyApp()
 	{
-		ptt::ImGuiContext::LoadStyle("./res/ImGuiStyle/PinkStyle.style");
-		m_Menu->RegistDemoScene<ptt::DemoScene>("Nothing Scene");
-		m_Menu->RegistDemoScene<ptt::SinWave>("Sin wave Scene");
-		m_Menu->RegistDemoScene<ptt::SceneFireLoop>("Fire Loop Scene");
-		m_Menu->RegistDemoScene<ptt::QuadMeshScene>("Quad Mesh Scene");
-		m_Menu->RegistDemoScene<ptt::SpriteTest>("Quad Mest Sprite Scene");
-		m_Menu->RegistDemoScene<ptt::FireworkScene>("Fire Work Scene");
-		m_Menu->RegistDemoScene<ptt::DemoSceneA>("DemoSceneA");
-		m_Menu->RegistDemoScene<ptt::DemoSceneB>("oit demoscene");
-		m_Menu->RegistDemoScene<ptt::LightedDemoScene>("Lighted DemoScene");
+		ptt::ImGuiContext::LoadStyle("./res/ImGuiStyle/DarkPink.style");
+
+		m_DemosceneWindow.RegistDemoScene<ptt::DemoScene>("Nothing Scene");
+		m_DemosceneWindow.RegistDemoScene<ptt::SinWave>("Sin wave Scene");
+		m_DemosceneWindow.RegistDemoScene<ptt::SceneFireLoop>("Fire Loop Scene");
+		m_DemosceneWindow.RegistDemoScene<ptt::QuadMeshScene>("Quad Mesh Scene");
+		m_DemosceneWindow.RegistDemoScene<ptt::SpriteTest>("Quad Mest Sprite Scene");
+		m_DemosceneWindow.RegistDemoScene<ptt::FireworkScene>("Fire Work Scene");
+		m_DemosceneWindow.RegistDemoScene<ptt::DemoSceneA>("DemoSceneA");
+		m_DemosceneWindow.RegistDemoScene<ptt::DemoSceneB>("oit demoscene");
+		m_DemosceneWindow.RegistDemoScene<ptt::LightedDemoScene>("Lighted DemoScene");
 
 	}
 	~MyApp() {}
