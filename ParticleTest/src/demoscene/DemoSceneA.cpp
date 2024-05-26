@@ -131,6 +131,32 @@ namespace ptt
 				}
 			}
 			
+			// ÍÏ×§ÊÂ¼þ
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::Text(objNode.GetObjName().c_str());
+				const SceneObj** SceneObj_ptr = const_cast<const SceneObj**>(new SceneObj*);
+				*SceneObj_ptr = &objNode;
+				ImGui::SetDragDropPayload("SceneObj_ptr", SceneObj_ptr, sizeof(void*));
+				delete SceneObj_ptr;
+				ImGui::EndDragDropSource();
+			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (ImGuiPayload* data = const_cast<ImGuiPayload*>(ImGui::AcceptDragDropPayload("SceneObj_ptr")))
+				{
+					if (data->IsDelivery())
+					{
+						SceneObj* obj = *(SceneObj**)(data->Data);
+						if (obj->GetParent())
+						{
+							const_cast<SceneObj&>(objNode).PushChild(obj);
+						}
+					}
+				}
+				ImGui::EndDragDropTarget();
+			}
+
 			if (objNode.HasChild())
 				for (const SceneObj* obj : objNode.GetChildren())
 				{

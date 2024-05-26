@@ -14,8 +14,8 @@ namespace ptt
 	{
 		m_Qua = glm::qua<float>(glm::vec3(m_Pitch, m_Yaw, m_Roll));
 	}
-	ptt::SceneObj::SceneObj(SceneObj* parent , Sprite* sprite, const std::string& objName)
-		:m_ParentObj(parent),m_ObjName(objName),
+	ptt::SceneObj::SceneObj(SceneObj* parent, Sprite* sprite, const std::string& objName)
+		:m_ParentObj(parent), m_ObjName(objName),
 		m_Sprite(sprite),
 		m_Yaw(0.0f),
 		m_Pitch(0.0f),
@@ -33,7 +33,7 @@ namespace ptt
 
 	SceneObj::~SceneObj()
 	{
-		if(m_Sprite)
+		if (m_Sprite)
 			delete m_Sprite;
 		this->Clear();
 	}
@@ -69,9 +69,25 @@ namespace ptt
 	}
 	void SceneObj::PushChild(SceneObj* child)
 	{
-		ASSERT(child->m_ParentObj == nullptr);
+		if (child->m_ParentObj)
+			(child->m_ParentObj)->RemoveChild(child, true);
 		child->m_ParentObj = this;
 		m_ChildObj.push_back(child);
+	}
+	void SceneObj::RemoveChild(SceneObj* child, bool swap)
+	{
+		for (auto iter = m_ChildObj.begin(); iter != m_ChildObj.end(); iter++)
+		{
+			if (*iter == child)
+			{
+				if (!swap)
+				{
+					delete child;
+				}
+				m_ChildObj.erase(iter);
+				return;
+			}
+		}
 	}
 	const glm::vec3& SceneObj::GetPosition() const
 	{
@@ -165,8 +181,8 @@ namespace ptt
 		ImGui::SeparatorText("Object");
 		ImGui::DragFloat3("Position", &m_Position.x, 0.1f);
 		ImGui::Text("Rotate");
-		ImGui::DragFloat("Pitch - xAxis",&m_Pitch, 
-			0.01f, -PI, PI,"%.3f",
+		ImGui::DragFloat("Pitch - xAxis", &m_Pitch,
+			0.01f, -PI, PI, "%.3f",
 			ImGuiSliderFlags_AlwaysClamp);
 		ImGui::DragFloat("Yaw - yAxis", &m_Yaw, 0.01f, -PI, PI, "%.3f",
 			ImGuiSliderFlags_AlwaysClamp);
@@ -187,5 +203,9 @@ namespace ptt
 	const std::vector<SceneObj*> SceneObj::GetChildren() const
 	{
 		return m_ChildObj;
+	}
+	SceneObj* SceneObj::GetParent()
+	{
+		return m_ParentObj;
 	}
 }

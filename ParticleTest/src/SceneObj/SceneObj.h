@@ -51,6 +51,7 @@ namespace ptt
 		}
 
 		void PushChild(SceneObj* child);
+		void RemoveChild(SceneObj* child, bool swap);
 
 		const glm::vec3& GetPosition() const;
 		float GetYaw() const;
@@ -81,5 +82,7 @@ namespace ptt
 
 		const std::string& GetObjName() const;
 		const std::vector<SceneObj*> GetChildren() const;
+
+		SceneObj* GetParent();
 	};
 }

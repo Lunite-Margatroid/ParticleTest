@@ -55,8 +55,6 @@ namespace ptt
 		// sphere
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere");
 		obj->SetPosition(glm::vec3(-2.0, 2.0f, -2.0f));
-		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere2");
-		obj->SetPosition(glm::vec3(0.0, 2.f, 0.0f));
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SphereSprite()), "sphere3");
 		obj->SetPosition(glm::vec3(20.0, 0.f, 0.0f));
 		// นโิด
