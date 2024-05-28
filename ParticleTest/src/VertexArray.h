@@ -98,6 +98,8 @@ namespace LM {
 		void DrawElement();
 		void DrawArray() const;
 		void DrawArray();
+		void DrawArrayInstanced(GLsizei count);
+		void DrawElementInstanced(GLsizei count);
 
 		void SetVB(unsigned int  vb);
 		void SetEB(unsigned int  eb);

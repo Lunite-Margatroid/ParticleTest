@@ -83,6 +83,8 @@ namespace ptt
 		const std::string& GetObjName() const;
 		const std::vector<SceneObj*> GetChildren() const;
 
+		glm::qua<float>& GetQuaternionRotate();
 		SceneObj* GetParent();
+		glm::mat4& GetModalTrans();
 	};
 }

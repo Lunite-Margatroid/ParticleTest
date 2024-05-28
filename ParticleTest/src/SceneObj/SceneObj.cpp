@@ -204,8 +204,18 @@ namespace ptt
 	{
 		return m_ChildObj;
 	}
+	glm::qua<float>& SceneObj::GetQuaternionRotate()
+	{
+		// TODO: insert return statement here
+		return m_Qua;
+	}
 	SceneObj* SceneObj::GetParent()
 	{
 		return m_ParentObj;
+	}
+	glm::mat4& SceneObj::GetModalTrans()
+	{
+		// TODO: insert return statement here
+		return m_ModelTrans;
 	}
 }

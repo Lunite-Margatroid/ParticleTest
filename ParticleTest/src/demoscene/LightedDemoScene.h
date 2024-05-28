@@ -22,6 +22,7 @@ namespace ptt
 
 	public:
 		LightedDemoScene();
+		LightedDemoScene(bool init);
 		virtual ~LightedDemoScene();
 		virtual void RenderImGui() override;
 

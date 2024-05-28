@@ -89,6 +89,18 @@ namespace ptt
 	{
 		Init();
 	}
+	LightedDemoScene::LightedDemoScene(bool init)
+		:DemoSceneA(false),
+		m_DirLightBuffer(0, (LM::Light*)nullptr, LM::LightType::DirectionLight),
+		m_PointLightBuffer(0, (LM::Light*)nullptr, LM::LightType::PointLight),
+		m_SpotLightBuffer(0, (LM::Light*)nullptr, LM::LightType::SpotLight),
+		m_DirLights(),
+		m_PointLights(),
+		m_SpotLights()
+	{
+		if (init)
+			Init();
+	}
 	LightedDemoScene::~LightedDemoScene()
 	{
 	}

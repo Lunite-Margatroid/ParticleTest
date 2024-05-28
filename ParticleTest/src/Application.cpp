@@ -250,6 +250,6 @@ namespace ptt
 			m_FPS = 1.0f / m_DeltaTime;
 
 		m_SceneWindow.Update(m_DeltaTime);
-		m_MultiSample = m_SceneWindow.IsMultisample();
+		m_SceneWindow.SetMultisample(m_MultiSample);
 	}
 }

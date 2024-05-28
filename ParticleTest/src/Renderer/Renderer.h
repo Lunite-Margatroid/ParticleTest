@@ -16,7 +16,7 @@ namespace ptt
 		enum class Shaders
 		{
 			FireWork, Hanabi, HanabiSpark, Mesh_P_N_T_TG, QuadMesh, OIT, LightedMesh_P_N_T_TG,
-			Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG
+			Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG, UI_ObjAxis
 		};
 		enum class Cameras
 		{

@@ -32,10 +32,10 @@ namespace ptt
 	void SceneWindow::SetMultisample(bool multisample)
 	{
 		if (multisample)
-			m_Current = dynamic_cast<LM::FrameBuffer*>(&m_Framebuffer);
+			m_Current = dynamic_cast<LM::FrameBuffer*>(&m_FramebufferMS);
 		else
 		{
-			m_Current = dynamic_cast<LM::FrameBuffer*>(&m_FramebufferMS);
+			m_Current = dynamic_cast<LM::FrameBuffer*>(&m_Framebuffer);
 		}
 	}
 	bool SceneWindow::IsMultisample() const

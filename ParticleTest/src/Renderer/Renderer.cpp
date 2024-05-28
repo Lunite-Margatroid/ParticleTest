@@ -75,6 +75,9 @@ namespace ptt
 		shd = new LM::Shader("./res/shader/MeshVertex_Sphere.shader", "./res/shader/MeshFrag_oit.shader");
 		m_oitShaderMap[Shaders::Mesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
 
+		shd = new LM::Shader("./res/shader/UI_ObjAxis_Vertex.shader", "./res/shader/UI_ObjAxis_Frag.shader");
+		m_ShaderMap[Shaders::UI_ObjAxis] = shd;
+
 	}
 	void Renderer::InitTexture()
 	{

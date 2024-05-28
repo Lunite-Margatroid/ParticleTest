@@ -148,6 +148,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Camera3D.h" />
     <ClInclude Include="src\demoscene\DemoSceneA.h" />
     <ClInclude Include="src\demoscene\DemoSceneB.h" />
+    <ClInclude Include="src\demoscene\DemoSceneUI.h" />
     <ClInclude Include="src\demoscene\LightedDemoScene.h" />
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\Feedback.h" />
@@ -173,6 +174,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\TransparencySprite.h" />
     <ClInclude Include="src\SceneObj\illuminant.h" />
+    <ClInclude Include="src\SceneObj\ModalObj.h" />
     <ClInclude Include="src\SceneObj\SceneObj.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Shader\tfbShader.h" />
@@ -180,6 +182,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Sprite\CubeSprite.h" />
     <ClInclude Include="src\Sprite\FireWork.h" />
     <ClInclude Include="src\Sprite\Hanabi.h" />
+    <ClInclude Include="src\Sprite\Mesh.h" />
     <ClInclude Include="src\Sprite\QuadMeshSprite.h" />
     <ClInclude Include="src\Sprite\QuadSprite.h" />
     <ClInclude Include="src\Sprite\SphereSprite.h" />
@@ -206,6 +209,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Camera3D.cpp" />
     <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
     <ClCompile Include="src\demoscene\DemoSceneB.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneUI.cpp" />
     <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
@@ -231,6 +235,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\TransparencySprite.cpp" />
     <ClCompile Include="src\SceneObj\illuminant.cpp" />
+    <ClCompile Include="src\SceneObj\ModalObj.cpp" />
     <ClCompile Include="src\SceneObj\SceneObj.cpp" />
     <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\Shader\tfbShader.cpp" />
@@ -238,6 +243,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Sprite\CubeSprite.cpp" />
     <ClCompile Include="src\Sprite\FireWork.cpp" />
     <ClCompile Include="src\Sprite\Hanabi.cpp" />
+    <ClCompile Include="src\Sprite\Mesh.cpp" />
     <ClCompile Include="src\Sprite\QuadMeshSprite.cpp" />
     <ClCompile Include="src\Sprite\QuadSprite.cpp" />
     <ClCompile Include="src\Sprite\SphereSprite.cpp" />

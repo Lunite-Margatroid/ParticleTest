@@ -161,6 +161,18 @@ namespace LM
 		GLCall(glDrawArrays(m_MetaType, 0, m_count));
 	}
 
+	void VertexArray::DrawArrayInstanced(GLsizei count)
+	{
+		Bind();
+		glDrawArraysInstanced(m_MetaType, 0, m_count, count);
+	}
+
+	void VertexArray::DrawElementInstanced(GLsizei count)
+	{
+		Bind();
+		GLCall(glDrawElementsInstanced(m_MetaType, m_count, GL_UNSIGNED_INT, (void*)m_ebOffset, count));
+	}
+
 
 	void VertexArray::SetVB(unsigned int vb)
 	{
