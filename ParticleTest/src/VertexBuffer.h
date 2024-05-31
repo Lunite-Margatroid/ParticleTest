@@ -6,7 +6,7 @@ namespace LM
 	{
 	protected:
 		unsigned int m_id;
-		unsigned int m_uSize;
+		size_t m_uSize;
 	public:
 		VertexBuffer(unsigned int size, void* data);
 		VertexBuffer();
@@ -18,7 +18,7 @@ namespace LM
 		virtual void Unbind() const;
 
 		unsigned int GetID() const;
-		unsigned int GetSize() const;
+		size_t GetSize() const;
 
 		void SetData(unsigned int offset, unsigned int size, void*data);
 

@@ -46,5 +46,6 @@ namespace ptt
 	}
 	void Sprite::SelectShader()
 	{
+
 	}
 }

@@ -9,7 +9,7 @@
 
 namespace ptt
 {
-	class Hanabi :public ColoredSprite<2>, public ImGuiInterface, public udSprite
+	class Hanabi :public ColoredSprite<2>, public udSprite
 	{
 	public:
 		enum class Distribution { random, uniform };

@@ -10,18 +10,40 @@ namespace LM
 	bool Texture::LoadTexture(unsigned int* texture, const std::string& path, unsigned char index, int texColorMode, int resColorMode, bool bGenerateMipmap)
 	{
 		int nChannals;
-		unsigned char* img_data;
+		unsigned char* img_data = 0;
 		stbi_set_flip_vertically_on_load(true);	// 翻转y轴
 		// 原点到了图片的左下角
 
+		/*---------------- process path ----------------*/
 
-		img_data = stbi_load(path.c_str(), &m_nWidth, &m_nHeight, &nChannals, 0);
+		// utf-8转为宽字符
+		std::wstring wstr;
+		std::wstring_convert< std::codecvt_utf8<wchar_t> > wcv;
+		wstr = wcv.from_bytes(path);
+
+		FILE* f;
+		_wfopen_s(&f, wstr.c_str(), L"rb");	// 宽字符版的open file
+
+		if (f)
+		{
+			img_data = stbi_load_from_file(f, &m_nWidth, &m_nHeight, &nChannals, 0);
+			fclose(f);
+		}
+		if (img_data == 0)
+		{
+			std::cout << "Fail to load img!" << std::endl;
+			std::wcout << wstr << std::endl;
+			return false;
+		}
+		/*---------------------------------------------*/
+
+		/*img_data = stbi_load(path.c_str(), &m_nWidth, &m_nHeight, &nChannals, 0);
 
 		if (img_data == 0)
 		{
 			std::cout << "Fail to load img!----" << path << std::endl;
 			return false;
-		}
+		}*/
 		GLCall(glGenTextures(1, texture));
 		GLCall(glActiveTexture(GL_TEXTURE0 + index));
 		GLCall(glBindTexture(GL_TEXTURE_2D, *texture)); // 绑定纹理
@@ -73,7 +95,18 @@ namespace LM
 			minFilter == GL_LINEAR_MIPMAP_NEAREST ||
 			minFilter == GL_NEAREST_MIPMAP_LINEAR ||
 			minFilter == GL_LINEAR_MIPMAP_LINEAR;
-		this->LoadTexture(&m_uTextureID, imgPath, 0, dstColorMode, srcColorMode, ifMipmap);
+		if (this->LoadTexture(&m_uTextureID, imgPath, 0, dstColorMode, srcColorMode, ifMipmap))
+		{
+		}
+		else
+		{
+			float errorColor[4] = {0.0f, 1.0f, 0.0f, 1.0f};
+			GLCall(glGenTextures(1, &m_uTextureID));
+			GLCall(glActiveTexture(GL_TEXTURE0));
+			GLCall(glBindTexture(GL_TEXTURE_2D, m_uTextureID));
+			m_nWidth = m_nHeight = 1;
+			GLCall(glTexImage2D(GL_TEXTURE_2D, 0, dstColorMode, m_nWidth, m_nHeight, 0, GL_RGBA, GL_FLOAT, errorColor));
+		}
 		m_ubTextureIndex = 0;
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap));		// 设置环绕方式

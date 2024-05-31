@@ -136,8 +136,11 @@
     <ClInclude Include="src\ImGuiWindows\SceneProperty.h" />
     <ClInclude Include="src\ImGuiWindows\DemosceneLoader.h" />
     <ClInclude Include="src\demoscene\DemoSceneUI.h" />
-    <ClInclude Include="src\SceneObj\ModalObj.h" />
+    <ClInclude Include="src\SceneObj\ModelObj.h" />
     <ClInclude Include="src\Sprite\Mesh.h" />
+    <ClInclude Include="src\demoscene\DemoSceneModel.h" />
+    <ClInclude Include="src\glObj\VertexBuffers.h" />
+    <ClInclude Include="src\Sprite\SpriteMeshes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -241,8 +244,11 @@
     <ClCompile Include="src\ImGuiWindows\SceneProperty.cpp" />
     <ClCompile Include="src\ImGuiWindows\DemosceneLoader.cpp" />
     <ClCompile Include="src\demoscene\DemoSceneUI.cpp" />
-    <ClCompile Include="src\SceneObj\ModalObj.cpp" />
+    <ClCompile Include="src\SceneObj\ModelObj.cpp" />
     <ClCompile Include="src\Sprite\Mesh.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneModel.cpp" />
+    <ClCompile Include="src\glObj\VertexBuffers.cpp" />
+    <ClCompile Include="src\Sprite\SpriteMeshes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\FireLoopFrag.shader" />

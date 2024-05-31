@@ -134,6 +134,17 @@ namespace ptt
 				ImGui::EndMenu();
 			}
 
+			if (ImGui::BeginMenu("Scene"))
+			{
+				if (ImGui::MenuItem("Load Model"))
+				{
+					IGFD::FileDialogConfig config;
+					config.path = "L:/OpenGL/model";
+					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".blend,.*", config);
+				}
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMainMenuBar();
 		}
 
@@ -164,6 +175,24 @@ namespace ptt
 			// close
 			ImGuiFileDialog::Instance()->Close();
 		}
+		// ---------------- Load Model Dialog -------------------
+		if (ImGuiFileDialog::Instance()->Display("Load Model")) {
+			if (ImGuiFileDialog::Instance()->IsOk()) { // action if OK
+				std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+				std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+				// action
+
+				DemoSceneModel* scene = dynamic_cast<DemoSceneModel*>(m_CurrentScene);
+				if (scene)
+				{
+					scene->LoadModel(filePathName);
+				}
+			}
+
+			// close
+			ImGuiFileDialog::Instance()->Close();
+		}
+
 		// ----------------Style Editor------------------------
 		m_ImGuiCtx->ShowWindow("Style Editor");
 	}

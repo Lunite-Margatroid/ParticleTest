@@ -40,7 +40,7 @@ unsigned int LM::VertexBuffer::GetID() const
 	return m_id;
 }
 
-unsigned int LM::VertexBuffer::GetSize() const
+size_t LM::VertexBuffer::GetSize() const
 {
 	return m_uSize;
 }

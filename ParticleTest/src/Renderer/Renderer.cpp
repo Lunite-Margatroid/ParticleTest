@@ -303,7 +303,7 @@ namespace ptt
 	{
 		m_oitRendering = false;
 	}
-	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type)
+	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type, bool skipIfSame)
 	{
 		auto& textures = GetInstance()->m_Textures;
 		//-----------------Get file name------------
@@ -328,6 +328,13 @@ namespace ptt
 		tempStr[index] = '\0';
 		std::string fileName(tempStr);
 		//----------------------≤È÷ÿ-------------------
+		if (skipIfSame)
+		{
+			if (textures.find(fileName) != textures.end())
+			{
+				return textures[fileName];
+			}
+		}
 		while (true)
 		{
 			if (textures.find(fileName) == textures.end())

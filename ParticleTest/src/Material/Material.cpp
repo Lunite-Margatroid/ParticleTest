@@ -36,7 +36,7 @@ namespace ptt
 		m_texSpecular(nullptr),
 		m_texNormal(nullptr),
 		m_texParallax(nullptr),
-		m_Shininess(16.0f)
+		m_Shininess(64.0f)
 	{
 		Init();
 	}

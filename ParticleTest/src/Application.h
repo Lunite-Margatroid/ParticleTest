@@ -9,6 +9,7 @@
 #include "ImGuiWindows/DemosceneLoader.h"
 #include "ImGuiWindows/SceneWindow.h"
 #include "ImGuiWindows/SceneProperty.h"
+#include "demoscene/DemoSceneModel.h"
 
 namespace ptt
 {

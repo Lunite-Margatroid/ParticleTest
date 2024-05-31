@@ -11,7 +11,7 @@
 #include "udSprite.h"
 namespace ptt
 {
-	class FireWork :public ColoredSprite<1>, public ImGuiInterface,public udSprite
+	class FireWork :public ColoredSprite<1>,public udSprite
 	{
 	public:
 		// random 均匀随机分布

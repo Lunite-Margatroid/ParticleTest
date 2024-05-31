@@ -10,6 +10,7 @@
 #include "demoscene/DemoSceneB.h"
 #include "demoscene/LightedDemoScene.h"
 #include "demoscene/DemoSceneUI.h"
+#include "demoscene/DemoSceneModel.h"
 #include "Rand/Rand.h"
 
 class MyApp :public ptt::Application
@@ -29,6 +30,7 @@ public:
 		m_DemosceneWindow.RegistDemoScene<ptt::DemoSceneB>("oit demoscene");
 		m_DemosceneWindow.RegistDemoScene<ptt::LightedDemoScene>("Lighted DemoScene");
 		m_DemosceneWindow.RegistDemoScene<ptt::DemoSceneUI>("ui test");
+		m_DemosceneWindow.RegistDemoScene<ptt::DemoSceneModel>("model test");
 
 	}
 	~MyApp() {}

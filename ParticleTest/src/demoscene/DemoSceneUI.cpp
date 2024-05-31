@@ -6,8 +6,6 @@ namespace ptt
 	void DemoSceneUI::Init()
 	{
 		LightedDemoScene::Init();
-
-		InitUI();
 	}
 	void DemoSceneUI::InitUI()
 	{
@@ -42,10 +40,10 @@ namespace ptt
 			temp[3 * (segment + 1) * 2 + 2] = temp[3 * (segment + 1) + 2];
 		}
 
-		for (int i = 0; i < vertexCount; i++)
+		/*for (int i = 0; i < vertexCount; i++)
 		{
 			std::cout << i <<": ("<< vertice[i * 3] << ',' << vertice[i * 3 + 1] << ',' << vertice[i * 3 + 2] << ")\n";
-		}
+		}*/
 
 		const size_t elementCount = (segment + 1) * 4;
 		const size_t elementSize = elementCount * sizeof(unsigned int);
@@ -59,10 +57,10 @@ namespace ptt
 			element[i * 2 + (segment + 1) * 2] = (1 + segment) + 1 + i;
 			element[i * 2 + 1 + (segment + 1) * 2] = (1 + segment) * 2 + 1 + i;
 		}
-		for (int i = 0; i < elementCount; i++)
+		/*for (int i = 0; i < elementCount; i++)
 		{
 			std::cout << element[i] << "\t";
-		}
+		}*/
 		m_uiBuffer.Init(vertexBufferSize, vertice);
 		m_uiEleBuffer.Init(elementCount, element);
 		m_uiVertexArray.SetMetaType(GL_TRIANGLE_STRIP);
@@ -80,7 +78,17 @@ namespace ptt
 		:LightedDemoScene(false)
 	{
 		Init();
+		InitUI();
 	}
+	DemoSceneUI::DemoSceneUI(bool init)
+		:LightedDemoScene(false)
+	{
+		if (init)
+			Init();
+		
+		InitUI();
+	}
+
 	DemoSceneUI::~DemoSceneUI()
 	{
 	}

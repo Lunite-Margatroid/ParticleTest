@@ -79,7 +79,7 @@ namespace ptt
 
 		
 
-		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse);
+		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse, bool skipIfSame = false);
 		/// <summary>
 		/// 
 		/// </summary>

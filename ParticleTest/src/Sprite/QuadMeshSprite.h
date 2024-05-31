@@ -7,7 +7,7 @@
 
 namespace ptt
 {
-	class QuadMeshSprite :public Sprite, public ImGuiInterface
+	class QuadMeshSprite :public Sprite
 	{
 	private:
 		LM::VertexBuffer m_Buffer;

@@ -15,6 +15,7 @@ namespace ptt
 		virtual void InitUI();
 	public:
 		DemoSceneUI();
+		DemoSceneUI(bool init);
 		virtual ~DemoSceneUI();
 		virtual void RenderUI();
 		void Render() override;
