@@ -2,6 +2,9 @@
 #include "DemoSceneUI.h"
 #include "DemoSceneModel.h"
 
+#include <wchar.h>
+#include <codecvt>
+
 namespace ptt
 {
 	void DemoSceneModel::Init()
@@ -185,20 +188,31 @@ namespace ptt
 				if (mtl->GetTextureCount(texTypes[j]) > 0)
 				{
 					aiString str;
-					mtl->GetTexture(texTypes[j], 0, &str);
-					int begin = 0;
-					const char* ch = str.C_Str();
-					for (int i = 0; ch[i] != '\0'; i++)
-					{
-						if (ch[i] == '\\' || ch[i] == '/')
-						{
-							begin = i;
-						}
-					}
-					std::string file(ch + begin);
-					file = directionary + file;
+					if(mtl->GetTexture(texTypes[j], 0, &str) == aiReturn_FAILURE)
+						std::cout << "Get Texture Failed.\n";
 
-					material->SetTexture(lmTypes[j], Renderer::LoadTexture(file, lmTypes[j], true));
+					//// utf-8×ªÎª¿í×Ö·û
+					//std::string tStr(str.C_Str());
+					//std::wstring wstr;
+					//std::wstring_convert< std::codecvt_utf8<wchar_t> > wcv;
+					//wstr = wcv.from_bytes(tStr);
+					////-------------------------------------
+					//int begin = 0;
+					//const char* ch = str.C_Str();
+					//for (int i = 0; ch[i] != '\0'; i++)
+					//{
+					//	if (ch[i] == '\\' || ch[i] == '/')
+					//	{
+					//		begin = i;
+					//	}
+					//}
+					std::stringstream ss;
+					ss <<  directionary << '/'<< str.C_Str();
+
+					material->SetTexture(lmTypes[j], 
+						Renderer::LoadTexture(ss.str(), lmTypes[j], true,
+						GL_RGB, GL_RGBA, GL_LINEAR_MIPMAP_NEAREST,GL_LINEAR, GL_REPEAT
+					));
 				}
 			}
 		}

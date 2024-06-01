@@ -15,7 +15,7 @@ namespace ptt
 		// P 顶点坐标   N 法向量  T 纹理坐标 TG 切线
 		enum class Shaders
 		{
-			FireWork, Hanabi, HanabiSpark, Mesh_P_N_T_TG, QuadMesh, OIT, LightedMesh_P_N_T_TG,
+			FireWork, Hanabi, HanabiSpark, Mesh_P_N_T, QuadMesh, OIT, LightedMesh_P_N_T_TG,
 			Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG, UI_ObjAxis
 		};
 		enum class Cameras
@@ -79,7 +79,9 @@ namespace ptt
 
 		
 
-		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse, bool skipIfSame = false);
+		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse, bool skipIfSame = false,
+			GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
+			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT);
 		/// <summary>
 		/// 
 		/// </summary>

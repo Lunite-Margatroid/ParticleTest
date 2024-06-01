@@ -78,7 +78,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_LM_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_UNICODE;_LM_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_LM_WINDOWS;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_UNICODE;_LM_WINDOWS;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -124,7 +124,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_LM_WINDOWS;_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_UNICODE;_LM_WINDOWS;_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Dependence\include;..\ImGui\src;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -146,18 +146,9 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Camera3D.h" />
-    <ClInclude Include="src\demoscene\DemoSceneA.h" />
-    <ClInclude Include="src\demoscene\DemoSceneB.h" />
-    <ClInclude Include="src\demoscene\DemoSceneModel.h" />
-    <ClInclude Include="src\demoscene\DemoSceneUI.h" />
-    <ClInclude Include="src\demoscene\LightedDemoScene.h" />
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
-    <ClInclude Include="src\glObj\FrameBufferMS.h" />
-    <ClInclude Include="src\glObj\LightBuffer.h" />
-    <ClInclude Include="src\glObj\oitContext.h" />
-    <ClInclude Include="src\glObj\VertexBuffers.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\ImGuiWindows\DemosceneLoader.h" />
     <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h" />
@@ -175,9 +166,9 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Rand\Rand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\TransparencySprite.h" />
-    <ClInclude Include="src\SceneObj\illuminant.h" />
     <ClInclude Include="src\SceneObj\ModelObj.h" />
     <ClInclude Include="src\SceneObj\SceneObj.h" />
+    <ClInclude Include="src\SceneObj\illuminant.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Shader\tfbShader.h" />
     <ClInclude Include="src\Sprite\ColoredSprite.h" />
@@ -194,13 +185,22 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\demoscene\DemoScene.h" />
+    <ClInclude Include="src\demoscene\DemoSceneA.h" />
+    <ClInclude Include="src\demoscene\DemoSceneB.h" />
+    <ClInclude Include="src\demoscene\DemoSceneModel.h" />
+    <ClInclude Include="src\demoscene\DemoSceneUI.h" />
     <ClInclude Include="src\demoscene\FireworkScene.h" />
+    <ClInclude Include="src\demoscene\LightedDemoScene.h" />
     <ClInclude Include="src\demoscene\QuadMeshScene.h" />
     <ClInclude Include="src\demoscene\SceneFireLoop.h" />
     <ClInclude Include="src\demoscene\SinWave.h" />
     <ClInclude Include="src\demoscene\SpriteTest.h" />
     <ClInclude Include="src\glObj\FrameBuffer.h" />
+    <ClInclude Include="src\glObj\FrameBufferMS.h" />
+    <ClInclude Include="src\glObj\LightBuffer.h" />
     <ClInclude Include="src\glObj\Texture.h" />
+    <ClInclude Include="src\glObj\VertexBuffers.h" />
+    <ClInclude Include="src\glObj\oitContext.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\tfBuffer.h" />
     <ClInclude Include="src\vendor\ImGuiFileDialog\ImGuiFileDialog.h" />
@@ -210,18 +210,9 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Camera3D.cpp" />
-    <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
-    <ClCompile Include="src\demoscene\DemoSceneB.cpp" />
-    <ClCompile Include="src\demoscene\DemoSceneModel.cpp" />
-    <ClCompile Include="src\demoscene\DemoSceneUI.cpp" />
-    <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
-    <ClCompile Include="src\glObj\FrameBufferMS.cpp" />
-    <ClCompile Include="src\glObj\LightBuffer.cpp" />
-    <ClCompile Include="src\glObj\oitContext.cpp" />
-    <ClCompile Include="src\glObj\VertexBuffers.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\ImGuiWindows\DemosceneLoader.cpp" />
     <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp" />
@@ -239,9 +230,9 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Rand\Rand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\TransparencySprite.cpp" />
-    <ClCompile Include="src\SceneObj\illuminant.cpp" />
     <ClCompile Include="src\SceneObj\ModelObj.cpp" />
     <ClCompile Include="src\SceneObj\SceneObj.cpp" />
+    <ClCompile Include="src\SceneObj\illuminant.cpp" />
     <ClCompile Include="src\Shader\Shader.cpp" />
     <ClCompile Include="src\Shader\tfbShader.cpp" />
     <ClCompile Include="src\Sprite\ColoredSprite.cpp" />
@@ -258,13 +249,22 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\demoscene\DemoScene.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneA.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneB.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneModel.cpp" />
+    <ClCompile Include="src\demoscene\DemoSceneUI.cpp" />
     <ClCompile Include="src\demoscene\FireworkScene.cpp" />
+    <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp" />
     <ClCompile Include="src\demoscene\QuadMeshScene.cpp" />
     <ClCompile Include="src\demoscene\SceneFireLoop.cpp" />
     <ClCompile Include="src\demoscene\SinWave.cpp" />
     <ClCompile Include="src\demoscene\SpriteTest.cpp" />
     <ClCompile Include="src\glObj\FrameBuffer.cpp" />
+    <ClCompile Include="src\glObj\FrameBufferMS.cpp" />
+    <ClCompile Include="src\glObj\LightBuffer.cpp" />
     <ClCompile Include="src\glObj\Texture.cpp" />
+    <ClCompile Include="src\glObj\VertexBuffers.cpp" />
+    <ClCompile Include="src\glObj\oitContext.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -283,32 +283,6 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ProjectReference Include="..\ImGui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\shader\FireLoopFrag.shader" />
-    <None Include="res\shader\FireLoopVertex.shader" />
-    <None Include="res\shader\FireworkFrag.shader" />
-    <None Include="res\shader\FireworkVertex.shader" />
-    <None Include="res\shader\HanabiFrag.shader" />
-    <None Include="res\shader\HanabiSparkFrag.shader" />
-    <None Include="res\shader\HanabiSparkVertex.shader" />
-    <None Include="res\shader\HanabiVertex.shader" />
-    <None Include="res\shader\LightedMeshFrag.shader" />
-    <None Include="res\shader\LightedMeshFrag_oit.shader" />
-    <None Include="res\shader\LightedMeshVertex.shader" />
-    <None Include="res\shader\MeshFrag.shader" />
-    <None Include="res\shader\MeshFrag_oit.shader" />
-    <None Include="res\shader\MeshVertex.shader" />
-    <None Include="res\shader\OIT_Fragment.shader" />
-    <None Include="res\shader\OIT_Vertex.shader" />
-    <None Include="res\shader\QuadMeshFrag.shader" />
-    <None Include="res\shader\QuadMeshSpriteFrag.shader" />
-    <None Include="res\shader\QuadMeshSpriteVertex.shader" />
-    <None Include="res\shader\QuadMeshVertex.shader" />
-    <None Include="res\shader\ScreenTexFragment.shader" />
-    <None Include="res\shader\ScreenTexVertex.shader" />
-    <None Include="res\shader\SinWaveFrag.shader" />
-    <None Include="res\shader\SinWaveVertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

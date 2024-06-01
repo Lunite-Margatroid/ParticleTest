@@ -53,9 +53,9 @@ namespace ptt
 		m_ShaderMap[Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
 
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag.shader");
-		m_ShaderMap[Shaders::Mesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		m_ShaderMap[Shaders::Mesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::Mesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[Shaders::Mesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
 
 		shd = new LM::Shader("./res/shader/OIT_Vertex.shader", "./res/shader/OIT_Fragment.shader");
 		m_ShaderMap[Shaders::OIT] = dynamic_cast<LM::Shader*>(shd);
@@ -303,7 +303,9 @@ namespace ptt
 	{
 		m_oitRendering = false;
 	}
-	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type, bool skipIfSame)
+	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type, bool skipIfSame,
+		GLenum dstColorMode, GLenum srcColorMode,
+		GLenum minFilter, GLenum magFilter, GLenum wrap)
 	{
 		auto& textures = GetInstance()->m_Textures;
 		//-----------------Get file name------------
@@ -347,7 +349,9 @@ namespace ptt
 			}
 		}
 		// ------------------------------
-		LM::Texture* tex = new LM::Texture(path, type);
+		LM::Texture* tex = new LM::Texture(path, type,
+			dstColorMode,srcColorMode,
+			minFilter, magFilter,wrap);
 		tex->SetTextureName(std::move(fileName));
 		textures[tex->GetTextureName()] = tex;
 		return tex;

@@ -39,36 +39,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ---------------------------------------------------------------------------
 */
 
-/** @file GltfMaterial.h
- *  @brief glTF-specific material macros
- *  These will be made generic at some future date
- */
+#pragma once
+#ifndef AI_BASE64_HPP_INC
+#define AI_BASE64_HPP_INC
 
-#ifndef AI_GLTFMATERIAL_H_INC
-#define AI_GLTFMATERIAL_H_INC
+#include <stdint.h>
+#include <vector>
+#include <string>
 
-#ifdef __GNUC__
-#   pragma GCC system_header
-#endif
+namespace Assimp {
+namespace Base64 {
 
-#include <assimp/material.h>
+/// @brief Will encode the given character buffer from UTF64 to ASCII
+/// @param in           The UTF-64 buffer.
+/// @param inLength     The size of the buffer
+/// @param out          The encoded ASCII string.
+void Encode(const uint8_t *in, size_t inLength, std::string &out);
 
-#define AI_MATKEY_GLTF_PBRMETALLICROUGHNESS_METALLICROUGHNESS_TEXTURE aiTextureType_UNKNOWN, 0
-#define AI_MATKEY_GLTF_ALPHAMODE "$mat.gltf.alphaMode", 0, 0
-#define AI_MATKEY_GLTF_ALPHACUTOFF "$mat.gltf.alphaCutoff", 0, 0
+/// @brief Will encode the given character buffer from UTF64 to ASCII.
+/// @param in   A vector, which contains the buffer for encoding.
+/// @param out  The encoded ASCII string.
+void Encode(const std::vector<uint8_t>& in, std::string &out);
 
-#define _AI_MATKEY_GLTF_MAPPINGNAME_BASE "$tex.mappingname"
-#define _AI_MATKEY_GLTF_MAPPINGID_BASE "$tex.mappingid"
-#define _AI_MATKEY_GLTF_MAPPINGFILTER_MAG_BASE "$tex.mappingfiltermag"
-#define _AI_MATKEY_GLTF_MAPPINGFILTER_MIN_BASE "$tex.mappingfiltermin"
-#define _AI_MATKEY_GLTF_SCALE_BASE "$tex.scale"
-#define _AI_MATKEY_GLTF_STRENGTH_BASE "$tex.strength"
+/// @brief Will encode the given character buffer from UTF64 to ASCII.
+/// @param in   A vector, which contains the buffer for encoding.
+/// @return The encoded ASCII string.
+std::string Encode(const std::vector<uint8_t>& in);
 
-#define AI_MATKEY_GLTF_MAPPINGNAME(type, N) _AI_MATKEY_GLTF_MAPPINGNAME_BASE, type, N
-#define AI_MATKEY_GLTF_MAPPINGID(type, N) _AI_MATKEY_GLTF_MAPPINGID_BASE, type, N
-#define AI_MATKEY_GLTF_MAPPINGFILTER_MAG(type, N) _AI_MATKEY_GLTF_MAPPINGFILTER_MAG_BASE, type, N
-#define AI_MATKEY_GLTF_MAPPINGFILTER_MIN(type, N) _AI_MATKEY_GLTF_MAPPINGFILTER_MIN_BASE, type, N
-#define AI_MATKEY_GLTF_TEXTURE_SCALE(type, N) _AI_MATKEY_GLTF_SCALE_BASE, type, N
-#define AI_MATKEY_GLTF_TEXTURE_STRENGTH(type, N) _AI_MATKEY_GLTF_STRENGTH_BASE, type, N
+/// @brief Will decode the given character buffer from ASCII to UTF64.
+/// @param in           The ASCII buffer to decode.
+/// @param inLength     The size of the buffer.
+/// @param out          The decoded buffer.
+/// @return The new buffer size.
+size_t Decode(const char *in, size_t inLength, uint8_t *&out);
 
-#endif
+/// @brief Will decode the given character buffer from ASCII to UTF64.
+/// @param in   The ASCII buffer to decode as a std::string.
+/// @param out  The decoded buffer.
+/// @return The new buffer size.
+size_t Decode(const std::string& in, std::vector<uint8_t>& out);
+
+/// @brief Will decode the given character buffer from ASCII to UTF64.
+/// @param in   The ASCII string.
+/// @return The decoded buffer in a vector.
+std::vector<uint8_t> Decode(const std::string& in);
+
+} // namespace Base64
+} // namespace Assimp
+
+#endif // AI_BASE64_HPP_INC

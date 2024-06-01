@@ -48,8 +48,12 @@ namespace LM
 		GLCall(glActiveTexture(GL_TEXTURE0 + index));
 		GLCall(glBindTexture(GL_TEXTURE_2D, *texture)); // 绑定纹理
 
-		if (nChannals == 4)
+		if (nChannals == 4) {
 			resColorMode = GL_RGBA;
+		}
+		if (nChannals == 3) {
+			resColorMode = GL_RGB;
+		}
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, texColorMode, m_nWidth, m_nHeight, 0, resColorMode, GL_UNSIGNED_BYTE, img_data));
 		// param1 纹理Target
 		// param2 多级渐远级别 0为基本级别

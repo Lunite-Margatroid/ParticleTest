@@ -140,7 +140,7 @@ namespace ptt
 				{
 					IGFD::FileDialogConfig config;
 					config.path = "L:/OpenGL/model";
-					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".blend,.*", config);
+					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".blend,.pmx,.*", config);
 				}
 				ImGui::EndMenu();
 			}

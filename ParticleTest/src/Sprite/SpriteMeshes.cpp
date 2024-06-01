@@ -52,7 +52,7 @@ namespace ptt
 				scene->BindLightBuffer();
 		}
 		else
-			m_Shader = Renderer::GetShader(Renderer::Shaders::Mesh_P_N_T_TG);
+			m_Shader = Renderer::GetShader(Renderer::Shaders::Mesh_P_N_T);
 	}
 	void SpriteMeshes::RenderImGui()
 	{
