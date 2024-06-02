@@ -154,6 +154,11 @@ namespace ptt
 		default:break;
 		}
 	}
+	void LightedDemoScene::AddIlluminant(Illuminant* obj)
+	{
+		m_RootObj->PushChild(obj);
+		AddLight(obj->GetLight());
+	}
 	void LightedDemoScene::BindLightBuffer()
 	{
 		m_DirLightBuffer.BindToShaderStorage(nullptr, "");

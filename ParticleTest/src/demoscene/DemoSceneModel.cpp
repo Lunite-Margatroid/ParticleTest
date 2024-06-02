@@ -15,6 +15,11 @@ namespace ptt
 
 		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
 		Renderer::SetCurrentCamera(m_Camera);
+
+		AddIlluminant(
+			new Illuminant(nullptr, nullptr, "Directional Light 0",
+				new LM::DirLight())
+		);
 	}
 	ptt::DemoSceneModel::DemoSceneModel()
 		:DemoSceneUI(false)
@@ -40,7 +45,7 @@ namespace ptt
 	{
 		Assimp::Importer fileImporter;
 
-		const aiScene* scene = fileImporter.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+		const aiScene* scene = fileImporter.ReadFile(path, aiProcess_Triangulate);
 		/*
 		aiProcess_Triangulate		转换成三角形
 		aiProcess_FlipUVs			反转图片y轴
@@ -68,7 +73,7 @@ namespace ptt
 		itoa(m_ModelCount, num, 10);
 		char objName[32] = "Model";
 		strcat(objName, num);
-		ModelObj* obj = new ModelObj(m_SelectedObj, nullptr, objName);
+		ModelObj* obj = new ModelObj(m_RootObj.get(), nullptr, objName);
 		obj->LoadModel(scene->mRootNode, meshBase);
 	}
 
@@ -211,7 +216,7 @@ namespace ptt
 
 					material->SetTexture(lmTypes[j], 
 						Renderer::LoadTexture(ss.str(), lmTypes[j], true,
-						GL_RGB, GL_RGBA, GL_LINEAR_MIPMAP_NEAREST,GL_LINEAR, GL_REPEAT
+						GL_RGB, GL_RGBA, GL_LINEAR_MIPMAP_NEAREST,GL_LINEAR, GL_REPEAT,true
 					));
 				}
 			}

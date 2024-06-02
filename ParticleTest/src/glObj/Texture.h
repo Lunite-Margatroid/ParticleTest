@@ -38,11 +38,11 @@ namespace LM
 		/// <param name="bGenerateMipmap">是否自动生成多级渐远纹理</param>
 		/// <returns></returns>
 		virtual bool LoadTexture(unsigned int* texture, const std::string& path, unsigned char index,
-			int texColorMode, int resColorMode, bool bGenerateMipmap);
+			int texColorMode, int resColorMode, bool bGenerateMipmap, bool yReverse);
 	public:
 
 		Texture(const std::string& imgPath, TextureType type = texture_diffuse, GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
-			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT);
+			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT, bool yReverse = true);
 		virtual ~Texture();
 		Texture(TextureType type = texture_diffuse);
 

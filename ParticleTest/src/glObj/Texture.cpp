@@ -7,11 +7,11 @@
 namespace LM
 {
 
-	bool Texture::LoadTexture(unsigned int* texture, const std::string& path, unsigned char index, int texColorMode, int resColorMode, bool bGenerateMipmap)
+	bool Texture::LoadTexture(unsigned int* texture, const std::string& path, unsigned char index, int texColorMode, int resColorMode, bool bGenerateMipmap, bool yReverse)
 	{
 		int nChannals;
 		unsigned char* img_data = 0;
-		stbi_set_flip_vertically_on_load(true);	// 翻转y轴
+		stbi_set_flip_vertically_on_load(yReverse);	// 翻转y轴
 		// 原点到了图片的左下角
 
 		/*---------------- process path ----------------*/
@@ -70,7 +70,7 @@ namespace LM
 		return true;
 	}
 
-	Texture::Texture(const std::string& imgPath, TextureType type, GLenum dstColorMode, GLenum srcColorMode, GLenum minFilter, GLenum magFilter, GLenum wrap)
+	Texture::Texture(const std::string& imgPath, TextureType type, GLenum dstColorMode, GLenum srcColorMode, GLenum minFilter, GLenum magFilter, GLenum wrap, bool yReverse)
 		:m_type(type)
 	{
 		switch (m_type)
@@ -99,7 +99,7 @@ namespace LM
 			minFilter == GL_LINEAR_MIPMAP_NEAREST ||
 			minFilter == GL_NEAREST_MIPMAP_LINEAR ||
 			minFilter == GL_LINEAR_MIPMAP_LINEAR;
-		if (this->LoadTexture(&m_uTextureID, imgPath, 0, dstColorMode, srcColorMode, ifMipmap))
+		if (this->LoadTexture(&m_uTextureID, imgPath, 0, dstColorMode, srcColorMode, ifMipmap, yReverse))
 		{
 		}
 		else

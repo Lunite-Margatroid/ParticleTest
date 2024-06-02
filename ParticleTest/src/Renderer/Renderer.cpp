@@ -305,7 +305,8 @@ namespace ptt
 	}
 	LM::Texture* Renderer::LoadTexture(const std::string& path, LM::TextureType type, bool skipIfSame,
 		GLenum dstColorMode, GLenum srcColorMode,
-		GLenum minFilter, GLenum magFilter, GLenum wrap)
+		GLenum minFilter, GLenum magFilter, GLenum wrap,
+		bool yReverse)
 	{
 		auto& textures = GetInstance()->m_Textures;
 		//-----------------Get file name------------
@@ -351,7 +352,7 @@ namespace ptt
 		// ------------------------------
 		LM::Texture* tex = new LM::Texture(path, type,
 			dstColorMode,srcColorMode,
-			minFilter, magFilter,wrap);
+			minFilter, magFilter,wrap, yReverse);
 		tex->SetTextureName(std::move(fileName));
 		textures[tex->GetTextureName()] = tex;
 		return tex;

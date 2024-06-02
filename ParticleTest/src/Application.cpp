@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Application.h"
+#include "SceneObj/illuminant.h"
 
 namespace ptt
 {
@@ -140,7 +141,21 @@ namespace ptt
 				{
 					IGFD::FileDialogConfig config;
 					config.path = "L:/OpenGL/model";
-					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".blend,.pmx,.*", config);
+					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".fbx,.blend,.pmx,.*", config);
+				}
+
+				if (ImGui::MenuItem("Add Point Light"))
+				{
+					LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(m_CurrentScene);
+					if (scene)
+					{
+						Illuminant* obj = new Illuminant(nullptr,
+							new CubeSprite(),
+							"Point Light",
+							dynamic_cast<LM::Light*>(new LM::PointLight())
+							);
+						scene->AddIlluminant(obj);
+					}
 				}
 				ImGui::EndMenu();
 			}
