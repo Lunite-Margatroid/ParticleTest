@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ImGuiWindows">
-      <UniqueIdentifier>{AB5C477F-97BF-D623-4045-0FDA2C87A2A6}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interface">
-      <UniqueIdentifier>{764D2783-E2B7-DBF9-2BF6-8C9F979FB94E}</UniqueIdentifier>
+    <Filter Include="src\ImGuiWindows">
+      <UniqueIdentifier>{22036892-0EFC-86E4-372E-6C69238666F0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Light">
-      <UniqueIdentifier>{3D9E990D-A9B2-C1BE-7234-651EDE07BEEF}</UniqueIdentifier>
+    <Filter Include="src\Interface">
+      <UniqueIdentifier>{4DAFE1C2-B96F-5DF9-82AA-A676EE29A2D5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Material">
-      <UniqueIdentifier>{74B94BCC-6086-A6D7-899F-947F75CBDB65}</UniqueIdentifier>
+    <Filter Include="src\Light">
+      <UniqueIdentifier>{94AC56B3-0017-0B2A-4955-BCCFB5FEE87E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Rand">
-      <UniqueIdentifier>{CAB18B7C-B6E8-8C0D-5FD5-72104BEB080F}</UniqueIdentifier>
+    <Filter Include="src\Material">
+      <UniqueIdentifier>{6BBCC5FC-571F-55A1-00A5-8D57ECE62024}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
+    <Filter Include="src\Rand">
+      <UniqueIdentifier>{41D124CF-2D9E-7FDA-56B7-6D8242E3B468}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneObj">
-      <UniqueIdentifier>{EE1B69CD-DAE8-C3D8-0302-B280EF2DF966}</UniqueIdentifier>
+    <Filter Include="src\Renderer">
+      <UniqueIdentifier>{73D1DFBF-5F34-6F64-08BA-A71AF4FB3AE7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{FC0C0CD1-E8AE-36A7-D169-4AFBBDAABDF7}</UniqueIdentifier>
+    <Filter Include="src\SceneObj">
+      <UniqueIdentifier>{E51EE3FD-D181-72A2-7A07-AB5866493E25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sprite">
-      <UniqueIdentifier>{9C3AA6D1-88DC-D0A7-7197-E4FB5DD857F8}</UniqueIdentifier>
+    <Filter Include="src\Shader">
+      <UniqueIdentifier>{33E66A2E-1F9E-AC7B-88A5-85D7747C476C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="demoscene">
-      <UniqueIdentifier>{782F837A-E499-37F1-2DD8-E89699811546}</UniqueIdentifier>
+    <Filter Include="src\Sprite">
+      <UniqueIdentifier>{D313052F-BFCB-467C-28D3-1FD814AAE16C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="glObj">
-      <UniqueIdentifier>{1372830F-7F86-ABC0-4808-4F20B4DBA7F1}</UniqueIdentifier>
+    <Filter Include="src\demoscene">
+      <UniqueIdentifier>{4F913DBA-BB51-B9F0-848C-026EF00BFECC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glObj">
+      <UniqueIdentifier>{6A8040B5-D6EA-F42B-1F29-A6D18BD2D280}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -42,324 +45,378 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\Camera3D.h" />
-    <ClInclude Include="src\ElementBuffer.h" />
-    <ClInclude Include="src\Feedback.h" />
-    <ClInclude Include="src\GlfwContext.h" />
-    <ClInclude Include="src\ImGuiContext.h" />
+    <ClInclude Include="src\Application.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera3D.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ElementBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Feedback.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GlfwContext.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiContext.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\ImGuiWindows\DemosceneLoader.h">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiWindows\SceneProperty.h">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiWindows\SceneWindow.h">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiWindows\StyleEditor.h">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Input.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Interface\ImGuiInterface.h">
-      <Filter>Interface</Filter>
+      <Filter>src\Interface</Filter>
     </ClInclude>
     <ClInclude Include="src\Light\DirLight.h">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClInclude>
     <ClInclude Include="src\Light\Light.h">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClInclude>
     <ClInclude Include="src\Light\PointLight.h">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClInclude>
     <ClInclude Include="src\Light\SpotLight.h">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClInclude>
     <ClInclude Include="src\Material\Material.h">
-      <Filter>Material</Filter>
+      <Filter>src\Material</Filter>
     </ClInclude>
-    <ClInclude Include="src\Particle.h" />
+    <ClInclude Include="src\Particle.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Rand\Rand.h">
-      <Filter>Rand</Filter>
+      <Filter>src\Rand</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Renderer.h">
-      <Filter>Renderer</Filter>
+      <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\TransparencySprite.h">
-      <Filter>Renderer</Filter>
+      <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneObj\ModelObj.h">
-      <Filter>SceneObj</Filter>
+      <Filter>src\SceneObj</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneObj\SceneObj.h">
-      <Filter>SceneObj</Filter>
+      <Filter>src\SceneObj</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneObj\illuminant.h">
-      <Filter>SceneObj</Filter>
+      <Filter>src\SceneObj</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader\Shader.h">
-      <Filter>Shader</Filter>
+      <Filter>src\Shader</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader\tfbShader.h">
-      <Filter>Shader</Filter>
+      <Filter>src\Shader</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\ColoredSprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\CubeSprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\FireWork.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\Hanabi.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\Mesh.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\QuadMeshSprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\QuadSprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\SphereSprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\Sprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\SpriteMeshes.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="src\Sprite\udSprite.h">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="src\VertexArray.h" />
-    <ClInclude Include="src\VertexBuffer.h" />
+    <ClInclude Include="src\VertexArray.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\demoscene\DemoScene.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneA.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneB.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneModel.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneUI.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\FireworkScene.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\LightedDemoScene.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\QuadMeshScene.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\SceneFireLoop.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\SinWave.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\SpriteTest.h">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\FrameBuffer.h">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\FrameBufferMS.h">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\LightBuffer.h">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\Texture.h">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\VertexBuffers.h">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\oitContext.h">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClInclude>
-    <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\tfBuffer.h" />
-    <ClInclude Include="src\vendor\ImGuiFileDialog\ImGuiFileDialog.h">
+    <ClInclude Include="src\pch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tfBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGuiFileDialog\ImGuiFileDialog.h">
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClInclude>
-    <ClInclude Include="src\vendor\ImGuiFileDialog\ImGuiFileDialogConfig.h">
+    <ClInclude Include="vendor\ImGuiFileDialog\ImGuiFileDialogConfig.h">
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Camera3D.cpp" />
-    <ClCompile Include="src\ElementBuffer.cpp" />
-    <ClCompile Include="src\Feedback.cpp" />
-    <ClCompile Include="src\GlfwContext.cpp" />
-    <ClCompile Include="src\ImGuiContext.cpp" />
+    <ClCompile Include="src\Application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera3D.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ElementBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Feedback.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GlfwContext.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiContext.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\ImGuiWindows\DemosceneLoader.cpp">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiWindows\SceneProperty.cpp">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiWindows\SceneWindow.cpp">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiWindows\StyleEditor.cpp">
-      <Filter>ImGuiWindows</Filter>
+      <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Input.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Interface\ImGuiInterface.cpp">
-      <Filter>Interface</Filter>
+      <Filter>src\Interface</Filter>
     </ClCompile>
     <ClCompile Include="src\Light\DirLight.cpp">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClCompile>
     <ClCompile Include="src\Light\Light.cpp">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClCompile>
     <ClCompile Include="src\Light\PointLight.cpp">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClCompile>
     <ClCompile Include="src\Light\SpotLight.cpp">
-      <Filter>Light</Filter>
+      <Filter>src\Light</Filter>
     </ClCompile>
     <ClCompile Include="src\Material\Material.cpp">
-      <Filter>Material</Filter>
+      <Filter>src\Material</Filter>
     </ClCompile>
-    <ClCompile Include="src\Particle.cpp" />
+    <ClCompile Include="src\Particle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Rand\Rand.cpp">
-      <Filter>Rand</Filter>
+      <Filter>src\Rand</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\TransparencySprite.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneObj\ModelObj.cpp">
-      <Filter>SceneObj</Filter>
+      <Filter>src\SceneObj</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneObj\SceneObj.cpp">
-      <Filter>SceneObj</Filter>
+      <Filter>src\SceneObj</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneObj\illuminant.cpp">
-      <Filter>SceneObj</Filter>
+      <Filter>src\SceneObj</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader\Shader.cpp">
-      <Filter>Shader</Filter>
+      <Filter>src\Shader</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader\tfbShader.cpp">
-      <Filter>Shader</Filter>
+      <Filter>src\Shader</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\ColoredSprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\CubeSprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\FireWork.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\Hanabi.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\Mesh.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\QuadMeshSprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\QuadSprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\SphereSprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\Sprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\SpriteMeshes.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="src\Sprite\udSprite.cpp">
-      <Filter>Sprite</Filter>
+      <Filter>src\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="src\VertexArray.cpp" />
-    <ClCompile Include="src\VertexBuffer.cpp" />
+    <ClCompile Include="src\VertexArray.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\demoscene\DemoScene.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneA.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneB.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneModel.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneUI.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\FireworkScene.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\QuadMeshScene.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\SceneFireLoop.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\SinWave.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\SpriteTest.cpp">
-      <Filter>demoscene</Filter>
+      <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\FrameBuffer.cpp">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\FrameBufferMS.cpp">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\LightBuffer.cpp">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\Texture.cpp">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\VertexBuffers.cpp">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\oitContext.cpp">
-      <Filter>glObj</Filter>
+      <Filter>src\glObj</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\tfBuffer.cpp" />
-    <ClCompile Include="src\vendor\ImGuiFileDialog\ImGuiFileDialog.cpp">
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tfBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\ImGuiFileDialog\ImGuiFileDialog.cpp">
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClCompile>
   </ItemGroup>

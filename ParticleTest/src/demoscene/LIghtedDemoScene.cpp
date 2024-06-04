@@ -7,9 +7,9 @@ namespace ptt
 	{
 		m_SelectedObj = m_RootObj.get();
 		// 绑定光照缓存
-		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "DirLights");
-		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "PointLights");
-		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
+		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
+		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
+		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
 		// 相机
 		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
 		Renderer::SetCurrentCamera(m_Camera);

@@ -22,19 +22,27 @@ project "ParticleTest"
 	pchheader "pch.h"
 	pchsource "%{prj.name}/src/pch.cpp"
 	
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		
+		"%{prj.name}/vendor/**.cpp",
+		"%{prj.name}/vendor/**.h",
 	}
+	
 	
 	includedirs
 	{
 		"Dependence/include",
 		"ImGui/src",
-		"ParticleTest/src"
+		"ParticleTest/src",
+		"%{prj.name}/vendor"
 	}
 	
+	
+		
 	defines
 	{
 		"_CRT_SECURE_NO_WARNINGS"
@@ -49,7 +57,8 @@ project "ParticleTest"
 		"Dependence/assimp/assimp-vc143-mt.lib"
 	}
 	
-	
+	filter "files:%{prj.name}/vendor/**.cpp"
+	flags {"NoPCH"}
 	
 	
 	filter "system:windows"
@@ -76,6 +85,7 @@ project "ParticleTest"
 		optimize "on"
 		runtime "Release"
 		
+	
 		
 project "ImGui"
 	location "ImGui"
@@ -146,3 +156,6 @@ project "glad"
 		defines "_DIST"
 		optimize "on"
 		runtime "Release"
+		
+
+		

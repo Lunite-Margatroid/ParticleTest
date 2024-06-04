@@ -6,6 +6,7 @@ namespace ptt
 {
 	SpriteMeshes::SpriteMeshes()
 	{
+		m_ShaderName = LM::Shaders::Mesh_P_N_T;
 	}
 	void SpriteMeshes::PushMeshBack(Mesh* mesh)
 	{
@@ -44,15 +45,7 @@ namespace ptt
 	}
 	void SpriteMeshes::SelectShader()
 	{
-		if (m_Lighted)
-		{
-			m_Shader = Renderer::GetShader(Renderer::Shaders::LightedMesh_P_N_T_TG);
-			LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(Application::GetCurrentScene());
-			if (scene)
-				scene->BindLightBuffer();
-		}
-		else
-			m_Shader = Renderer::GetShader(Renderer::Shaders::Mesh_P_N_T);
+		Sprite::SelectShader();
 	}
 	void SpriteMeshes::RenderImGui()
 	{

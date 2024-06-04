@@ -28,55 +28,80 @@ namespace ptt
 	void Renderer::InitShader()
 	{
 		tfbShader* shader = new tfbShader("./res/shader/FireworkVertex.shader", "./res/shader/FireworkFrag.shader");
-		m_ShaderMap[Shaders::FireWork] = dynamic_cast<LM::Shader*>(shader);
+		m_ShaderMap[LM::Shaders::FireWork] = dynamic_cast<LM::Shader*>(shader);
+		Shader_Names[LM::Shaders::FireWork] = "Shader_FireWork";
 		shader->PushVarying("out_Pos");
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("out_T");
 		shader->ApplyVarying();
+
 
 		shader = new tfbShader("./res/shader/HanabiSparkVertex.shader", "./res/shader/HanabiSparkFrag.shader");
-		m_ShaderMap[Shaders::HanabiSpark] = dynamic_cast<LM::Shader*>(shader);
+		m_ShaderMap[LM::Shaders::HanabiSpark] = dynamic_cast<LM::Shader*>(shader);
+		Shader_Names[LM::Shaders::HanabiSpark] = "Shader_HanabiSpark";
 		shader->PushVarying("out_Pos");
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("out_T");
 		shader->ApplyVarying();
 
+
 		shader = new tfbShader("./res/shader/HanabiVertex.shader", "./res/shader/HanabiFrag.shader");
-		m_ShaderMap[Shaders::Hanabi] = dynamic_cast<LM::Shader*>(shader);
+		m_ShaderMap[LM::Shaders::Hanabi] = dynamic_cast<LM::Shader*>(shader);
+		Shader_Names[LM::Shaders::Hanabi] = "Shader_Hanabi";
 		shader->PushVarying("out_Pos");
 		shader->PushVarying("out_T");
 		shader->PushVarying("out_Vel");
 		shader->PushVarying("gl_SkipComponents1");
 		shader->ApplyVarying();
 
+
 		LM::Shader* shd = new LM::Shader("./res/shader/QuadMeshSpriteVertex.shader", "./res/shader/QuadMeshSpriteFrag.shader");
-		m_ShaderMap[Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
+		m_ShaderMap[LM::Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::QuadMesh] = "Shader_QuadMesh";
+
 
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag.shader");
-		m_ShaderMap[Shaders::Mesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
+		m_ShaderMap[LM::Shaders::Mesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::Mesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[LM::Shaders::Mesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::Mesh_P_N_T] = "Shader_Mesh_P_N_T";
+
 
 		shd = new LM::Shader("./res/shader/OIT_Vertex.shader", "./res/shader/OIT_Fragment.shader");
-		m_ShaderMap[Shaders::OIT] = dynamic_cast<LM::Shader*>(shd);
+		m_ShaderMap[LM::Shaders::OIT] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::OIT] = "OIT";
+
 
 		shd = new LM::Shader("./res/shader/LightedMeshVertex.shader", "./res/shader/LightedMeshFrag.shader");
-		m_ShaderMap[Shaders::LightedMesh_P_N_T_TG] = shd;
+		m_ShaderMap[LM::Shaders::LightedMesh_P_N_T_TG] = shd;
 		shd = new LM::Shader("./res/shader/LightedMeshVertex.shader", "./res/shader/LightedMeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::LightedMesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[LM::Shaders::LightedMesh_P_N_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::LightedMesh_P_N_T_TG] = "Shader_LightedMesh_P_N_T_TG";
+
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_P_N_T.shader", "./res/shader/LightedMeshFrag_P_N_T.shader");
+		m_ShaderMap[LM::Shaders::LightedMesh_P_N_T] = shd;
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_P_N_T.shader", "./res/shader/LightedMeshFrag_P_N_T_oit.shader");
+		m_oitShaderMap[LM::Shaders::LightedMesh_P_N_T] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::LightedMesh_P_N_T] = "Shader_LightedMesh_P_N_T";
+
 
 		shd = new LM::Shader("./res/shader/LightedMeshVertex_Sphere.shader", "./res/shader/LightedMeshFrag.shader");
-		m_ShaderMap[Shaders::LightedMesh_Sphere_P_T_TG] = shd;
+		m_ShaderMap[LM::Shaders::LightedMesh_Sphere_P_T_TG] = shd;
 		shd = new LM::Shader("./res/shader/LightedMeshVertex_Sphere.shader", "./res/shader/LightedMeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::LightedMesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[LM::Shaders::LightedMesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::LightedMesh_Sphere_P_T_TG] = "Shader_LightedMesh_Sphere_P_T_TG";
+
 
 		shd = new LM::Shader("./res/shader/MeshVertex_Sphere.shader", "./res/shader/MeshFrag.shader");
-		m_ShaderMap[Shaders::Mesh_Sphere_P_T_TG] = shd;
+		m_ShaderMap[LM::Shaders::Mesh_Sphere_P_T_TG] = shd;
 		shd = new LM::Shader("./res/shader/MeshVertex_Sphere.shader", "./res/shader/MeshFrag_oit.shader");
-		m_oitShaderMap[Shaders::Mesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		m_oitShaderMap[LM::Shaders::Mesh_Sphere_P_T_TG] = dynamic_cast<LM::Shader*>(shd);
+		Shader_Names[LM::Shaders::Mesh_Sphere_P_T_TG] = "Shader_Mesh_Sphere_P_T_TG";
+
 
 		shd = new LM::Shader("./res/shader/UI_ObjAxis_Vertex.shader", "./res/shader/UI_ObjAxis_Frag.shader");
-		m_ShaderMap[Shaders::UI_ObjAxis] = shd;
+		m_ShaderMap[LM::Shaders::UI_ObjAxis] = shd;
+		Shader_Names[LM::Shaders::UI_ObjAxis] = "Shader_UI_ObjAxis";
 
 	}
 	void Renderer::InitTexture()
@@ -392,7 +417,7 @@ namespace ptt
 	{
 		return GetInstance()->m_Textures;
 	}
-	LM::Shader* Renderer::GetShader(Shaders shader)
+	LM::Shader* Renderer::GetShader(LM::Shaders shader)
 	{
 		Renderer* render = GetInstance();
 		auto& shaderMap = render->m_ShaderMap;
@@ -408,7 +433,7 @@ namespace ptt
 			return nullptr;
 		return shaderMap[shader];
 	}
-	void Renderer::LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath)
+	void Renderer::LoadShader(LM::Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath)
 	{
 		auto& map = GetInstance()->m_ShaderMap;
 		if (map.find(shaderName) == map.end()) // not exist
@@ -421,7 +446,7 @@ namespace ptt
 			map[shaderName] = new LM::Shader(vertexShaderPath, FragmentShaderPath);
 		}
 	}
-	void Renderer::LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath)
+	void Renderer::LoadShader(LM::Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath)
 	{
 		auto& map = GetInstance()->m_ShaderMap;
 		if (map.find(shaderName) == map.end()) // not exist
@@ -560,5 +585,15 @@ namespace ptt
 		if (vaMap.find(va) == vaMap.end())
 			return nullptr;
 		return vaMap[va];
+	}
+	const std::string& Renderer::GetShaderName(LM::Shaders shaderName)
+	{
+		// TODO: insert return statement here
+		return GetInstance()->Shader_Names[shaderName];
+	}
+	std::unordered_map<LM::Shaders, std::string>& Renderer::GetShaderNames()
+	{
+		// TODO: insert return statement here
+		return GetInstance()->Shader_Names;
 	}
 }

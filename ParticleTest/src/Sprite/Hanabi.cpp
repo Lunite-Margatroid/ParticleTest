@@ -60,7 +60,7 @@ namespace ptt
 		m_vaoSpark[1].ApplyLayout();
 		delete[] buffer;
 
-		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::HanabiSpark);
+		LM::Shader* shader = Renderer::GetShader(LM::Shaders::HanabiSpark);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, m_Buffer[0].GetID());
 		//shader->UniformBlockBinding("UnifVertexAtttib", 4);
 		//glBindBufferBase(GL_UNIFORM_BUFFER, 4, m_Buffer[0].GetID());
@@ -112,6 +112,7 @@ namespace ptt
 		m_Color[1] = glm::vec4(1.0f);
 		m_ExistTime = m_TimeHanabi[0] + m_TimeSpark[0] + 2 * (m_TimeHanabi[1] + m_TimeSpark[1]);
 
+		m_ShaderName = LM::Shaders::Hanabi;
 		Init();
     }
     Hanabi::~Hanabi()
@@ -131,7 +132,7 @@ namespace ptt
 			return;
 
 		// ------------- Render Hanabi ----------------
-		tfbShader* shader = dynamic_cast<tfbShader*>(Renderer::GetShader(Renderer::Shaders::Hanabi));
+		tfbShader* shader = dynamic_cast<tfbShader*>(Renderer::GetShader(LM::Shaders::Hanabi));
 		ASSERT(shader);
 		Camera* camera = Renderer::GetCurrentCamera();
 		ASSERT(camera);
@@ -170,7 +171,7 @@ namespace ptt
 
 		// ------------------ Render Spark -------------------
 
-		shader = dynamic_cast<tfbShader*>(Renderer::GetShader(Renderer::Shaders::HanabiSpark));
+		shader = dynamic_cast<tfbShader*>(Renderer::GetShader(LM::Shaders::HanabiSpark));
 		ASSERT(shader);
 		shader->Bind();
 		shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));

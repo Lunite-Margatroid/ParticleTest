@@ -1,8 +1,17 @@
 #pragma once
 namespace LM
 {
+	// P 顶点坐标   N 法向量  T 纹理坐标 TG 切线
+	enum class Shaders
+	{
+		FireWork, Hanabi, HanabiSpark, Mesh_P_N_T, QuadMesh, OIT, LightedMesh_P_N_T_TG,
+		Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG, UI_ObjAxis, LightedMesh_P_N_T
+	};
+
 	class Shader
 	{
+	public:
+		
 	protected:
 		unsigned int m_ShaderID;
 		std::unordered_map<std::string, int> m_UniformMapLocation;

@@ -25,6 +25,7 @@ namespace ptt
 	QuadMeshSprite::QuadMeshSprite() :
 		m_MeshColor(1.0f, 1.0f, 1.0f, 1.0f)
 	{
+		m_ShaderName = LM::Shaders::QuadMesh;
 		Init();
 		
 	}
@@ -38,20 +39,25 @@ namespace ptt
 	}
 	void QuadMeshSprite::Render(const glm::mat4& modelTrans)
 	{
-		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::QuadMesh);
-		ASSERT(shader != nullptr);
+		SelectShader();
+		if(m_Shader == nullptr)
+			return;
+
 		Camera* camera = Renderer::GetCurrentCamera();
-		ASSERT(camera != nullptr);
+
+		if (camera == nullptr)
+			return;
 		static glm::mat4 mvpTrans(1.0f);
 		mvpTrans = camera->GetProjectionTrans() * camera->GetViewTrans() * modelTrans;
-		shader->Bind();
-		shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
-		shader->SetUniform4f("u_MeshColor", m_MeshColor.r, m_MeshColor.g, m_MeshColor.b, m_MeshColor.a);
+		m_Shader->Bind();
+		m_Shader->SetUniformMatrix4f("u_MVPTrans", false, glm::value_ptr(mvpTrans));
+		m_Shader->SetUniform4f("u_MeshColor", m_MeshColor.r, m_MeshColor.g, m_MeshColor.b, m_MeshColor.a);
 
 		m_VAO.DrawArray(4, 0);
 	}
 	void QuadMeshSprite::RenderImGui()
 	{
+		Sprite::RenderImGui();
 		ImGui::SeparatorText("Quad Mesh Color");
 		ImGui::ColorEdit4("Mesh Color", &m_MeshColor.r);
 	}

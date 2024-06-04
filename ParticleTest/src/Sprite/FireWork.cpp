@@ -82,6 +82,7 @@ namespace ptt
 		m_TimeRange[0] = 1.6f;
 		m_TimeRange[1] = 2.5f;
 		m_Color[0] = glm::vec4(1.0f);
+		m_ShaderName = LM::Shaders::FireWork;
 		Init();
 	}
 	FireWork::~FireWork()
@@ -93,7 +94,7 @@ namespace ptt
 	}
 	void FireWork::Render(const glm::mat4& modelTrans)
 	{
-		tfbShader *shader = dynamic_cast<tfbShader*>(Renderer::GetShader(Renderer::Shaders::FireWork));
+		tfbShader *shader = dynamic_cast<tfbShader*>(Renderer::GetShader(LM::Shaders::FireWork));
 		ASSERT(shader!=nullptr);
 		Camera* camera = Renderer::GetCurrentCamera();
 		ASSERT(camera);

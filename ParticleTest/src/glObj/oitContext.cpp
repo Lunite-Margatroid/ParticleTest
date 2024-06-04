@@ -119,7 +119,7 @@ namespace ptt
 	}
 	void oitContext::Render()
 	{
-		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::OIT);
+		LM::Shader* shader = Renderer::GetShader(LM::Shaders::OIT);
 
 		shader->Bind();
 		/*--------------- 将头指针缓存绑定到纹理单元 --------------*/

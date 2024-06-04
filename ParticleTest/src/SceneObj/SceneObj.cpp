@@ -196,10 +196,7 @@ namespace ptt
 			{
 				StatusUnite();
 			}
-			if (ImGuiInterface* gui = dynamic_cast<ImGuiInterface*>(m_Sprite))
-			{
-				gui->RenderImGui();
-			}
+			m_Sprite->RenderImGui();
 		}
 	}
 	const std::string& SceneObj::GetObjName() const
@@ -214,14 +211,14 @@ namespace ptt
 	{
 		if (m_Sprite == nullptr)
 			return;
-		bool lighted = m_Sprite->IsLighted();
+		LM::Shaders shaderName = m_Sprite->GetShaderName();
 		bool transparent = m_Sprite->IsTransparency();
 		bool visible = m_Sprite->IsVisible();
 		for (SceneObj* obj : m_ChildObj)
 		{
 			if (obj->m_Sprite)
 			{
-				obj->m_Sprite->SetLighted(lighted);
+				obj->m_Sprite->SetShaderName(shaderName);
 				obj->m_Sprite->SetTransparency(transparent);
 				obj->m_Sprite->SetVisible(visible);
 				obj->StatusUnite();

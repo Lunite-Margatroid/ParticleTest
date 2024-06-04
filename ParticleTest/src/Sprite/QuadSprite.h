@@ -5,7 +5,6 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "Camera3D.h"
-#include "Renderer/Renderer.h"
 #include "Material/Material.h"
 
 namespace ptt

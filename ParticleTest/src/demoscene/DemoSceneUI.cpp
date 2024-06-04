@@ -94,7 +94,7 @@ namespace ptt
 	}
 	void DemoSceneUI::RenderUI()
 	{
-		LM::Shader* shader = Renderer::GetShader(Renderer::Shaders::UI_ObjAxis);
+		LM::Shader* shader = Renderer::GetShader(LM::Shaders::UI_ObjAxis);
 		if (shader == nullptr)
 			return;
 		Camera* camera = Renderer::GetCurrentCamera();

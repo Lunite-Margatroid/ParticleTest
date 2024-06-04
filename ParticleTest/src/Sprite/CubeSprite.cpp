@@ -12,6 +12,7 @@ namespace ptt
 	CubeSprite::CubeSprite(bool init)
 		:QuadSprite(false)
 	{
+		m_ShaderName = LM::Shaders::Mesh_P_N_T;
 		if (init)
 			Init();
 	}

@@ -12,12 +12,6 @@ namespace ptt
 	class Renderer
 	{
 	public:
-		// P 顶点坐标   N 法向量  T 纹理坐标 TG 切线
-		enum class Shaders
-		{
-			FireWork, Hanabi, HanabiSpark, Mesh_P_N_T, QuadMesh, OIT, LightedMesh_P_N_T_TG,
-			Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG, UI_ObjAxis
-		};
 		enum class Cameras
 		{
 			Camera3D_Alpha
@@ -27,6 +21,9 @@ namespace ptt
 		{
 			Quad_P_N_T_TG, Cube_P_N_T_TG, Sphere_P_T_TG
 		};
+
+		std::unordered_map<LM::Shaders, std::string> Shader_Names;
+
 	protected:
 		glm::mat4 m_ViewTrans;
 		glm::mat4 m_ModelTrans;
@@ -45,8 +42,8 @@ namespace ptt
 		std::unique_ptr<oitContext> m_oitContext;
 		std::queue<TransparencySprite> m_TransparencyRenderQueue;
 
-		std::unordered_map<Shaders, LM::Shader*> m_ShaderMap;
-		std::unordered_map<Shaders, LM::Shader*> m_oitShaderMap;
+		std::unordered_map<LM::Shaders, LM::Shader*> m_ShaderMap;
+		std::unordered_map<LM::Shaders, LM::Shader*> m_oitShaderMap;
 		std::unordered_map<Cameras, Camera*> m_CameraMap;
 		std::unordered_map<std::string, LM::Texture*> m_Textures;
 
@@ -92,9 +89,9 @@ namespace ptt
 		static unsigned int GetTextureCount();
 		static const std::unordered_map<std::string, LM::Texture*>& GetTextureMap();
 
-		static LM::Shader* GetShader(Shaders shaderName);
-		static void LoadShader(Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
-		static void LoadShader(Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath);
+		static LM::Shader* GetShader(LM::Shaders shaderName);
+		static void LoadShader(LM::Shaders shaderName,const std::string& vertexShaderPath, const std::string& FragmentShaderPath);
+		static void LoadShader(LM::Shaders shaderName, const std::string& vertexShaderPath, const std::string& FragmentShaderPath, const std::string& GeometryShaderPath);
 
 		static Camera* GetCamera(Cameras cameraName);
 		static void LoadCamera(Cameras cameraName, Camera* camera);
@@ -122,5 +119,8 @@ namespace ptt
 		static oitContext* GetOITContext();
 
 		static LM::VertexArray* GetVertexArray(VertexArrays va);
+
+		static const std::string& GetShaderName(LM::Shaders shaderName);
+		static std::unordered_map<LM::Shaders, std::string>& GetShaderNames();
 	};
 }
