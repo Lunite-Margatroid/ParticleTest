@@ -106,7 +106,7 @@ unsigned int LM::PointLight::WriteBuffer(GLenum target, unsigned int offset)
 		offset += 3 * sizeof(float);
 
 		glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
-		offset += 4 * sizeof(float);
+		offset += 5 * sizeof(float);
 	return offset;
 }
 

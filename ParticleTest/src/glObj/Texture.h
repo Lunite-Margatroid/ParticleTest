@@ -42,7 +42,7 @@ namespace LM
 	public:
 
 		Texture(const std::string& imgPath, TextureType type = texture_diffuse, GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
-			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT, bool yReverse = true);
+			GLenum minFilter = GL_NEAREST_MIPMAP_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT, bool yReverse = true);
 		virtual ~Texture();
 		Texture(TextureType type = texture_diffuse);
 

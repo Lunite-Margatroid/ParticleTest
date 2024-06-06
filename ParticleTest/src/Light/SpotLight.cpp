@@ -98,8 +98,9 @@ unsigned int LM::SpotLight::WriteBuffer(GLenum target, unsigned int offset)
 
 	glBufferSubData(target, offset, 3 * sizeof(float), &m_kConstant);
 	offset += 3 * sizeof(float);
+
 	glBufferSubData(target, offset, 2 * sizeof(float), &m_fInnerBdr);
-	offset += 6 * sizeof(float);
+	offset += 2 * sizeof(float);
 
 	return offset;
 }

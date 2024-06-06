@@ -10,6 +10,11 @@ namespace ptt
 	void DemoSceneModel::Init()
 	{
 		m_SelectedObj = m_RootObj.get();
+
+		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
+		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
+		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
+
 		// LoadModel("L:/OpenGL/model/nanosuit/nanosuit.blend");
 		SceneObj* obj = new SceneObj(m_RootObj.get(), new QuadMeshSprite(), "mesh");
 
@@ -20,6 +25,17 @@ namespace ptt
 			new Illuminant(nullptr, nullptr, "Directional Light 0",
 				new LM::DirLight())
 		);
+
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new CubeSprite()), "cube2");
+		obj->SetPosition(glm::vec3(-7.f, 1.4f, 1.4f));
+		Material* material = dynamic_cast<Material*>(obj->GetSprite());
+		if (material)
+		{
+			LM::Texture* tex = Renderer::LoadTexture("./res/img/normalTex1.jpg", LM::texture_normal);
+			material->SetTexture(LM::texture_normal, tex);
+			tex = Renderer::LoadTexture("./res/img/img_2.png", LM::texture_diffuse);
+			material->SetTexture(LM::texture_diffuse, tex);
+		}
 	}
 	ptt::DemoSceneModel::DemoSceneModel()
 		:DemoSceneUI(false)

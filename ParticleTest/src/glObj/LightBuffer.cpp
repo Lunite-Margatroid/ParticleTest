@@ -68,19 +68,19 @@ namespace ptt
 	void LightBuffer::BindToShaderStorage(LM::Shader* shader, const std::string& bufferName)
 	{
 		/*
-			layout(std140£¬ binding = 0)buffer DirLights
+			layout(std140£¬ binding = 1)buffer DirLights
 			{
 				int countDirLight;
 				struct DirLight dataDirLights[];
 			};
 
-			layout(std140,binding = 1)buffer PointLights
+			layout(std140,binding = 2)buffer PointLights
 			{
 				int countPointLight;
 				struct PointLight dataPointLights[];
 			};
 
-			layout(std140, binding = 2)buffer SpotLights
+			layout(std140, binding = 3)buffer SpotLights
 			{
 				int countSpotLight;
 				struct SpotLight dataSpotLights[];
@@ -93,7 +93,7 @@ namespace ptt
 		case LM::LightType::DirectionLight: bindingNode = 1; break;
 		case LM::LightType::PointLight: bindingNode = 2; break;
 		case LM::LightType::SpotLight: bindingNode = 3; break;
-		default:bindingNode = 3; break;
+		default:bindingNode = 4; break;
 		}
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, bindingNode, m_Buffer);
 	}

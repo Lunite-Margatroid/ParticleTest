@@ -61,17 +61,31 @@ namespace ptt
 		Illuminant* lightedObj = new Illuminant(m_RootObj.get(), nullptr, "DirLight1", 
 			dynamic_cast<LM::Light*>(new LM::DirLight()));
 		AddLight(lightedObj->GetLight());
+		lightedObj = new Illuminant(m_RootObj.get(), nullptr, "DirLight2",
+			dynamic_cast<LM::Light*>(new LM::DirLight()));
+		AddLight(lightedObj->GetLight());
 
 		lightedObj = new Illuminant(m_RootObj.get(), new CubeSprite(), "PointLight1",
 			dynamic_cast<LM::Light*>(new LM::PointLight()));
 		lightedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
 		lightedObj->SetPosition(glm::vec3(0.0f, 5.0f, 0.f));
 		AddLight(lightedObj->GetLight());
+		lightedObj = new Illuminant(m_RootObj.get(), new CubeSprite(), "PointLight2",
+			dynamic_cast<LM::Light*>(new LM::PointLight()));
+		lightedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
+		lightedObj->SetPosition(glm::vec3(0.0f, 5.0f, 10.f));
+		AddLight(lightedObj->GetLight());
 
 		lightedObj = new Illuminant(m_RootObj.get(), new CubeSprite(), "SpotLight1",
 			dynamic_cast<LM::Light*>(new LM::SpotLight()));
 		lightedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
 		lightedObj->SetPosition(glm::vec3(2.0f, 5.0f, 0.f));
+		AddLight(lightedObj->GetLight());
+
+		lightedObj = new Illuminant(m_RootObj.get(), new CubeSprite(), "SpotLight2",
+			dynamic_cast<LM::Light*>(new LM::SpotLight()));
+		lightedObj->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
+		lightedObj->SetPosition(glm::vec3(2.0f, 5.0f, -6.f));
 		AddLight(lightedObj->GetLight());
 
 	}
