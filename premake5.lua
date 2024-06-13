@@ -57,8 +57,8 @@ project "ParticleTest"
 		"Dependence/assimp/assimp-vc143-mt.lib"
 	}
 	
-	filter "files:%{prj.name}/vendor/**.cpp"
-	flags {"NoPCH"}
+	filter "files:ParticleTest/vendor/**.cpp"
+		flags {"NoPCH"}
 	
 	
 	filter "system:windows"

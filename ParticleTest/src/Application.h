@@ -10,6 +10,8 @@
 #include "ImGuiWindows/SceneWindow.h"
 #include "ImGuiWindows/SceneProperty.h"
 #include "demoscene/DemoSceneModel.h"
+#include "ImGuiWindows/TextureLoadDialog.h"
+#include "ImGuiWindows/DialogManager.h"
 
 namespace ptt
 {
@@ -36,6 +38,7 @@ namespace ptt
 
 		float m_FPS;
 
+		// windows
 		DemosceneLoader m_DemosceneWindow;
 		SceneWindow m_SceneWindow;
 		SceneProperty m_SceneProperty;

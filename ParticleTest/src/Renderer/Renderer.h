@@ -79,6 +79,7 @@ namespace ptt
 		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse, bool skipIfSame = false,
 			GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
 			GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrap = GL_REPEAT, bool yReverse = true);
+		static void SaveTexture(LM::Texture* texture);
 		/// <summary>
 		/// 
 		/// </summary>

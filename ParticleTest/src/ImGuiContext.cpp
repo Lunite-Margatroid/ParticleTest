@@ -42,6 +42,8 @@ namespace ptt
 
         m_ImGuiWindows["Style Editor"] = new StyleEditor("Style Editor");
         m_ImGuiWindows["Style Editor"]->CloseWindow();
+
+        m_DialogManager.GenDialog<TextureLoadDialog>("Texture Load");
         
 	}
     void ImGuiContext::Terminate()
@@ -73,6 +75,8 @@ namespace ptt
 
         // docking place
         ImGui::DockSpaceOverViewport();
+
+        UpdateDialogID();
     }
     void ImGuiContext::ImGuiEnd()
     {
@@ -86,6 +90,21 @@ namespace ptt
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+    }
+
+    void ImGuiContext::Popup(const std::string& name)
+    {
+        m_DialogManager.Popup(name);
+    }
+
+    void ImGuiContext::UpdateDialogID()
+    {
+        m_DialogManager.Update();
+    }
+
+    void ImGuiContext::ShowDialog(const std::string& name)
+    {
+        m_DialogManager.ShowWindow(name);
     }
 
     void ImGuiContext::SaveStyle(const std::string& fileName)

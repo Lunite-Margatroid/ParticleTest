@@ -69,6 +69,15 @@
     <ClInclude Include="src\ImGuiWindows\DemosceneLoader.h">
       <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
+    <ClInclude Include="src\ImGuiWindows\DialogManager.h">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiWindows\ImGuiDialog.h">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiWindows\ImGuiDialogModal.h">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClInclude>
     <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h">
       <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
@@ -79,6 +88,9 @@
       <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiWindows\StyleEditor.h">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiWindows\TextureLoadDialog.h">
       <Filter>src\ImGuiWindows</Filter>
     </ClInclude>
     <ClInclude Include="src\Input.h">
@@ -257,6 +269,15 @@
     <ClCompile Include="src\ImGuiWindows\DemosceneLoader.cpp">
       <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
+    <ClCompile Include="src\ImGuiWindows\DialogManager.cpp">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiWindows\ImGuiDialog.cpp">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiWindows\ImGuiDialogModal.cpp">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClCompile>
     <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp">
       <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
@@ -267,6 +288,9 @@
       <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiWindows\StyleEditor.cpp">
+      <Filter>src\ImGuiWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiWindows\TextureLoadDialog.cpp">
       <Filter>src\ImGuiWindows</Filter>
     </ClCompile>
     <ClCompile Include="src\Input.cpp">

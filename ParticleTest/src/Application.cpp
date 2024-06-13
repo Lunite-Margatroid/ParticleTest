@@ -26,6 +26,7 @@ namespace ptt
 		glfwSetKeyCallback(m_Window, PreCallbackKey);
 
 		m_SceneWindow.Init(m_SceneWidth, m_SceneHeight);
+		
 	}
 	Application::Application()
 		:m_DemosceneWindow("Demoscene"),
@@ -143,7 +144,7 @@ namespace ptt
 					config.path = "L:/OpenGL/model";
 					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".fbx,.blend,.pmx,.*", config);
 				}
-
+				ImGui::Separator();
 				if (ImGui::MenuItem("Add Point Light"))
 				{
 					LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(m_CurrentScene);
@@ -156,6 +157,11 @@ namespace ptt
 							);
 						scene->AddIlluminant(obj);
 					}
+				}
+				ImGui::Separator();
+				if (ImGui::MenuItem("Load Texture"))
+				{
+					m_ImGuiCtx->Popup("Texture Load");
 				}
 				ImGui::EndMenu();
 			}
@@ -210,6 +216,9 @@ namespace ptt
 
 		// ----------------Style Editor------------------------
 		m_ImGuiCtx->ShowWindow("Style Editor");
+
+		// ----------------- Texture loader----------------------
+		m_ImGuiCtx->ShowDialog("Texture Load");
 	}
 
 	Application* Application::GetInstance()
