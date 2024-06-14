@@ -149,6 +149,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
+    <ClInclude Include="src\glObj\CubeTexture.h" />
     <ClInclude Include="src\ImGuiContext.h" />
     <ClInclude Include="src\ImGuiWindows\DemosceneLoader.h" />
     <ClInclude Include="src\ImGuiWindows\DialogManager.h" />
@@ -217,6 +218,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
+    <ClCompile Include="src\glObj\CubeTexture.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
     <ClCompile Include="src\ImGuiWindows\DemosceneLoader.cpp" />
     <ClCompile Include="src\ImGuiWindows\DialogManager.cpp" />

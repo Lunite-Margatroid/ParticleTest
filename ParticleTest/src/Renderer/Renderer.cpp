@@ -385,7 +385,20 @@ namespace ptt
 	void Renderer::SaveTexture(LM::Texture* texture)
 	{
 		auto& textures = GetInstance()->m_Textures;
-		textures[texture->GetTextureName()] = texture;
+		std::string texName = texture->GetTextureName();
+		while (true)
+		{
+			if (textures.find(texName) == textures.end())
+			{
+				break;
+			}
+			else
+			{
+				texName.append("-");
+			}
+		}
+		texture->SetTextureName(texName);
+		textures[texName] = texture;
 	}
 	LM::Texture* Renderer::GetTexture(const std::string& texName)
 	{

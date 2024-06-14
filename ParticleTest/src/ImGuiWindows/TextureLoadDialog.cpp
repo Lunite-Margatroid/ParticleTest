@@ -38,6 +38,19 @@ namespace ptt
 		m_NameMap[LM::texture_specular] = std::string("Specular Texture");
 		m_NameMap[LM::texture_parallax] = std::string("Parallax Texture");
 
+		m_NameMap[GL_CLAMP_TO_EDGE] = std::string("Clamp To Edge"); 
+		m_NameMap[GL_CLAMP_TO_BORDER] = std::string("Clamp To Border");
+		m_NameMap[GL_MIRRORED_REPEAT] = std::string("Mirrored Repeat");
+		m_NameMap[GL_REPEAT] = std::string("Repeat"); 
+		m_NameMap[GL_MIRROR_CLAMP_TO_EDGE] = std::string("Mirror Clamp To Edge");
+		
+		m_WrapTypes[0] = GL_CLAMP_TO_EDGE;
+		m_WrapTypes[1] = GL_CLAMP_TO_BORDER;
+		m_WrapTypes[2] = GL_MIRRORED_REPEAT;
+		m_WrapTypes[3] = GL_REPEAT;
+		m_WrapTypes[4] = GL_MIRROR_CLAMP_TO_EDGE;
+
+
 		m_MagFilter = GL_NEAREST;
 		m_MinFilter = GL_NEAREST;
 
@@ -121,6 +134,25 @@ namespace ptt
 				}
 				ImGui::EndCombo();
 			}
+
+			if (ImGui::BeginCombo("Wrap Type", m_NameMap[m_Wrap].c_str()))
+			{
+				for (int i = 0; i < 5; i++)
+				{
+					bool isSelected = m_Wrap == m_WrapTypes[i];
+					if (ImGui::Selectable(m_NameMap[m_WrapTypes[i]].c_str(), &isSelected))
+					{
+						m_Wrap = m_WrapTypes[i];
+					}
+					if (isSelected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+				ImGui::EndCombo();
+			}
+
+			ImGui::Checkbox("Inverse Y Axis", &m_YInverse);
 
 			// preview
 			if (ImGui::Button("Refresh"))
