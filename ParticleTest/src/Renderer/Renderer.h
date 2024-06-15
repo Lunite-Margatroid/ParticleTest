@@ -7,6 +7,7 @@
 #include "TransparencySprite.h"
 #include "glObj/oitContext.h"
 #include "ElementBuffer.h"
+#include "Sprite/SkyboxSprite.h"
 namespace ptt
 {
 	class Renderer
@@ -40,7 +41,10 @@ namespace ptt
 		bool m_oitRendering;
 		bool m_oitRender;
 		std::unique_ptr<oitContext> m_oitContext;
+
 		std::queue<TransparencySprite> m_TransparencyRenderQueue;
+
+		std::queue<SkyboxSprite*> m_SkyboxRendererQueue;
 
 		std::unordered_map<LM::Shaders, LM::Shader*> m_ShaderMap;
 		std::unordered_map<LM::Shaders, LM::Shader*> m_oitShaderMap;
@@ -123,5 +127,8 @@ namespace ptt
 
 		static const std::string& GetShaderName(LM::Shaders shaderName);
 		static std::unordered_map<LM::Shaders, std::string>& GetShaderNames();
+
+		static void PushSkyboxSprite(SkyboxSprite* skybox);
+		static void RendererSkybox();
 	};
 }

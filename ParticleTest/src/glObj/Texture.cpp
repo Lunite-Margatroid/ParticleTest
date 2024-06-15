@@ -54,6 +54,7 @@ namespace LM
 		if (nChannals == 3) {
 			resColorMode = GL_RGB;
 		}
+		texColorMode = resColorMode;
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, texColorMode, m_nWidth, m_nHeight, 0, resColorMode, GL_UNSIGNED_BYTE, img_data));
 		// param1 纹理Target
 		// param2 多级渐远级别 0为基本级别

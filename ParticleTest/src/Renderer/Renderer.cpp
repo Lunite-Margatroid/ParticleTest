@@ -103,6 +103,10 @@ namespace ptt
 		m_ShaderMap[LM::Shaders::UI_ObjAxis] = shd;
 		Shader_Names[LM::Shaders::UI_ObjAxis] = "Shader_UI_ObjAxis";
 
+		shd = new LM::Shader("./res/shader/SkyboxVertex.shader", "./res/shader/SkyboxFragment.shader");
+		m_ShaderMap[LM::Shaders::Skybox_P] = shd;
+		Shader_Names[LM::Shaders::Skybox_P] = "Shader_Skybox";
+
 	}
 	void Renderer::InitTexture()
 	{
@@ -613,5 +617,18 @@ namespace ptt
 	{
 		// TODO: insert return statement here
 		return GetInstance()->Shader_Names;
+	}
+	void Renderer::PushSkyboxSprite(SkyboxSprite* skybox)
+	{
+		GetInstance()->m_SkyboxRendererQueue.push(skybox);
+	}
+	void Renderer::RendererSkybox()
+	{
+		std::queue<SkyboxSprite*>& skyboxQueue = GetInstance()->m_SkyboxRendererQueue;
+		while (!skyboxQueue.empty())
+		{
+			skyboxQueue.front()->RenderSkybox();
+			skyboxQueue.pop();
+		}
 	}
 }

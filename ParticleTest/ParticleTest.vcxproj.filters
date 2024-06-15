@@ -244,6 +244,7 @@
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\CubeTexture.h" />
+    <ClInclude Include="src\Sprite\SkyboxSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -445,5 +446,6 @@
       <Filter>vendor\ImGuiFileDialog</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\CubeTexture.cpp" />
+    <ClCompile Include="src\Sprite\SkyboxSprite.cpp" />
   </ItemGroup>
 </Project>

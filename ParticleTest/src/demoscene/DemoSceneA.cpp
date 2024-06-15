@@ -72,7 +72,10 @@ namespace ptt
 	void DemoSceneA::Render()
 	{
 		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glEnable(GL_STENCIL_TEST);
+
 		m_RootObj->Render();
+		Renderer::RendererSkybox();
 		Renderer::RenderTransparencySprite();
 	}
 	void DemoSceneA::RenderImGui()

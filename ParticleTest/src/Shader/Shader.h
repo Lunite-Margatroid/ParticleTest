@@ -5,7 +5,7 @@ namespace LM
 	enum class Shaders
 	{
 		FireWork, Hanabi, HanabiSpark, Mesh_P_N_T, QuadMesh, OIT, LightedMesh_P_N_T_TG,
-		Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG, UI_ObjAxis, LightedMesh_P_N_T
+		Mesh_Sphere_P_T_TG, LightedMesh_Sphere_P_T_TG, UI_ObjAxis, LightedMesh_P_N_T, Skybox_P
 	};
 
 	class Shader
