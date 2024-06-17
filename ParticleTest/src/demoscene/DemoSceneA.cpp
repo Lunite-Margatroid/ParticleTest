@@ -72,10 +72,20 @@ namespace ptt
 	void DemoSceneA::Render()
 	{
 		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		
+		// 渲染不透明物体
 		glEnable(GL_STENCIL_TEST);
-
+		glStencilMask(0x01);
+		glStencilFunc(GL_ALWAYS, 0x01, 0x01);
+		glStencilOp(GL_KEEP, GL_KEEP,GL_REPLACE);
 		m_RootObj->Render();
+		// 渲染天空盒
+		glStencilFunc(GL_EQUAL, 0x00, 0x01);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		glDepthMask(0x00);
 		Renderer::RendererSkybox();
+		// 渲染透明物体
+		glStencilFunc(GL_ALWAYS, 0x00, 0x00);
 		Renderer::RenderTransparencySprite();
 	}
 	void DemoSceneA::RenderImGui()

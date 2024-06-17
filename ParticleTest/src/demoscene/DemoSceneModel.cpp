@@ -36,6 +36,9 @@ namespace ptt
 			tex = Renderer::LoadTexture("./res/img/img_2.png", LM::texture_diffuse);
 			material->SetTexture(LM::texture_diffuse, tex);
 		}
+
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SkyboxSprite()), "Skybox");
+		
 	}
 	ptt::DemoSceneModel::DemoSceneModel()
 		:DemoSceneUI(false)

@@ -58,6 +58,9 @@ namespace ptt
 		LM::Shader* shd = new LM::Shader("./res/shader/QuadMeshSpriteVertex.shader", "./res/shader/QuadMeshSpriteFrag.shader");
 		m_ShaderMap[LM::Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
 		Shader_Names[LM::Shaders::QuadMesh] = "Shader_QuadMesh";
+		shd = new LM::Shader("./res/shader/QuadMeshSpriteVertex.shader",
+			"./res/shader/QuadMeshSpriteFrag_oit.shader");
+		m_oitShaderMap[LM::Shaders::QuadMesh] = dynamic_cast<LM::Shader*>(shd);
 
 
 		shd = new LM::Shader("./res/shader/MeshVertex.shader", "./res/shader/MeshFrag.shader");

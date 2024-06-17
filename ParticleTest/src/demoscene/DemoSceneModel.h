@@ -3,6 +3,7 @@
 #include "Sprite/Mesh.h"
 #include "glObj/VertexBuffers.h"
 #include "SceneObj/ModelObj.h"
+#include "Sprite/SkyboxSprite.h"
 
 namespace ptt
 {

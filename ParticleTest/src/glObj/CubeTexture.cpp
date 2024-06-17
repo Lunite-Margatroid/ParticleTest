@@ -32,7 +32,7 @@ namespace ptt
 	{
 		int nChannals;
 		unsigned char* data = NULL;
-		stbi_set_flip_vertically_on_load(true);	// ·­×ªyÖá
+		stbi_set_flip_vertically_on_load(false);	// ·­×ªyÖá
 		int width, height;
 
 		/*-------------- load data --------------*/
