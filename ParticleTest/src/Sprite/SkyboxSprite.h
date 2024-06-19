@@ -16,5 +16,6 @@ namespace ptt
 		SkyboxSprite();
 		void Render(const glm::mat4& modelTrans) override;
 		void RenderSkybox();
+		void RenderImGui() override;
 	};
 }

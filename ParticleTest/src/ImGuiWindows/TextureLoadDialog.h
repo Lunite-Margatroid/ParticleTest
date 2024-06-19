@@ -33,6 +33,7 @@ namespace ptt
 	public:
 		TextureLoadDialog(const std::string& key = "Load Texture");
 		~TextureLoadDialog();
+
 		void ShowWindow() override;
 	};
 }

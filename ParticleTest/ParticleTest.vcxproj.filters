@@ -245,6 +245,8 @@
     </ClInclude>
     <ClInclude Include="src\glObj\CubeTexture.h" />
     <ClInclude Include="src\Sprite\SkyboxSprite.h" />
+    <ClInclude Include="src\ImGuiWindows\SkyboxEditor.h" />
+    <ClInclude Include="src\ImGuiWindows\TextureSelector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -447,5 +449,7 @@
     </ClCompile>
     <ClCompile Include="src\glObj\CubeTexture.cpp" />
     <ClCompile Include="src\Sprite\SkyboxSprite.cpp" />
+    <ClCompile Include="src\ImGuiWindows\SkyboxEditor.cpp" />
+    <ClCompile Include="src\ImGuiWindows\TextureSelector.cpp" />
   </ItemGroup>
 </Project>

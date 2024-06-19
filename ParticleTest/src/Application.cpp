@@ -281,6 +281,18 @@ namespace ptt
 	{
 		return GetInstance()->m_FPS;
 	}
+	void Application::OpenDialog(const std::string& name)
+	{
+		GetInstance()->m_ImGuiCtx->Popup(name);
+	}
+	void Application::ShowDialog(const std::string& name)
+	{
+		GetInstance()->m_ImGuiCtx->ShowDialog(name);
+	}
+	ImGuiDialog* Application::GetDialog(const std::string& name)
+	{
+		return GetInstance()->m_ImGuiCtx->GetDialog(name);
+	}
 	void Application::UpdateTime()
 	{
 		static bool first = true;

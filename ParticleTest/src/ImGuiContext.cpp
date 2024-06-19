@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "ImGuiContext.h"
+#include "ImGuiWindows/SkyboxEditor.h"
+#include "ImGuiWindows/TextureSelector.h"
 
 namespace ptt
 {
@@ -44,6 +46,8 @@ namespace ptt
         m_ImGuiWindows["Style Editor"]->CloseWindow();
 
         m_DialogManager.GenDialog<TextureLoadDialog>("Texture Load");
+        m_DialogManager.GenDialog<SkyboxEditor>("Skybox Editor");
+        m_DialogManager.GenDialog<TextureSelector>("Texture Selector");
         
 	}
     void ImGuiContext::Terminate()
@@ -105,6 +109,11 @@ namespace ptt
     void ImGuiContext::ShowDialog(const std::string& name)
     {
         m_DialogManager.ShowWindow(name);
+    }
+
+    ImGuiDialog* ImGuiContext::GetDialog(const std::string& name)
+    {
+        return m_DialogManager.GetDialog(name);
     }
 
     void ImGuiContext::SaveStyle(const std::string& fileName)

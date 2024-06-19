@@ -38,4 +38,8 @@ namespace ptt
 
 		return is_open;
 	}
+	void ImGuiDialogModal::WindowEnd()
+	{
+		ImGui::EndPopup();
+	}
 }

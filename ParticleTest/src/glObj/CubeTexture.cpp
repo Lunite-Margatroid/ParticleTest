@@ -5,6 +5,9 @@
 #include <wchar.h>
 #include <codecvt>
 
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include <stb/stb_image_resize.h>
+
 namespace ptt
 {
 	CubeTexture::CubeTexture()
@@ -14,6 +17,8 @@ namespace ptt
 
 		unsigned char tData[4];
 		memset(tData, 0xff, 4);
+
+		m_Width = m_Height = 2048;
 
 		for (int i = 0; i < 6; i++)
 			LoadTexture(tData, 1, 1, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, GL_RGB, GL_UNSIGNED_BYTE);
@@ -32,6 +37,7 @@ namespace ptt
 	{
 		int nChannals;
 		unsigned char* data = NULL;
+		
 		stbi_set_flip_vertically_on_load(false);	// ·­×ªyÖá
 		int width, height;
 
@@ -59,26 +65,46 @@ namespace ptt
 		GLenum srcFormat = GL_RGB;
 		if (nChannals == 4)
 			srcFormat = GL_RGBA;
-		glTexImage2D(target, 0, GL_RGB, width, height, 0, srcFormat, GL_UNSIGNED_BYTE, data);
+
+		unsigned char* tempData = new unsigned char[m_Height * m_Width * nChannals];
+		stbir_resize_uint8(data, width, height, 0, tempData, m_Width, m_Height, 0, nChannals);
+		glTexImage2D(target, 0, GL_RGB, m_Width, m_Height, 0, srcFormat, GL_UNSIGNED_BYTE, tempData);
 
 		stbi_image_free(data);
+
+		delete[] tempData;
 	}
-	void CubeTexture::LoadTexture(void* data, int width, int height, GLenum target, GLenum foramt, GLenum dataType)
+	void CubeTexture::LoadTexture(void* data, int width, int height, GLenum target, GLenum format, GLenum dataType)
 	{
 		Bind();
-		glTexImage2D(target, 0, GL_RGB, width, height, 0, foramt, dataType, data);
+		ASSERT(dataType == GL_UNSIGNED_BYTE);
+
+		int nChannals = 3;
+		if (format == GL_RGBA)
+		{
+			nChannals = 4;
+		}
+		unsigned char* tempData = new unsigned char[m_Height * m_Width * nChannals];
+		stbir_resize_uint8((unsigned char*)data, width, height, 0, tempData, m_Width, m_Height, 0, nChannals);
+		glTexImage2D(target, 0, GL_RGB, m_Width, m_Height, 0, format, dataType, tempData);
+		delete[] tempData;
 	}
 	void CubeTexture::LoadTexture(LM::Texture* texture2D, GLenum target)
 	{
 		Bind();
 		int width = texture2D->GetWidth();
 		int height = texture2D->GetHeight();
-		unsigned char* data = new unsigned char[width * height];
+		unsigned char* data = new unsigned char[width * height * 4];
+		unsigned char* tempData = new unsigned char[m_Width * m_Height * 4];
 		glBindTexture(GL_TEXTURE_2D, texture2D->GetTexID());
 		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		glTexImage2D(target, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+		stbir_resize_uint8((unsigned char*)data, width, height, 0, tempData, m_Width, m_Height, 0, 4);
+		glTexImage2D(target, 0, GL_RGB, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tempData);
 
 		delete[] data;
+		delete[] tempData;
+
 	}
 	void CubeTexture::Bind()
 	{
@@ -87,5 +113,19 @@ namespace ptt
 	unsigned int CubeTexture::GetTexID()
 	{
 		return m_uTextureID;
+	}
+	std::pair<int, int> CubeTexture::GetSize(GLenum target) const
+	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_uTextureID);
+		return std::make_pair(m_Width, m_Height);
+	}
+	void CubeTexture::Refresh()
+	{
+		Bind();
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	}
 }

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "SkyboxSprite.h"
 #include "Renderer/Renderer.h"
+#include "Application.h"
+#include "ImGuiWindows/SkyboxEditor.h"
 
 namespace ptt
 {
@@ -42,5 +44,20 @@ namespace ptt
 		m_Shader->SetUniformMatrix4f("u_ViewTrans", false, glm::value_ptr(viewTrans));
 		m_Shader->SetUniformMatrix4f("u_ProjectionTrans", false, glm::value_ptr(projectionTrans));
 		m_vao->DrawElement();
+	}
+
+	void SkyboxSprite::RenderImGui()
+	{
+		Sprite::RenderImGui();
+		if (ImGui::Button("Skybox Editor"))
+		{
+			Application::OpenDialog("Skybox Editor");
+			SkyboxEditor* dialog = dynamic_cast<SkyboxEditor*>(Application::GetDialog("Skybox Editor"));
+			if (dialog)
+			{
+				dialog->SetCubeTexture(&m_CubeTexture);
+			}
+		}
+		Application::ShowDialog("Skybox Editor");
 	}
 }

@@ -71,5 +71,10 @@ namespace ptt
 
 		static DemoScene* GetCurrentScene();
 		static float GetFPS();
+
+		static void OpenDialog(const std::string& name);
+		static void ShowDialog(const std::string& name);
+
+		static ImGuiDialog* GetDialog(const std::string& name);
 	};
 }

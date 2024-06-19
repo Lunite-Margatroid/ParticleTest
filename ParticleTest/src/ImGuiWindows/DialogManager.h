@@ -37,5 +37,6 @@ namespace ptt
 		void Update();
 		void Popup(const std::string& name);
 		void ShowWindow(const std::string& name);
+		ImGuiDialog* GetDialog(const std::string& name);
 	};
 }

@@ -12,5 +12,6 @@ namespace ptt
 		~ImGuiDialogModal() = default;
 
 		bool WindowBegin();
+		void WindowEnd();
 	};
 }

@@ -35,27 +35,27 @@ namespace ptt
 
 		glm::mat3 m_NormalTrans;
 
-		LM::Shader* m_CurrentShader;
-		Camera* m_CurrentCamera;
+		LM::Shader* m_CurrentShader;// 当前着色器
+		Camera* m_CurrentCamera;	// 当前摄像机
+		
+		bool m_oitRendering;		// 正在进行半透明物体渲染
+		bool m_oitRender;			// 是否开启oit
+		std::unique_ptr<oitContext> m_oitContext;	// oit context
 
-		bool m_oitRendering;
-		bool m_oitRender;
-		std::unique_ptr<oitContext> m_oitContext;
+		std::queue<TransparencySprite> m_TransparencyRenderQueue;	// 半透明物体渲染队列 在天空盒之后渲染
 
-		std::queue<TransparencySprite> m_TransparencyRenderQueue;
+		std::queue<SkyboxSprite*> m_SkyboxRendererQueue;			// 天空盒渲染队列 在非透明物体之后渲染
 
-		std::queue<SkyboxSprite*> m_SkyboxRendererQueue;
+		std::unordered_map<LM::Shaders, LM::Shader*> m_ShaderMap;	// 已加载的着色器
+		std::unordered_map<LM::Shaders, LM::Shader*> m_oitShaderMap;// oit版本的着色器
+		std::unordered_map<Cameras, Camera*> m_CameraMap;			// 已加载的摄像机
+		std::unordered_map<std::string, LM::Texture*> m_Textures;	// 已加载的纹理
 
-		std::unordered_map<LM::Shaders, LM::Shader*> m_ShaderMap;
-		std::unordered_map<LM::Shaders, LM::Shader*> m_oitShaderMap;
-		std::unordered_map<Cameras, Camera*> m_CameraMap;
-		std::unordered_map<std::string, LM::Texture*> m_Textures;
+		std::vector<std::string> m_TextureComboName;				// 渲染GUI纹理选择combo所使用的键值
 
-		std::vector<std::string> m_TextureComboName;
-
-		LM::VertexBuffer m_VertexBuffer;
-		LM::ElementBuffer m_ElementBuffer;
-		std::unordered_map<VertexArrays, LM::VertexArray*> m_VertexArrayMap;
+		LM::VertexBuffer m_VertexBuffer;							// 加载预设mesh的顶点缓冲
+		LM::ElementBuffer m_ElementBuffer;							// 加载预设mesh的顶点缓冲
+		std::unordered_map<VertexArrays, LM::VertexArray*> m_VertexArrayMap;	// 顶点数组的映射
 
 		Renderer();
 

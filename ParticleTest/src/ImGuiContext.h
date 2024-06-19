@@ -27,6 +27,7 @@ namespace ptt
 		void Popup(const std::string& name);
 		void UpdateDialogID();
 		void ShowDialog(const std::string& name);
+		ImGuiDialog* GetDialog(const std::string& name);
 
 		static ImGuiContext* GetInstance();
 		static void SaveStyle(const std::string& fileName);

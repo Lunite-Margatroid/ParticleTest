@@ -34,4 +34,10 @@ namespace ptt
 			m_Dialogs[name]->ShowWindow();
 		}
 	}
+	ImGuiDialog* DialogManager::GetDialog(const std::string& name)
+	{
+		if(m_Dialogs.find(name) != m_Dialogs.end())
+			return m_Dialogs[name];
+		return nullptr;
+	}
 }

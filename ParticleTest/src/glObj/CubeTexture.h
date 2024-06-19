@@ -7,6 +7,8 @@ namespace ptt
 	{
 	protected:
 		unsigned int m_uTextureID;
+		
+		int m_Width, m_Height;
 
 	public:
 		CubeTexture();
@@ -18,5 +20,8 @@ namespace ptt
 
 		void Bind();
 		unsigned int GetTexID();
+		std::pair<int, int> GetSize(GLenum target) const;
+
+		void Refresh();
 	};
 }
