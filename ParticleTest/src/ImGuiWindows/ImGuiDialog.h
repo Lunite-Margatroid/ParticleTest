@@ -11,7 +11,7 @@ namespace ptt
 		ImGuiDialog(const std::string& key);
 		~ImGuiDialog() = default;
 		void UpdateId();
-		void Popup();
+		virtual void Popup();
 
 	};
 }

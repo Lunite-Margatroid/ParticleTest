@@ -9,13 +9,6 @@ namespace ptt
 {
 	void DemoSceneModel::Init()
 	{
-		glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-		m_SelectedObj = m_RootObj.get();
-
-		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
-		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
-		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
-
 		// LoadModel("L:/OpenGL/model/nanosuit/nanosuit.blend");
 		SceneObj* obj = new SceneObj(m_RootObj.get(), new QuadMeshSprite(), "mesh");
 
@@ -53,6 +46,14 @@ namespace ptt
 	{
 		m_Materials.push_back(new Material());
 		m_ModelCount = 0;
+
+		glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+		m_SelectedObj = m_RootObj.get();
+
+		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
+		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
+		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
+
 		Init();
 	}
 
@@ -284,6 +285,15 @@ namespace ptt
 			break;
 		case SpriteType::QuadMesh:
 			AddSceneObject<SceneObj, QuadMeshSprite>(objName);
+			break;
+		case SpriteType::DirectionalLight:
+			AddSceneObject<Illuminant, LM::DirLight>(objName);
+			break;
+		case SpriteType::PointLight:
+			AddSceneObject<Illuminant, LM::PointLight>(objName);
+			break;
+		case SpriteType::SpotLight:
+			AddSceneObject<Illuminant, LM::SpotLight>(objName);
 			break;
 		default:break;
 		};

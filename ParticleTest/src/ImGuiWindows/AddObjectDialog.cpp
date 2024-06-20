@@ -13,15 +13,21 @@ namespace ptt
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::Firework);
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::Hanabi);
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::QuadMesh);
+		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::DirectionalLight);
+		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::PointLight);
+		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::SpotLight);
 
-		m_NameMap[DemoSceneModel::SpriteType::Quad]		= std::string("Quad");
-		m_NameMap[DemoSceneModel::SpriteType::Cube]		= std::string("Cube");
-		m_NameMap[DemoSceneModel::SpriteType::Sphere]	= std::string("Sphere");
-		m_NameMap[DemoSceneModel::SpriteType::Skybox]	= std::string("Skybox");
-		m_NameMap[DemoSceneModel::SpriteType::Custom]	= std::string("Customed");
-		m_NameMap[DemoSceneModel::SpriteType::Firework]	= std::string("Firework");
-		m_NameMap[DemoSceneModel::SpriteType::Hanabi]	= std::string("Hanabi");
-		m_NameMap[DemoSceneModel::SpriteType::QuadMesh]	= std::string("Quad Mesh");
+		m_NameMap[DemoSceneModel::SpriteType::Quad]				= std::string("Quad");
+		m_NameMap[DemoSceneModel::SpriteType::Cube]				= std::string("Cube");
+		m_NameMap[DemoSceneModel::SpriteType::Sphere]			= std::string("Sphere");
+		m_NameMap[DemoSceneModel::SpriteType::Skybox]			= std::string("Skybox");
+		m_NameMap[DemoSceneModel::SpriteType::Custom]			= std::string("Customed");
+		m_NameMap[DemoSceneModel::SpriteType::Firework]			= std::string("Firework");
+		m_NameMap[DemoSceneModel::SpriteType::Hanabi]			= std::string("Hanabi");
+		m_NameMap[DemoSceneModel::SpriteType::QuadMesh]			= std::string("Quad Mesh");
+		m_NameMap[DemoSceneModel::SpriteType::DirectionalLight] = std::string("Directional Light");
+		m_NameMap[DemoSceneModel::SpriteType::PointLight]		= std::string("Point Light");
+		m_NameMap[DemoSceneModel::SpriteType::SpotLight]		= std::string("Spot Light");
 
 		memset(m_InputText, 0, 128);
 

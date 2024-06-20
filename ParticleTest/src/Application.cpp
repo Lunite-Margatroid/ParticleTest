@@ -149,19 +149,6 @@ namespace ptt
 					ImGuiFileDialog::Instance()->OpenDialog("Load Model", "Choose File", ".fbx,.blend,.pmx,.*", config);
 				}
 				ImGui::Separator();
-				if (ImGui::MenuItem("Add Point Light"))
-				{
-					LightedDemoScene* scene = dynamic_cast<LightedDemoScene*>(m_CurrentScene);
-					if (scene)
-					{
-						Illuminant* obj = new Illuminant(nullptr,
-							new CubeSprite(),
-							"Point Light",
-							dynamic_cast<LM::Light*>(new LM::PointLight())
-							);
-						scene->AddIlluminant(obj);
-					}
-				}
 				if(ImGui::BeginMenu("Add Scene Object"))
 				{
 					if (ImGui::MenuItem("Add Static Object"))
@@ -181,8 +168,19 @@ namespace ptt
 				{
 					m_ImGuiCtx->Popup("Texture Load");
 				}
+
+				if (ImGui::BeginMenu("Render"))
+				{
+					if (ImGui::MenuItem("Rendering Setting"))
+					{
+						m_ImGuiCtx->Popup("Rendering Setting");
+					}
+					ImGui::EndMenu();
+				}
 				ImGui::EndMenu();
 			}
+
+
 
 			ImGui::EndMainMenuBar();
 		}
@@ -240,6 +238,9 @@ namespace ptt
 
 		// ------------------ adding Object --------------
 		m_ImGuiCtx->ShowDialog("Add Object");
+		
+		// ------------------ render setting -----------
+		m_ImGuiCtx->ShowDialog("Rendering Setting");
 	}
 
 	Application* Application::GetInstance()

@@ -157,6 +157,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\ImGuiWindows\ImGuiDialog.h" />
     <ClInclude Include="src\ImGuiWindows\ImGuiDialogModal.h" />
     <ClInclude Include="src\ImGuiWindows\ImGuiWindows.h" />
+    <ClInclude Include="src\ImGuiWindows\RenderSetting.h" />
     <ClInclude Include="src\ImGuiWindows\SceneProperty.h" />
     <ClInclude Include="src\ImGuiWindows\SceneWindow.h" />
     <ClInclude Include="src\ImGuiWindows\SkyboxEditor.h" />
@@ -231,6 +232,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\ImGuiWindows\ImGuiDialog.cpp" />
     <ClCompile Include="src\ImGuiWindows\ImGuiDialogModal.cpp" />
     <ClCompile Include="src\ImGuiWindows\ImGuiWindows.cpp" />
+    <ClCompile Include="src\ImGuiWindows\RenderSetting.cpp" />
     <ClCompile Include="src\ImGuiWindows\SceneProperty.cpp" />
     <ClCompile Include="src\ImGuiWindows\SceneWindow.cpp" />
     <ClCompile Include="src\ImGuiWindows\SkyboxEditor.cpp" />

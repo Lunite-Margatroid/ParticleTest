@@ -6,6 +6,7 @@
 #include "Sprite/SkyboxSprite.h"
 #include "Sprite/CustomedSprite.h"
 #include "Sprite/FireWork.h"
+// #include "Light/SpotLight.h"
 
 namespace ptt
 {
@@ -14,7 +15,8 @@ namespace ptt
 	public:
 		enum class SpriteType
 		{
-			Quad, Cube, Sphere, Skybox, Custom, Firework, Hanabi, QuadMesh
+			Quad, Cube, Sphere, Skybox, Custom, Firework, Hanabi, QuadMesh, 
+			DirectionalLight, PointLight, SpotLight
 		};
 	protected:
 		std::vector<Mesh*> m_Meshes;
@@ -94,6 +96,39 @@ namespace ptt
 		void AddSceneObject<SceneObj, SkyboxSprite>(const std::string& ObjectName)
 		{
 			SceneObj* obj = new SceneObj(m_SelectedObj, new SkyboxSprite(), ObjectName);
+		}
+
+		template<>
+		void AddSceneObject<Illuminant, LM::DirLight>(const std::string& objectName)
+		{
+			Illuminant* obj = new Illuminant(m_RootObj.get(),
+				new CubeSprite(),
+				objectName,
+				dynamic_cast<LM::Light*>(new LM::DirLight())
+			);
+			AddIlluminant(obj);
+		}
+
+		template<>
+		void AddSceneObject<Illuminant, LM::PointLight>(const std::string& objectName)
+		{
+			Illuminant* obj = new Illuminant(m_RootObj.get(),
+				new CubeSprite(),
+				objectName,
+				dynamic_cast<LM::Light*>(new LM::PointLight())
+			);
+			AddIlluminant(obj);
+		}
+
+		template<>
+		void AddSceneObject<Illuminant, LM::SpotLight>(const std::string& objectName)
+		{
+			Illuminant* obj = new Illuminant(m_RootObj.get(),
+				new CubeSprite(),
+				objectName,
+				dynamic_cast<LM::Light*>(new LM::SpotLight())
+			);
+			AddIlluminant(obj);
 		}
 
 	};

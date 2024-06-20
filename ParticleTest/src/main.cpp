@@ -41,5 +41,6 @@ int main()
 	auto* app = new MyApp();
 	app->Run();
 	delete app;
+
 	return 0;
 }

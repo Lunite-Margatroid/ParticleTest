@@ -3,6 +3,7 @@
 #include "ImGuiWindows/SkyboxEditor.h"
 #include "ImGuiWindows/TextureSelector.h"
 #include "ImGuiWindows/AddObjectDialog.h"
+#include "ImGuiWindows/RenderSetting.h"
 
 namespace ptt
 {
@@ -50,6 +51,7 @@ namespace ptt
         m_DialogManager.GenDialog<SkyboxEditor>("Skybox Editor");
         m_DialogManager.GenDialog<TextureSelector>("Texture Selector");
         m_DialogManager.GenDialog<AddObjectDialog>("Add Object");
+        m_DialogManager.GenDialog<RenderSetting>("Rendering Setting");
         
 	}
     void ImGuiContext::Terminate()

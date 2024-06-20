@@ -249,6 +249,7 @@
     <ClInclude Include="src\ImGuiWindows\TextureSelector.h" />
     <ClInclude Include="src\Sprite\CustomedSprite.h" />
     <ClInclude Include="src\ImGuiWindows\AddObjectDialog.h" />
+    <ClInclude Include="src\ImGuiWindows\RenderSetting.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -455,5 +456,6 @@
     <ClCompile Include="src\ImGuiWindows\TextureSelector.cpp" />
     <ClCompile Include="src\Sprite\CustomedSprite.cpp" />
     <ClCompile Include="src\ImGuiWindows\AddObjectDialog.cpp" />
+    <ClCompile Include="src\ImGuiWindows\RenderSetting.cpp" />
   </ItemGroup>
 </Project>

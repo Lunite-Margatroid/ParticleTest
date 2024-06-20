@@ -187,7 +187,7 @@ namespace ptt
 			ImGuiSliderFlags_AlwaysClamp);
 		ImGui::DragFloat("Roll - zAxis", &m_Roll, 0.01f, -PI, PI, "%.3f",
 			ImGuiSliderFlags_AlwaysClamp);
-		ImGui::DragFloat3("Scale", &m_Scale.x, 0.01f, 0.01f, 100.0f, "%.3f",
+		ImGui::DragFloat3("Scale", &m_Scale.x, 0.01f, -100.0f, 100.0f, "%.3f",
 			ImGuiSliderFlags_AlwaysClamp);
 		if (m_Sprite)
 		{
