@@ -151,6 +151,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\GlfwContext.h" />
     <ClInclude Include="src\glObj\CubeTexture.h" />
     <ClInclude Include="src\ImGuiContext.h" />
+    <ClInclude Include="src\ImGuiWindows\AddObjectDialog.h" />
     <ClInclude Include="src\ImGuiWindows\DemosceneLoader.h" />
     <ClInclude Include="src\ImGuiWindows\DialogManager.h" />
     <ClInclude Include="src\ImGuiWindows\ImGuiDialog.h" />
@@ -180,6 +181,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Shader\tfbShader.h" />
     <ClInclude Include="src\Sprite\ColoredSprite.h" />
     <ClInclude Include="src\Sprite\CubeSprite.h" />
+    <ClInclude Include="src\Sprite\CustomedSprite.h" />
     <ClInclude Include="src\Sprite\FireWork.h" />
     <ClInclude Include="src\Sprite\Hanabi.h" />
     <ClInclude Include="src\Sprite\Mesh.h" />
@@ -223,6 +225,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\GlfwContext.cpp" />
     <ClCompile Include="src\glObj\CubeTexture.cpp" />
     <ClCompile Include="src\ImGuiContext.cpp" />
+    <ClCompile Include="src\ImGuiWindows\AddObjectDialog.cpp" />
     <ClCompile Include="src\ImGuiWindows\DemosceneLoader.cpp" />
     <ClCompile Include="src\ImGuiWindows\DialogManager.cpp" />
     <ClCompile Include="src\ImGuiWindows\ImGuiDialog.cpp" />
@@ -252,6 +255,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Shader\tfbShader.cpp" />
     <ClCompile Include="src\Sprite\ColoredSprite.cpp" />
     <ClCompile Include="src\Sprite\CubeSprite.cpp" />
+    <ClCompile Include="src\Sprite\CustomedSprite.cpp" />
     <ClCompile Include="src\Sprite\FireWork.cpp" />
     <ClCompile Include="src\Sprite\Hanabi.cpp" />
     <ClCompile Include="src\Sprite\Mesh.cpp" />

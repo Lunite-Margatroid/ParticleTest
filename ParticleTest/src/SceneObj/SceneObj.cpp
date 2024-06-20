@@ -45,9 +45,8 @@ namespace ptt
 			child->Update(deltaTime);
 		}
 		UpdateQuaternion();
-		udSprite* sp = dynamic_cast<udSprite*>(m_Sprite);
-		if (sp)
-			sp->Update(deltaTime);
+		if(m_Sprite)
+			m_Sprite->Update(deltaTime);
 	}
 
 	void ptt::SceneObj::Render()

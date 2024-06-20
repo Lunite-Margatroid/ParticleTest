@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Application.h"
 #include "SceneObj/illuminant.h"
+#include "demoscene/DemoSceneModel.h"
+#include "ImGuiWindows/AddObjectDialog.h"
 
 namespace ptt
 {
@@ -26,6 +28,7 @@ namespace ptt
 		glfwSetKeyCallback(m_Window, PreCallbackKey);
 
 		m_SceneWindow.Init(m_SceneWidth, m_SceneHeight);
+
 		
 	}
 	Application::Application()
@@ -130,9 +133,10 @@ namespace ptt
 
 			if (ImGui::BeginMenu("Winodw"))
 			{
-				ImGui::Checkbox("Demoscne Loader", m_DemosceneWindow.GetBoolPtr());
-				ImGui::Checkbox("Scene Window", m_SceneWindow.GetBoolPtr());
-				ImGui::Checkbox("Scene Proterty", m_SceneProperty.GetBoolPtr());
+				ImGui::MenuItem("Demoscne Loader", NULL, m_DemosceneWindow.GetBoolPtr());
+				ImGui::MenuItem("Scene Window", NULL, m_SceneWindow.GetBoolPtr());
+				ImGui::MenuItem("Scene Proterty", NULL, m_SceneProperty.GetBoolPtr());
+				
 				ImGui::EndMenu();
 			}
 
@@ -157,6 +161,20 @@ namespace ptt
 							);
 						scene->AddIlluminant(obj);
 					}
+				}
+				if(ImGui::BeginMenu("Add Scene Object"))
+				{
+					if (ImGui::MenuItem("Add Static Object"))
+					{
+						AddObjectDialog * dialog = dynamic_cast<AddObjectDialog*>(m_ImGuiCtx->GetDialog("Add Object"));
+						DemoSceneModel* scene = dynamic_cast<DemoSceneModel*>(GetCurrentScene());
+						if (dialog && scene)
+						{
+							dialog->InitWindow(scene);
+							dialog->Popup();
+						}
+					}
+					ImGui::EndMenu();
 				}
 				ImGui::Separator();
 				if (ImGui::MenuItem("Load Texture"))
@@ -219,6 +237,9 @@ namespace ptt
 
 		// ----------------- Texture loader----------------------
 		m_ImGuiCtx->ShowDialog("Texture Load");
+
+		// ------------------ adding Object --------------
+		m_ImGuiCtx->ShowDialog("Add Object");
 	}
 
 	Application* Application::GetInstance()

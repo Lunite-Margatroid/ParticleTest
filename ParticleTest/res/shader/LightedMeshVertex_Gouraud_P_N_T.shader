@@ -1,15 +1,21 @@
 #version 450 core
+layout(location = 0) in vec3 aPos;
+layout(location = 1) in vec3 aNormal;
+layout(location = 2) in vec2 aTexCoord;
 
-// 输入变量
-in vec3 NormalVec;	vec3 NormalVec_;
-in vec3 FragPos;		// 相机坐标系的顶点坐标
-in vec3 ViewVec;	vec3 ViewVec_;
-in vec2 TexCoord;
-
-uniform vec4 u_Color;
+uniform mat4 u_MVPTrans;
+uniform mat4 u_MTrans;
 uniform vec3 u_CameraPos;
-// 输出
-out vec4 FragColor;
+uniform mat3 u_NormalTrans;
+
+out vec3 Ambient;
+out vec3 Diffuse;
+out vec3 Specular;
+out vec2 TexCoord;
+
+vec3 VertexPos;	// 顶点的世界坐标
+vec3 NormalVec;	// 世界坐标系 法向量
+vec3 ViewVec;
 
 // 材质系统
 struct Material
@@ -114,11 +120,12 @@ void CulcDirLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 	// ambient
 		ambient = ambient + light.ambient;
 	// diffuse
-		diffuse = diffuse + max(dot(NormalVec_ , dir), 0.0f) * light.diffuse;
+		diffuse = diffuse + max(dot(NormalVec , dir), 0.0f) * light.diffuse;
 	// specular
-		vec3 halfVec = normalize(dir + ViewVec_);
-		specular = specular + pow(max(dot(ViewVec_ , NormalVec_), 0.0f), u_Material.shininess) * light.specular;
-		
+		// blinn phong
+		// specular = specular + pow(max(dot(HalfVec_ , dir), 0.0f), u_Material.shininess) * light.specular;
+		// phong
+		specular = specular + pow(max(dot(-reflect(dir, NormalVec), ViewVec), 0.0f),u_Material.shininess) * light.specular;
 	}
 }
 
@@ -131,7 +138,7 @@ void CulcPointLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 	for(int i =0;i<countPointLight;i++)
 	{
 		PointLight light = dataPointLights[i];
-		vec3 dir = light.position - FragPos;
+		vec3 dir = light.position - VertexPos;
 		float dist = length(dir);
 		dir = dir / dist;
 		// 衰减系数
@@ -139,10 +146,11 @@ void CulcPointLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		// ambient
 		ambient = ambient + light.ambient / k;
 		// diffuse
-		diffuse = diffuse + max(dot(dir, NormalVec_), 0.0f) / k * light.diffuse;
+		diffuse = diffuse + max(dot(dir, NormalVec), 0.0f) / k * light.diffuse;
 		// specular
-		vec3 halfVec = normalize(dir + ViewVec_);
-		specular = specular + pow(max(dot(halfVec, NormalVec_), 0.0f), u_Material.shininess) / k * light.specular;
+		//specular = specular + pow(max(dot(HalfVec_, dir), 0.0f), u_Material.shininess) / k * light.specular;
+		// phong
+		specular = specular + pow(max(dot(-reflect(dir, NormalVec), ViewVec), 0.0f),u_Material.shininess) / k * light.specular;
 	}
 }
 
@@ -155,7 +163,7 @@ void CulcSpotLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 	for(int i =0;i<countSpotLight;i++)
 	{
 		SpotLight light = dataSpotLights[i];
-		vec3 dir = light.position - FragPos;
+		vec3 dir = light.position - VertexPos;
 		float dist = length(dir);
 		dir = dir / dist;
 		
@@ -169,28 +177,22 @@ void CulcSpotLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		// ambient
 		ambient = ambient + light.ambient / k;
 		// diffuse
-		diffuse = diffuse + max(dot(dir, NormalVec_), 0.0f) * kLight * light.diffuse;
+		diffuse = diffuse + max(dot(dir, NormalVec), 0.0f) * kLight * light.diffuse;
 		// specular
-		vec3 halfVec = normalize(dir + ViewVec_);
-		specular = specular + 
-			pow(max(dot(halfVec, NormalVec_), 0.0f), u_Material.shininess) * kLight * light.specular;
+		// specular = specular + pow(max(dot(HalfVec_, dir), 0.0f), u_Material.shininess) * kLight * light.specular;	
+		specular = specular + pow(max(dot(-reflect(dir, NormalVec), ViewVec), 0.0f),u_Material.shininess) * kLight * light.specular;
 	}
 }
 
-vec4 FragmentShader()
+
+void main()
 {
-	// 先把输入单位化
-	NormalVec_ = normalize(NormalVec);
-	ViewVec_ = normalize(ViewVec);
-	// 纹理颜色
-	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
-	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
+	VertexPos = vec3(u_MTrans * vec4(aPos,1.0f));
+	gl_Position = u_MVPTrans * vec4(aPos, 1.0f);
 	
-	vec4 diffuseTexColor = texture2D(u_Material.DiffuseTex, texCoord);
-	diffuseTexColor = diffuseTexColor * u_Material.DiffuseTexWeight;
+	NormalVec = normalize(u_NormalTrans * aNormal);
+	ViewVec = normalize(u_CameraPos - VertexPos);
 	
-	vec4 specularTexColor = texture2D(u_Material.SpecularTex, specularTexCoord);
-	specularTexColor = specularTexColor * u_Material.SpecularTexWeight;
 	
 	// 计算光照
 	vec3 dirAmbient;
@@ -208,22 +210,9 @@ vec4 FragmentShader()
 	vec3 spotSpecular;
 	CulcSpotLight(spotAmbient, spotDiffuse, spotSpecular);
 	
-	vec3 ambient = dirAmbient + pointAmbient + spotAmbient;
-	vec3 diffuse = dirDiffuse + pointDiffuse + spotDiffuse;
-	vec3 specular = dirSpecular + pointSpecular + spotSpecular;
+	Ambient = dirAmbient + pointAmbient + spotAmbient;
+	Diffuse = dirDiffuse + pointDiffuse + spotDiffuse;
+	Specular = dirSpecular + pointSpecular + spotSpecular;
 	
-	
-	
-	return (
-			diffuseTexColor * vec4((ambient + diffuse),1.0f)
-			+ specularTexColor * vec4(specular, 1.0f)
-			)
-			* u_Color;
-}
-
-
-
-void main()
-{
-	FragColor = FragmentShader();
+	TexCoord = aTexCoord;
 }

@@ -9,6 +9,22 @@ namespace ptt
 		VertexBuffer::Init(m_Capacity, NULL, GL_STATIC_DRAW);
 		m_uSize = 0;
 	}
+	VertexBuffers::VertexBuffers(GLenum usage)
+	{
+		m_Capacity = 4 * 1024 * 1024;
+		VertexBuffer::Init(m_Capacity, NULL, usage);
+		m_uSize = 0;
+	}
+	VertexBuffers::VertexBuffers(size_t size, GLenum usage)
+	{
+		m_Capacity = size;
+		VertexBuffer::Init(m_Capacity, NULL, usage);
+		m_uSize = 0;
+	}
+	size_t VertexBuffers::GetCapacity() const
+	{
+		return m_Capacity;
+	}
 	size_t VertexBuffers::Expand(size_t addCapacity)
 	{// 扩容前的大小
 		size_t ret = m_Capacity;
@@ -47,6 +63,12 @@ namespace ptt
 		Expand(addCapacity);
 		SetData(m_uSize, size, data);
 		m_uSize += size;
+		return ret;
+	}
+	size_t VertexBuffers::Clear()
+	{
+		size_t ret = m_uSize;
+		m_uSize = 0;
 		return ret;
 	}
 }

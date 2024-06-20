@@ -2,8 +2,8 @@
 
 // 输入变量
 in vec3 NormalVec;	vec3 NormalVec_;
-in vec3 HalfVec;	vec3 HalfVec_;
 in vec3 FragPos;		// 相机坐标系的顶点坐标
+in vec3 ViewVec;	vec3 ViewVec_;
 in vec2 TexCoord;
 in mat3 InverseLocalTrans;
 
@@ -117,7 +117,8 @@ void CulcDirLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 	// diffuse
 		diffuse = diffuse + max(dot(NormalVec_ , dir), 0.0f) * light.diffuse;
 	// specular
-		specular = specular + pow(max(dot(HalfVec_ , dir), 0.0f), u_Material.shininess) * light.specular;
+	vec3 halfVec = normalize(dir + ViewVec_);
+		specular = specular + pow(max(dot(ViewVec_ , NormalVec_), 0.0f), u_Material.shininess) * light.specular;
 		
 	}
 }
@@ -141,7 +142,8 @@ void CulcPointLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		// diffuse
 		diffuse = diffuse + max(dot(dir, NormalVec_), 0.0f) / k * light.diffuse;
 		// specular
-		specular = specular + pow(max(dot(HalfVec_, dir), 0.0f), u_Material.shininess) / k * light.specular;
+		vec3 halfVec = normalize(dir + ViewVec_);
+		specular = specular + pow(max(dot(halfVec, NormalVec_), 0.0f), u_Material.shininess) / k * light.specular;
 	}
 }
 
@@ -170,8 +172,9 @@ void CulcSpotLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		// diffuse
 		diffuse = diffuse + max(dot(dir, NormalVec_), 0.0f) * kLight * light.diffuse;
 		// specular
+		vec3 halfVec = normalize(dir + ViewVec_);
 		specular = specular + 
-			pow(max(dot(HalfVec_, dir), 0.0f), u_Material.shininess) * kLight * light.specular;
+			pow(max(dot(halfVec, NormalVec_), 0.0f), u_Material.shininess) * kLight * light.specular;
 	}
 }
 
@@ -179,7 +182,7 @@ vec4 FragmentShader()
 {
 	// 先把输入单位化
 	NormalVec_ = normalize(NormalVec);
-	HalfVec_ = normalize(HalfVec);
+	ViewVec_ = normalize(ViewVec);
 	// 纹理颜色
 	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
 	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;

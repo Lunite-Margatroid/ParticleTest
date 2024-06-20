@@ -2,9 +2,12 @@
 
 // 输入变量
 in vec3 NormalVec;	vec3 NormalVec_;
-in vec3 FragPos;		// 相机坐标系的顶点坐标
-in vec3 ViewVec;	vec3 ViewVec_;
+in vec3 HalfVec;	vec3 HalfVec_;
+in vec3 FragPos;// 世界坐标系的顶点坐标	
+					vec3 ViewVec_;	
 in vec2 TexCoord;
+
+in vec3 CameraPos;
 
 uniform vec4 u_Color;
 uniform vec3 u_CameraPos;
@@ -116,9 +119,10 @@ void CulcDirLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 	// diffuse
 		diffuse = diffuse + max(dot(NormalVec_ , dir), 0.0f) * light.diffuse;
 	// specular
-		vec3 halfVec = normalize(dir + ViewVec_);
-		specular = specular + pow(max(dot(ViewVec_ , NormalVec_), 0.0f), u_Material.shininess) * light.specular;
-		
+		// blinn phong
+		// specular = specular + pow(max(dot(HalfVec_ , dir), 0.0f), u_Material.shininess) * light.specular;
+		// phong
+		specular = specular + pow(max(dot(-reflect(dir, NormalVec_), ViewVec_), 0.0f),u_Material.shininess) * light.specular;
 	}
 }
 
@@ -141,8 +145,9 @@ void CulcPointLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		// diffuse
 		diffuse = diffuse + max(dot(dir, NormalVec_), 0.0f) / k * light.diffuse;
 		// specular
-		vec3 halfVec = normalize(dir + ViewVec_);
-		specular = specular + pow(max(dot(halfVec, NormalVec_), 0.0f), u_Material.shininess) / k * light.specular;
+		//specular = specular + pow(max(dot(HalfVec_, dir), 0.0f), u_Material.shininess) / k * light.specular;
+		// phong
+		specular = specular + pow(max(dot(-reflect(dir, NormalVec_), ViewVec_), 0.0f),u_Material.shininess) / k * light.specular;
 	}
 }
 
@@ -171,9 +176,8 @@ void CulcSpotLight(out vec3 ambient, out vec3 diffuse, out vec3 specular)
 		// diffuse
 		diffuse = diffuse + max(dot(dir, NormalVec_), 0.0f) * kLight * light.diffuse;
 		// specular
-		vec3 halfVec = normalize(dir + ViewVec_);
-		specular = specular + 
-			pow(max(dot(halfVec, NormalVec_), 0.0f), u_Material.shininess) * kLight * light.specular;
+		// specular = specular + pow(max(dot(HalfVec_, dir), 0.0f), u_Material.shininess) * kLight * light.specular;	
+		specular = specular + pow(max(dot(-reflect(dir, NormalVec_), ViewVec_), 0.0f),u_Material.shininess) * kLight * light.specular;
 	}
 }
 
@@ -181,7 +185,8 @@ vec4 FragmentShader()
 {
 	// 先把输入单位化
 	NormalVec_ = normalize(NormalVec);
-	ViewVec_ = normalize(ViewVec);
+	HalfVec_ = normalize(HalfVec);
+	ViewVec_ = normalize(CameraPos-FragPos);
 	// 纹理颜色
 	vec2 texCoord = TexCoord / u_Material.DiffuseTexScale + u_Material.DiffuseTexOffset;
 	vec2 specularTexCoord = TexCoord / u_Material.SpecularTexScale + u_Material.SpecularTexOffset;
@@ -222,8 +227,43 @@ vec4 FragmentShader()
 }
 
 
+/*---------------OIT--------------------*/
+
+// 开启片元预测试
+layout(early_fragment_tests) in;
+
+
+// 原子计数器
+layout (binding = 0, offset = 0) uniform atomic_uint u_AtomicCounter;
+
+// 颜色混合缓存
+layout (binding = 0, rgba32ui) uniform uimageBuffer u_ListBuffer;
+
+// 头指针缓存
+layout (binding = 1, r32ui) uniform uimage2D u_HeadMat;
 
 void main()
 {
-	FragColor = FragmentShader();
+    if (gl_SampleID > 0)
+        discard;
+
+	// 绘制 获取片元颜色
+    vec4 fragColor = FragmentShader();
+    // 申请空间 即原子计数器+1
+    uint newHead = atomicCounterIncrement(u_AtomicCounter);
+    
+    // 将新申请的空间作为新的头指针写入头指针缓存
+    // 并返回原来的头指针
+    uint oldHead =
+		imageAtomicExchange(u_HeadMat, ivec2(gl_FragCoord.xy), newHead);
+    
+    // 初始化新头节点的数据
+    uvec4 item;
+    item.x = oldHead;	// next 指针
+    item.y = packUnorm4x8(fragColor);	// 32位深 4通道颜色
+    item.z = floatBitsToUint(gl_FragCoord.z);	// 深度
+    item.w = 0;			// 预留  多重采样混合
+    
+    // 将节点数据写入头节点 index
+    imageStore(u_ListBuffer, int(newHead), item);
 }

@@ -12,8 +12,7 @@ uniform vec3 u_CameraPos;
 
 out vec3 NormalVec;		// 世界坐标法向量
 out vec3 FragPos;		// 世界坐标系的顶点坐标
-out vec3 ViewVec;
-
+out vec3 CameraPos;		// 世界坐标系摄像机坐标
 
 out vec2 TexCoord;
 
@@ -22,8 +21,7 @@ void main()
 	FragPos = vec3(u_MTrans * vec4(aPosition, 1.0f));
 	NormalVec = normalize(u_NormalTrans * aNormal);
 	
-	ViewVec = normalize(u_CameraPos - FragPos);
-	
+	CameraPos = u_CameraPos;
 	gl_Position = u_MVPTrans * vec4(aPosition, 1.0f);
 	
 	TexCoord = aTexCoord;

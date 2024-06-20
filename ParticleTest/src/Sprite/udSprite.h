@@ -5,6 +5,6 @@ namespace ptt
 	class udSprite: virtual public Sprite
 	{
 	public:
-		virtual void Update(float deltaTime) = 0;
+		virtual void Update(float deltaTime);
 	};
 }

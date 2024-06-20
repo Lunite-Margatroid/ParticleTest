@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "VertexBuffer.h"
 
-LM::VertexBuffer::VertexBuffer(unsigned int size, void* data):m_uSize(size)
+LM::VertexBuffer::VertexBuffer(unsigned int size, void* data, GLenum usage):
+	m_uSize(size),m_Usage(usage)
 {
 	GLCall(glGenBuffers(1, &m_id));
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_id));
@@ -21,8 +22,9 @@ LM::VertexBuffer::~VertexBuffer()
 void LM::VertexBuffer::Init(unsigned int size, void* data, GLenum usage)
 {
 	m_uSize = size;
+	m_Usage = usage;
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_id));
-	GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, usage));
+	GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, m_Usage));
 }
 
 void LM::VertexBuffer::Bind() const

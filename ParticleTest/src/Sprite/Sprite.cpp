@@ -71,6 +71,10 @@ namespace ptt
 	{
 		m_Shader = Renderer::GetShader(m_ShaderName);
 	}
+	void Sprite::Update(float deltaTime)
+	{
+
+	}
 	LM::Shaders Sprite::GetShaderName() const
 	{
 		return m_ShaderName;

@@ -247,6 +247,8 @@
     <ClInclude Include="src\Sprite\SkyboxSprite.h" />
     <ClInclude Include="src\ImGuiWindows\SkyboxEditor.h" />
     <ClInclude Include="src\ImGuiWindows\TextureSelector.h" />
+    <ClInclude Include="src\Sprite\CustomedSprite.h" />
+    <ClInclude Include="src\ImGuiWindows\AddObjectDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -451,5 +453,7 @@
     <ClCompile Include="src\Sprite\SkyboxSprite.cpp" />
     <ClCompile Include="src\ImGuiWindows\SkyboxEditor.cpp" />
     <ClCompile Include="src\ImGuiWindows\TextureSelector.cpp" />
+    <ClCompile Include="src\Sprite\CustomedSprite.cpp" />
+    <ClCompile Include="src\ImGuiWindows\AddObjectDialog.cpp" />
   </ItemGroup>
 </Project>

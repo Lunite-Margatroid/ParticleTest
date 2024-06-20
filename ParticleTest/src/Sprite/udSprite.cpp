@@ -3,5 +3,7 @@
 
 namespace ptt
 {
-
+	void udSprite::Update(float deltaTime)
+	{
+	}
 }

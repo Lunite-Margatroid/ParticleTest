@@ -9,6 +9,7 @@ namespace ptt
 {
 	void DemoSceneModel::Init()
 	{
+		glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 		m_SelectedObj = m_RootObj.get();
 
 		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
@@ -38,6 +39,13 @@ namespace ptt
 		}
 
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SkyboxSprite()), "Skybox");
+
+		CustomedSprite* cstSprite = new CustomedSprite();
+		cstSprite->AddVertex(CustomedSprite::Vertex(-2.0f, -2.0f, 0.f, 1.0f, 0.0f, 0.0f, 1.0f));
+		cstSprite->AddVertex(CustomedSprite::Vertex(2.0f, -2.0f, 0.f, 0.0f, 1.0f, 0.0f, 1.0f));
+		cstSprite->AddVertex(CustomedSprite::Vertex(2.0f, 2.0f, 0.f, 0.0f, 0.0f, 1.0f, 1.0f));
+		cstSprite->AddVertex(CustomedSprite::Vertex(0.0f, 0.0f, 4.0f, 1.0f, 1.0f, 1.0f, 1.0f));
+		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(cstSprite), "Customed Sprite Test");
 		
 	}
 	ptt::DemoSceneModel::DemoSceneModel()
@@ -247,6 +255,38 @@ namespace ptt
 	{
 		// TODO: insert return statement here
 		return m_Meshes;
+	}
+
+	void DemoSceneModel::AddSceneObject(SpriteType spriteType, const std::string& objName)
+	{
+		switch (spriteType)
+		{
+		case SpriteType::Quad:
+			AddSceneObject<SceneObj, QuadSprite>(objName);
+			break;
+		case SpriteType::Cube:
+			AddSceneObject<SceneObj, CubeSprite>(objName);
+			break;
+		case SpriteType::Sphere:
+			AddSceneObject<SceneObj, SphereSprite>(objName);
+			break;
+		case SpriteType::Skybox:
+			AddSceneObject<SceneObj, SkyboxSprite>(objName);
+			break;
+		case SpriteType::Custom:
+			AddSceneObject<SceneObj, CustomedSprite>(objName);
+			break;
+		case SpriteType::Firework:
+			AddSceneObject<SceneObj, FireWork>(objName);
+			break;
+		case SpriteType::Hanabi:
+			AddSceneObject<SceneObj, Hanabi>(objName);
+			break;
+		case SpriteType::QuadMesh:
+			AddSceneObject<SceneObj, QuadMeshSprite>(objName);
+			break;
+		default:break;
+		};
 	}
 
 }

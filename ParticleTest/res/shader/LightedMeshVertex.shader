@@ -12,8 +12,8 @@ uniform mat4 u_MTrans;
 uniform vec3 u_CameraPos;
 
 out vec3 NormalVec;		// 世界坐标法向量
-out vec3 HalfVec;		// 世界坐标半向量
 out vec3 FragPos;		// 世界坐标系的顶点坐标
+out vec3 ViewVec;
 
 out vec2 TexCoord;
 out mat3 InverseLocalTrans;
@@ -23,7 +23,7 @@ void main()
 	FragPos = vec3(u_MTrans * vec4(aPosition, 1.0f));
 	NormalVec = normalize(u_NormalTrans * aNormal);
 	
-	HalfVec = NormalVec + normalize(u_CameraPos - FragPos);
+	ViewVec = normalize(u_CameraPos - FragPos);
 	
 	gl_Position = u_MVPTrans * vec4(aPosition, 1.0f);
 	

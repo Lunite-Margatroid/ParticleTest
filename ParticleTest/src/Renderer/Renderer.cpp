@@ -110,6 +110,22 @@ namespace ptt
 		m_ShaderMap[LM::Shaders::Skybox_P] = shd;
 		Shader_Names[LM::Shaders::Skybox_P] = "Shader_Skybox";
 
+		shd = new LM::Shader("./res/shader/CustomedSprite_P_C_Vertex.shader", "./res/shader/CustomedSprite_P_C_Frag.shader");
+		m_ShaderMap[LM::Shaders::CustomedSprite_P_C] = shd;
+		Shader_Names[LM::Shaders::CustomedSprite_P_C] = "CustomedSprite_P_C";
+
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_Phong_P_N_T.shader", "./res/shader/LightedMeshFrag_Phong_P_N_T.shader");
+		m_ShaderMap[LM::Shaders::LightedMesh_Phong_P_N_T] = shd;
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_Phong_P_N_T.shader", "./res/shader/LightedMeshFrag_Phong_P_N_T_oit.shader");
+		m_oitShaderMap[LM::Shaders::LightedMesh_Phong_P_N_T] = shd;
+		Shader_Names[LM::Shaders::LightedMesh_Phong_P_N_T] = "LightedMesh_Phong_P_N_T";
+
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_Gouraud_P_N_T.shader", "./res/shader/LightedMeshFrag_Gouraud_P_N_T.shader");
+		m_ShaderMap[LM::Shaders::LightedMesh_Gouraud_P_N_T] = shd;
+		shd = new LM::Shader("./res/shader/LightedMeshVertex_Gouraud_P_N_T.shader", "./res/shader/LightedMeshFrag_Gouraud_P_N_T_oit.shader");
+		m_oitShaderMap[LM::Shaders::LightedMesh_Gouraud_P_N_T] = shd;
+		Shader_Names[LM::Shaders::LightedMesh_Gouraud_P_N_T] = "LightedMesh_Gouraud_P_N_T";
+
 	}
 	void Renderer::InitTexture()
 	{

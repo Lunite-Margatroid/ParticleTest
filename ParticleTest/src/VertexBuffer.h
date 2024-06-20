@@ -7,8 +7,9 @@ namespace LM
 	protected:
 		unsigned int m_id;
 		size_t m_uSize;
+		GLenum m_Usage;
 	public:
-		VertexBuffer(unsigned int size, void* data);
+		VertexBuffer(unsigned int size, void* data, GLenum usage = GL_STATIC_DRAW);
 		VertexBuffer();
 		virtual ~VertexBuffer();
 

@@ -29,6 +29,8 @@ namespace ptt
 		virtual void RenderImGui() override;
 		virtual void SelectShader();
 
+		virtual void Update(float deltaTime);
+
 		LM::Shaders GetShaderName() const;
 		void SetShaderName(LM::Shaders);
 	};
