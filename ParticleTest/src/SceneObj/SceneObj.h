@@ -19,8 +19,11 @@ namespace ptt
 
 		glm::mat4 m_ModelTrans;
 		glm::qua<float> m_Qua;
+		glm::mat4 m_StaggerTrans;
 
 		std::string m_ObjName;
+
+		bool m_Visible;
 
 		void Clear();
 		void UpdateQuaternion();
@@ -81,12 +84,17 @@ namespace ptt
 		void RenderImGui() override;
 
 		const std::string& GetObjName() const;
+		void SetObjName(const std::string name);
 		const std::vector<SceneObj*> GetChildren() const;
 
 		virtual void StatusUnite();
 
 		glm::qua<float>& GetQuaternionRotate();
 		SceneObj* GetParent();
-		glm::mat4& GetModalTrans();
+		glm::mat4& GetModelTrans();
+
+		void ResetStaggering();
+
+		void SetVisible(bool visible, bool recursion = false);
 	};
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Camera.h"
+#include "Camera/Camera.h"
 
 
 
@@ -7,6 +7,11 @@ namespace ptt
 {
 	class Camera3D :public Camera
 	{
+	public:
+		enum Projection
+		{
+			Ortho, Perspective
+		};
 	protected:
 		glm::vec3 m_Pos;			// camera position
 		glm::vec3 m_Dir;			// view ahead
@@ -23,6 +28,9 @@ namespace ptt
 		
 		float m_SenRad;				// Sensitivity Of rotate
 		float m_SenPos;				// Sensitivity Of Move
+
+		Projection m_Projection;
+
 
 		void UpdateDir();
 		virtual void UpdateViewTrans() override;
@@ -59,6 +67,10 @@ namespace ptt
 		void RotateYaw(float yaw);
 		void RotatePitch(float pitch);
 		void RotateFov(float fov);
-	};
 
+		void SetOrthoProjection();
+		void SetPerspectiveProjection();
+
+		Projection GetProjectionType() const;
+	};
 }

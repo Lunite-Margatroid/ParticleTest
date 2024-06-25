@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DemoSceneUI.h"
 #include "DemoSceneModel.h"
-
+#include "application.h"
 #include <wchar.h>
 #include <codecvt>
 
@@ -9,6 +9,7 @@ namespace ptt
 {
 	void DemoSceneModel::Init()
 	{
+		Application::SetCurrentScene(this);
 		// LoadModel("L:/OpenGL/model/nanosuit/nanosuit.blend");
 		SceneObj* obj = new SceneObj(m_RootObj.get(), new QuadMeshSprite(), "mesh");
 
@@ -33,12 +34,7 @@ namespace ptt
 
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SkyboxSprite()), "Skybox");
 
-		CustomedSprite* cstSprite = new CustomedSprite();
-		cstSprite->AddVertex(CustomedSprite::Vertex(-2.0f, -2.0f, 0.f, 1.0f, 0.0f, 0.0f, 1.0f));
-		cstSprite->AddVertex(CustomedSprite::Vertex(2.0f, -2.0f, 0.f, 0.0f, 1.0f, 0.0f, 1.0f));
-		cstSprite->AddVertex(CustomedSprite::Vertex(2.0f, 2.0f, 0.f, 0.0f, 0.0f, 1.0f, 1.0f));
-		cstSprite->AddVertex(CustomedSprite::Vertex(0.0f, 0.0f, 4.0f, 1.0f, 1.0f, 1.0f, 1.0f));
-		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(cstSprite), "Customed Sprite Test");
+		
 		
 	}
 	ptt::DemoSceneModel::DemoSceneModel()
@@ -57,6 +53,23 @@ namespace ptt
 		Init();
 	}
 
+	DemoSceneModel::DemoSceneModel(bool init)
+		:DemoSceneUI(false)
+	{
+		m_Materials.push_back(new Material());
+		m_ModelCount = 0;
+
+		glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+		m_SelectedObj = m_RootObj.get();
+
+		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
+		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
+		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
+
+		if(init)
+			Init();
+	}
+
 	DemoSceneModel::~DemoSceneModel()
 	{
 		for (Mesh* mesh : m_Meshes)
@@ -69,7 +82,7 @@ namespace ptt
 		}
 	}
 
-	void DemoSceneModel::LoadModel(const std::string& path)
+	ModelObj* DemoSceneModel::LoadModel(const std::string& path)
 	{
 		Assimp::Importer fileImporter;
 
@@ -83,7 +96,7 @@ namespace ptt
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			std::cout << "ERROR::Assimp::" << fileImporter.GetErrorString() << std::endl;
-			return;
+			return nullptr;
 		}
 
 
@@ -103,6 +116,7 @@ namespace ptt
 		strcat(objName, num);
 		ModelObj* obj = new ModelObj(m_RootObj.get(), nullptr, objName);
 		obj->LoadModel(scene->mRootNode, meshBase);
+		return obj;
 	}
 
 

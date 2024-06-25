@@ -23,7 +23,9 @@ namespace ptt
 		m_ModelTrans(1.0f),
 		m_Position(0.0f),
 		m_Scale(1.0f),
-		m_Qua(glm::vec3(0.0f, 0.0f, 0.0f))
+		m_Qua(glm::vec3(0.0f, 0.0f, 0.0f)),
+		m_StaggerTrans(1.0f),
+		m_Visible(true)
 	{
 		if (m_ParentObj != nullptr)
 		{
@@ -52,13 +54,19 @@ namespace ptt
 	void ptt::SceneObj::Render()
 	{
 		if (m_ParentObj)
+		{
 			m_ModelTrans = m_ParentObj->m_ModelTrans;
+		}
 		else
+		{
 			m_ModelTrans = glm::mat4(1.0f);
+		}
 		m_ModelTrans = glm::translate(m_ModelTrans, m_Position);
 		// EulerTrans(m_ModelTrans, m_Yaw, m_Pitch, m_Roll);
 		QuaternionRotate(m_ModelTrans, m_Qua);
 		m_ModelTrans = glm::scale(m_ModelTrans, m_Scale);
+		m_ModelTrans = m_ModelTrans * m_StaggerTrans;
+
 		if (m_Sprite && m_Sprite->IsVisible())
 			Renderer::RenderSprite(m_Sprite, m_ModelTrans);
 		for (auto child : m_ChildObj)
@@ -189,8 +197,25 @@ namespace ptt
 			ImGuiSliderFlags_AlwaysClamp);
 		ImGui::DragFloat3("Scale", &m_Scale.x, 0.01f, -100.0f, 100.0f, "%.3f",
 			ImGuiSliderFlags_AlwaysClamp);
+
+		float* staggeringTransPtr = glm::value_ptr(m_StaggerTrans);
+		ImGui::Separator();
+		if (ImGui::Button("Reset Staggering"))
+		{
+			ResetStaggering();
+		}
+		ImGui::DragFloat3("##col1", staggeringTransPtr, 0.01f, -10.f, 10.f);
+		ImGui::DragFloat3("##col2", staggeringTransPtr + 4, 0.01f, -10.f, 10.f);
+		ImGui::DragFloat3("##col3", staggeringTransPtr + 8, 0.01f, -10.f, 10.f);
+
+		if (ImGui::Checkbox("Object Visible", &m_Visible))
+		{
+			SetVisible(m_Visible, true);
+		}
+
 		if (m_Sprite)
 		{
+			ImGui::SeparatorText("Sprite Property");
 			if (ImGui::Button("Status Unite"))
 			{
 				StatusUnite();
@@ -201,6 +226,10 @@ namespace ptt
 	const std::string& SceneObj::GetObjName() const
 	{
 		return m_ObjName;
+	}
+	void SceneObj::SetObjName(const std::string name)
+	{
+		m_ObjName = name;
 	}
 	const std::vector<SceneObj*> SceneObj::GetChildren() const
 	{
@@ -233,9 +262,26 @@ namespace ptt
 	{
 		return m_ParentObj;
 	}
-	glm::mat4& SceneObj::GetModalTrans()
+	glm::mat4& SceneObj::GetModelTrans()
 	{
 		// TODO: insert return statement here
 		return m_ModelTrans;
+	}
+	void SceneObj::ResetStaggering()
+	{
+		m_StaggerTrans = glm::mat4(1.0f);
+	}
+	void SceneObj::SetVisible(bool visible, bool recursion)
+	{
+		m_Visible = visible;
+		if(m_Sprite)
+			m_Sprite->SetVisible(visible);
+		if (recursion)
+		{
+			for (SceneObj* obj : m_ChildObj)
+			{
+				obj->SetVisible(visible, true);
+			}
+		}
 	}
 }

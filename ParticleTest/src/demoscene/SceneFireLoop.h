@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "Particle.h"
 #include "Shader/Shader.h"
-#include "Camera3D.h"
+#include "Camera/Camera3D.h"
 namespace ptt
 {
 	class SceneFireLoop :public DemoScene

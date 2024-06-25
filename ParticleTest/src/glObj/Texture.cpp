@@ -118,6 +118,7 @@ namespace LM
 
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter));
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter));	// 设置插值方式
+
 	}
 
 	Texture::~Texture()

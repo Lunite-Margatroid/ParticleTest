@@ -48,10 +48,10 @@
     <ClInclude Include="src\Application.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Camera.h">
+    <ClInclude Include="src\Camera\Camera.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Camera3D.h">
+    <ClInclude Include="src\Camera\Camera3D.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ElementBuffer.h">
@@ -250,15 +250,19 @@
     <ClInclude Include="src\Sprite\CustomedSprite.h" />
     <ClInclude Include="src\ImGuiWindows\AddObjectDialog.h" />
     <ClInclude Include="src\ImGuiWindows\RenderSetting.h" />
+    <ClInclude Include="src\Sprite\TestCube.h" />
+    <ClInclude Include="src\Sprite\TestTetrahedron.h" />
+    <ClInclude Include="src\Animation\FrameNode.h" />
+    <ClInclude Include="src\SceneObj\AnimatedObj.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
+    <ClCompile Include="src\Camera\Camera.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera3D.cpp">
+    <ClCompile Include="src\Camera\Camera3D.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\ElementBuffer.cpp">
@@ -457,5 +461,9 @@
     <ClCompile Include="src\Sprite\CustomedSprite.cpp" />
     <ClCompile Include="src\ImGuiWindows\AddObjectDialog.cpp" />
     <ClCompile Include="src\ImGuiWindows\RenderSetting.cpp" />
+    <ClCompile Include="src\Sprite\TestCube.cpp" />
+    <ClCompile Include="src\Sprite\TestTetrahedron.cpp" />
+    <ClCompile Include="src\Animation\FrameNode.cpp" />
+    <ClCompile Include="src\SceneObj\AnimatedObj.cpp" />
   </ItemGroup>
 </Project>

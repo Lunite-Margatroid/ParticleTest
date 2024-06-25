@@ -103,9 +103,7 @@ namespace ptt
 		shader->Bind();
 
 		glm::mat4 mvpTrans;
-		glm::mat4 modalTrans = glm::mat4(1.0f);
-		modalTrans = glm::translate(modalTrans, m_SelectedObj->GetPosition());
-		SceneObj::QuaternionRotate(modalTrans, m_SelectedObj->GetQuaternionRotate());
+		glm::mat4 modalTrans = m_SelectedObj->GetModelTrans();
 		mvpTrans = camera->GetProjectionTrans() *  camera->GetViewTrans() * modalTrans;
 		//mvpTrans = camera->GetProjectionTrans();
 

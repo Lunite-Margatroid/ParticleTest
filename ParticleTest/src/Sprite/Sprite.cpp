@@ -61,7 +61,6 @@ namespace ptt
 	}
 	void Sprite::RenderImGui()
 	{
-		ImGui::SeparatorText("Sprite Property");
 		ImGui::Checkbox("Visible", &m_Visible);
 		ImGui::SameLine();
 		ImGui::Checkbox("Transparency", &m_Transparency);

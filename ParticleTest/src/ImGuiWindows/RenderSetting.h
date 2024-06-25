@@ -1,6 +1,7 @@
 #pragma once
 #include "ImGuiDialogModal.h"
 
+
 namespace ptt
 {
 	class RenderSetting : public ImGuiDialogModal
@@ -27,6 +28,15 @@ namespace ptt
 		GLboolean m_IfDepthTest;
 
 		std::map<GLenum, std::string> m_NameMap;
+
+
+		Camera3D::Projection m_Projection;
+
+		GLenum m_PolygonModes[3];
+		GLenum m_PolygonMode;
+
+		float m_LineWidth;
+
 		void Init();
 	public:
 		RenderSetting(const std::string& name);

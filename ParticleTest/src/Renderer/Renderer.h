@@ -1,8 +1,8 @@
 #pragma once
 #include "Shader/Shader.h"
 #include "Shader/tfbShader.h"
-#include "Camera.h"
-#include "Camera3D.h"
+#include "Camera/Camera.h"
+#include "Camera/Camera3D.h"
 #include "glObj/Texture.h"
 #include "TransparencySprite.h"
 #include "glObj/oitContext.h"
@@ -15,7 +15,7 @@ namespace ptt
 	public:
 		enum class Cameras
 		{
-			Camera3D_Alpha
+			Camera3D_Alpha, Camera3D_Ortho
 		};
 
 		enum class VertexArrays

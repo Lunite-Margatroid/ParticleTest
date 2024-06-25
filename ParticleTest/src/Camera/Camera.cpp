@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Camera.h"
+#include "Camera/Camera.h"
 
 namespace ptt
 {

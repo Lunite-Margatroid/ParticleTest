@@ -1,5 +1,5 @@
 #include"pch.h"
-#include "Camera3D.h"
+#include "Camera/Camera3D.h"
 namespace ptt
 {
 	void Camera3D::UpdateDir()
@@ -25,7 +25,19 @@ namespace ptt
 	}
 	void Camera3D::UpdateProjectionTrans()
 	{
-		m_ProjectionTrans = glm::perspective(m_ViewRange, m_Width / m_Height, m_Near, m_Far);
+		switch (m_Projection)
+		{
+		case ptt::Camera3D::Ortho:
+			m_ProjectionTrans = glm::ortho(-m_Width / 2, m_Width / 2, -m_Height / 2, m_Height / 2, m_Near, m_Far);
+			break;
+		case ptt::Camera3D::Perspective:
+			m_ProjectionTrans = glm::perspective(m_ViewRange, m_Width / m_Height, m_Near, m_Far);
+			break;
+		default:
+			m_ProjectionTrans = glm::perspective(m_ViewRange, m_Width / m_Height, m_Near, m_Far);
+			break;
+		}
+		
 	}
 	void Camera3D::Move(float deltaTime)
 	{
@@ -100,7 +112,8 @@ namespace ptt
 		m_fov(0.0f),
 		m_ViewRange(PI/ 4),
 		m_SenRad(PI / 4),
-		m_SenPos(5.0f)
+		m_SenPos(5.0f),
+		m_Projection(Perspective)
 	{
 		m_Near = 0.1f;
 		m_Far = 100.f;
@@ -211,5 +224,18 @@ namespace ptt
 	void Camera3D::RotateFov(float fov)
 	{
 		m_fov += fov;
+	}
+	void Camera3D::SetOrthoProjection()
+	{
+		m_Projection = Ortho;
+	}
+	void Camera3D::SetPerspectiveProjection()
+	{
+		m_Projection = Perspective;
+	}
+
+	Camera3D::Projection Camera3D::GetProjectionType() const
+	{
+		return m_Projection;
 	}
 }

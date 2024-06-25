@@ -143,9 +143,10 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation\FrameNode.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\Camera3D.h" />
+    <ClInclude Include="src\Camera\Camera.h" />
+    <ClInclude Include="src\Camera\Camera3D.h" />
     <ClInclude Include="src\ElementBuffer.h" />
     <ClInclude Include="src\Feedback.h" />
     <ClInclude Include="src\GlfwContext.h" />
@@ -175,6 +176,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Rand\Rand.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\TransparencySprite.h" />
+    <ClInclude Include="src\SceneObj\AnimatedObj.h" />
     <ClInclude Include="src\SceneObj\ModelObj.h" />
     <ClInclude Include="src\SceneObj\SceneObj.h" />
     <ClInclude Include="src\SceneObj\illuminant.h" />
@@ -192,6 +194,8 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="src\Sprite\SphereSprite.h" />
     <ClInclude Include="src\Sprite\Sprite.h" />
     <ClInclude Include="src\Sprite\SpriteMeshes.h" />
+    <ClInclude Include="src\Sprite\TestCube.h" />
+    <ClInclude Include="src\Sprite\TestTetrahedron.h" />
     <ClInclude Include="src\Sprite\udSprite.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
@@ -218,9 +222,10 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClInclude Include="vendor\ImGuiFileDialog\ImGuiFileDialogConfig.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation\FrameNode.cpp" />
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Camera3D.cpp" />
+    <ClCompile Include="src\Camera\Camera.cpp" />
+    <ClCompile Include="src\Camera\Camera3D.cpp" />
     <ClCompile Include="src\ElementBuffer.cpp" />
     <ClCompile Include="src\Feedback.cpp" />
     <ClCompile Include="src\GlfwContext.cpp" />
@@ -250,6 +255,7 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Rand\Rand.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Renderer\TransparencySprite.cpp" />
+    <ClCompile Include="src\SceneObj\AnimatedObj.cpp" />
     <ClCompile Include="src\SceneObj\ModelObj.cpp" />
     <ClCompile Include="src\SceneObj\SceneObj.cpp" />
     <ClCompile Include="src\SceneObj\illuminant.cpp" />
@@ -267,6 +273,8 @@ IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release-x86_64\MyApp\res &gt; nul) E
     <ClCompile Include="src\Sprite\SphereSprite.cpp" />
     <ClCompile Include="src\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Sprite\SpriteMeshes.cpp" />
+    <ClCompile Include="src\Sprite\TestCube.cpp" />
+    <ClCompile Include="src\Sprite\TestTetrahedron.cpp" />
     <ClCompile Include="src\Sprite\udSprite.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />

@@ -51,6 +51,7 @@ namespace ptt
 		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
 		if (camera == nullptr)
 			return;
+
 		SelectShader();
 
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();
@@ -72,11 +73,14 @@ namespace ptt
 	void CustomedSprite::RenderImGui()
 	{
 		Sprite::RenderImGui();
-		ImGui::SliderFloat("Veretx Size", &m_VertexSize, 1.0f, 10.0f);
+
+		ImGui::SliderFloat("Veretx Size", &m_VertexSize, 1.0f, 50.0f);
 		char strVerticeAttrib[64];
 		ImGui::Text("Vertex List");
-		ImGui::BeginChild("Vertex List Child", ImVec2(0, 0), ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_AutoResizeX);
-		ImGui::BeginListBox("##Vertex List");
+
+		ImGui::BeginChild("Vertex List Child", ImVec2(0, 0), 
+			ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeY | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_FrameStyle);
+		//ImGui::BeginListBox("##Vertex List");
 		for (int i = 0; i < m_Vertices.size(); i++)
 		{
 			unsigned char color[4];
@@ -96,8 +100,8 @@ namespace ptt
 			ImGui::GetWindowDrawList()->AddRectFilled
 			(ImVec2(itemPos.x + 1, itemPos.y + 1), ImVec2(itemPos.x + itemSize.y - 2, itemPos.y + itemSize.y - 2), *(unsigned int*)color);
 		}
-		ImGui::EndListBox();
-		ImGui::EndChild();
+		//ImGui::EndListBox(); // ##Vertex List
+		ImGui::EndChild();	// Vertex List Child
 
 		if(ImGui::BeginCombo("Draw Mode", m_NameMap[m_Mode].c_str()))
 		{
@@ -130,7 +134,7 @@ namespace ptt
 		}
 		if (m_SelectedVertex >= 0)
 		{
-			ImGui::DragFloat3("Position", &m_Vertices[m_SelectedVertex].x, 0.01f, -10.0f, 10.0f);
+			ImGui::DragFloat3("Vertex Position", &m_Vertices[m_SelectedVertex].x, 0.01f, -10.0f, 10.0f);
 			// ImGui::SliderFloat3("Position", &m_Vertices[m_SelectedVertex].x, -10.0f, 10.0f);
 			ImGui::ColorEdit4("Vertex Color", &m_Vertices[m_SelectedVertex].r);
 		}

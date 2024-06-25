@@ -4,8 +4,8 @@
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "Feedback.h"
-#include "Camera.h"
-#include "Camera3D.h"
+#include "Camera/Camera.h"
+#include "Camera/Camera3D.h"
 #include "tfBuffer.h"
 namespace ptt
 {

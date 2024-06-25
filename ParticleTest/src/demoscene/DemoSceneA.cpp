@@ -139,7 +139,8 @@ namespace ptt
 				{
 					if (Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera()))
 					{
-						camera->HeadTo(m_SelectedObj->GetPosition());
+						camera->HeadTo(glm::vec3(m_SelectedObj->GetModelTrans()[3]));
+						
 					}
 				}
 			}

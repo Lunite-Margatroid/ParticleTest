@@ -70,6 +70,7 @@ namespace ptt
 		static std::pair<int, int> GetSceneFramebufferSize();
 
 		static DemoScene* GetCurrentScene();
+		static void SetCurrentScene(DemoScene* scene);
 		static float GetFPS();
 
 		static void OpenDialog(const std::string& name);

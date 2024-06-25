@@ -45,7 +45,7 @@ namespace ptt
 			LM::PointLight* pointLight = dynamic_cast<LM::PointLight*>(m_Light);
 			if (pointLight)
 			{
-				pointLight->SetLightPosition(m_Position);
+				pointLight->SetLightPosition(glm::vec3(m_ModelTrans[3]));
 			}
 		}
 	}

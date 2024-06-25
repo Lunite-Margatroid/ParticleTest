@@ -299,6 +299,10 @@ namespace ptt
 	{
 		return GetInstance()->m_CurrentScene;
 	}
+	void Application::SetCurrentScene(DemoScene* scene)
+	{
+		GetInstance()->m_CurrentScene = scene;
+	}
 	float Application::GetFPS()
 	{
 		return GetInstance()->m_FPS;

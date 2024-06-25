@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RenderSetting.h"
+#include "Renderer/Renderer.h"
 
 namespace ptt
 {
@@ -29,6 +30,24 @@ namespace ptt
 		m_NameMap[m_BlendEquationModes[2] = GL_FUNC_REVERSE_SUBTRACT]	= std::string("reverse -");
 		m_NameMap[m_BlendEquationModes[3] = GL_MIN]						= std::string("min");
 		m_NameMap[m_BlendEquationModes[4] = GL_MAX]						= std::string("max");
+
+		m_NameMap[m_PolygonModes[0] = GL_POINT] = std::string("Point");
+		m_NameMap[m_PolygonModes[1] = GL_LINE] = std::string("Line");
+		m_NameMap[m_PolygonModes[2] = GL_FILL] = std::string("Fill");
+
+		m_NameMap[Camera3D::Ortho + 8]		  = std::string("Orthographic Projection");
+		m_NameMap[Camera3D::Perspective + 8] = std::string("Perspective Projection");
+
+		m_IfCullFace = GL_FALSE;
+		m_CullFace = GL_BACK;
+		m_IfDepthTest = GL_TRUE;
+		m_IfBlend = GL_TRUE;
+		m_SrcFactor_RGB = m_SrcFactor_Alpha = GL_SRC_ALPHA;
+		m_DstFactor_RGB = m_DstFactor_Alpha = GL_ONE_MINUS_SRC_ALPHA;
+		m_BlendEquation_RGB = m_BlendEquation_Alpha = GL_FUNC_ADD;
+		m_Projection = Camera3D::Perspective;
+		m_PolygonMode = GL_FILL;
+		m_LineWidth = 1.0f;
 	}
 	RenderSetting::RenderSetting(const std::string& name)
 		:ImGuiDialogModal(name)
@@ -193,6 +212,51 @@ namespace ptt
 				}
 				ImGui::EndCombo();
 			}
+			// -------------------- projection -----------------
+			ImGui::Separator();
+			if (ImGui::BeginCombo("Projection", m_NameMap[m_Projection + 8].c_str()))
+			{
+				bool isSelected = m_Projection == Camera3D::Perspective;
+				if (ImGui::Selectable(m_NameMap[Camera3D::Perspective + 8].c_str(), &isSelected))
+				{
+					m_Projection = Camera3D::Perspective;
+				}
+				if (isSelected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+
+				isSelected = m_Projection == Camera3D::Ortho;
+				if (ImGui::Selectable(m_NameMap[Camera3D::Ortho + 8].c_str(), &isSelected))
+				{
+					m_Projection = Camera3D::Ortho;
+				}
+				if (isSelected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+
+				ImGui::EndCombo();
+			}
+			ImGui::Separator();
+			if (ImGui::BeginCombo("Polygon Mode", m_NameMap[m_PolygonMode].c_str()))
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					bool isSelected = m_PolygonMode == m_PolygonModes[i];
+					if (ImGui::Selectable(m_NameMap[m_PolygonModes[i]].c_str(), &isSelected))
+					{
+						m_PolygonMode = m_PolygonModes[i];
+					}
+					if (isSelected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+				ImGui::EndCombo();
+			}
+
+			ImGui::DragFloat("Line Width", &m_LineWidth, 0.01, 0, 10.f);
 
 			// ------------------------ apply ---------------
 
@@ -229,6 +293,12 @@ namespace ptt
 
 		glGetBooleanv(GL_DEPTH_TEST, &m_IfDepthTest);
 
+		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		if (camera)
+		{
+			m_Projection = camera->GetProjectionType();
+		}
+
 	}
 	void RenderSetting::Apply()
 	{
@@ -262,6 +332,18 @@ namespace ptt
 		}
 		glBlendFuncSeparate(m_SrcFactor_RGB, m_DstFactor_RGB, m_SrcFactor_Alpha, m_DstFactor_Alpha);
 		glBlendEquationSeparate(m_BlendEquation_RGB, m_BlendEquation_Alpha);
+
+		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		if (camera)
+		{
+			if (m_Projection == Camera3D::Perspective)
+				camera->SetPerspectiveProjection();
+			else if (m_Projection == Camera3D::Ortho)
+				camera->SetOrthoProjection();
+		}
+
+		glLineWidth(m_LineWidth);
+		glPolygonMode(GL_FRONT_AND_BACK, m_PolygonMode);
 	}
 	void RenderSetting::SetDefault()
 	{
@@ -272,6 +354,9 @@ namespace ptt
 		m_SrcFactor_RGB = m_SrcFactor_Alpha = GL_SRC_ALPHA;
 		m_DstFactor_RGB = m_DstFactor_Alpha = GL_ONE_MINUS_SRC_ALPHA; 
 		m_BlendEquation_RGB = m_BlendEquation_Alpha = GL_FUNC_ADD;
+		m_Projection = Camera3D::Perspective;
+		m_PolygonMode = GL_FILL;
+		m_LineWidth = 1.f;
 		Apply();
 	}
 	void RenderSetting::Popup()

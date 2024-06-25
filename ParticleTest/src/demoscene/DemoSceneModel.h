@@ -29,9 +29,10 @@ namespace ptt
 	public:
 
 		DemoSceneModel();
+		DemoSceneModel(bool init);
 		~DemoSceneModel();
 
-		void LoadModel(const std::string& path);
+		ModelObj* LoadModel(const std::string& path);
 		void ProcessNode(aiNode* node, const aiScene* scene);
 		void ProcessMesh(aiMesh* mesh, const aiScene* scene, Mesh* pttMesh);
 		unsigned int ProcessMeshes(const aiScene* scene, unsigned int materialBase);

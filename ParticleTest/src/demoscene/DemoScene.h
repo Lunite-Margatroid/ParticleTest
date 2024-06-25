@@ -1,7 +1,7 @@
 #pragma once
 #include "Interface/ImGuiInterface.h"
 #include "glObj/FrameBuffer.h"
-#include "Camera3D.h"
+#include "Camera/Camera3D.h"
 
 namespace ptt
 {

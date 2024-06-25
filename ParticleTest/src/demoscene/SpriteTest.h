@@ -2,7 +2,7 @@
 #include "DemoScene.h"
 #include "SceneObj/SceneObj.h"
 #include "Shader/Shader.h"
-#include "Camera3D.h"
+#include "Camera/Camera3D.h"
 #include "Renderer/Renderer.h"
 #include "Sprite/QuadMeshSprite.h"
 namespace ptt
