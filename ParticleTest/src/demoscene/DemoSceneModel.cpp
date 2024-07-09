@@ -13,9 +13,6 @@ namespace ptt
 		// LoadModel("L:/OpenGL/model/nanosuit/nanosuit.blend");
 		SceneObj* obj = new SceneObj(m_RootObj.get(), new QuadMeshSprite(), "mesh");
 
-		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
-		Renderer::SetCurrentCamera(m_Camera);
-
 		AddIlluminant(
 			new Illuminant(nullptr, nullptr, "Directional Light 0",
 				new LM::DirLight())

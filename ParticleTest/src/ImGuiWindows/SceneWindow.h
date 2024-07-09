@@ -3,6 +3,7 @@
 #include "demoscene/DemoScene.h"
 #include "glObj/FrameBufferMS.h"
 #include "Renderer/Renderer.h"
+#include "SceneObj/Camera3DObj.h"
 
 namespace ptt
 {
@@ -18,6 +19,7 @@ namespace ptt
 		LM::FrameBufferMS m_FramebufferMS;
 		LM::FrameBuffer* m_Current;
 
+		float m_DeltaTime;
 	public:
 		SceneWindow(const std::string& keyString, int width, int height);
 		SceneWindow(const std::string& keyString);

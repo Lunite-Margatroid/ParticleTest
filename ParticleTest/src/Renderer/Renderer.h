@@ -8,6 +8,7 @@
 #include "glObj/oitContext.h"
 #include "ElementBuffer.h"
 #include "Sprite/SkyboxSprite.h"
+#include "SceneObj/CameraObj.h"
 namespace ptt
 {
 	class Renderer
@@ -32,11 +33,12 @@ namespace ptt
 
 		glm::mat4 m_MVPTrans;
 		glm::mat4 m_MVTrans;
+		glm::mat4 m_VPTrans;
 
 		glm::mat3 m_NormalTrans;
 
 		LM::Shader* m_CurrentShader;// 当前着色器
-		Camera* m_CurrentCamera;	// 当前摄像机
+		CameraObj* m_CurrentCamera;	// 当前摄像机
 		
 		bool m_oitRendering;		// 正在进行半透明物体渲染
 		bool m_oitRender;			// 是否开启oit
@@ -77,8 +79,7 @@ namespace ptt
 		void SetViewTrans(const glm::mat4& viewTrans);
 		void SetModelTrans(const glm::mat4& modelTrans);
 		void SetProjectionTrans(const glm::mat4& projectionTrans);
-
-		
+		void SetVPTrans(const glm::mat4& vpTrans);
 
 		static LM::Texture* LoadTexture(const std::string& path, LM::TextureType type = LM::texture_diffuse, bool skipIfSame = false,
 			GLenum dstColorMode = GL_RGB, GLenum srcColorMode = GL_RGB,
@@ -102,17 +103,18 @@ namespace ptt
 		static void LoadCamera(Cameras cameraName, Camera* camera);
 
 		static void SetCurrentShader(LM::Shader* shader);
-		static void SetCurrentCamera(Camera* camera);
+		static void SetCurrentCamera(CameraObj* camera);
 
 		static Renderer* GetInstance();
 
 		static LM::Shader* GetCurrentShader();
-		static Camera* GetCurrentCamera();
+		static const CameraObj* GetCurrentCamera();
 
 		static glm::mat4& GetViewTrans();
 		static glm::mat4& GetModelTrans();
 		static glm::mat4& GetProjectionTrans();
 
+		static glm::mat4& GetVPTrans();
 		static glm::mat4& GetMVPTrans();
 		static glm::mat4& GetMVTrans();
 

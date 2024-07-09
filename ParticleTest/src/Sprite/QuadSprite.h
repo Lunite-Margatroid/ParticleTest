@@ -4,7 +4,6 @@
 #include "Interface/ImGuiInterface.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
-#include "Camera/Camera3D.h"
 #include "Material/Material.h"
 
 namespace ptt

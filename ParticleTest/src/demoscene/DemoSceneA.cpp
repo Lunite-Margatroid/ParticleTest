@@ -19,10 +19,6 @@ namespace ptt
 			"Quad");
 		m_RootObj->PushChild(m_SelectedObj);
 		m_SelectedObj->SetPosition(glm::vec3(2.0f, 2.0f, 2.0f));
-		
-
-		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
-		Renderer::SetCurrentCamera(m_Camera);
 
 		m_SelectedObj = new SceneObj(nullptr, new CubeSprite(), "Cube1");
 		m_RootObj->PushChild(m_SelectedObj);
@@ -38,10 +34,6 @@ namespace ptt
 		m_SelectedObj->SetPosition(glm::vec3(-4.0f, 4.0f, 4.0f));
 		m_SelectedObj->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
 
-
-		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
-		camera->SetPos(glm::vec3(0.0f, 1.f, 0.0f));
-		camera->SetEulerAngle(PI / 4, 0.0f, 0.0f);
 	}
 	DemoSceneA::DemoSceneA(bool init)
 	{
@@ -50,6 +42,8 @@ namespace ptt
 		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		m_SelectedObj = m_RootObj.get();
+		m_MainCamera = dynamic_cast<CameraObj*>(new PerspectiveCamera(m_RootObj.get(), nullptr, "Main Camera"));
+		Renderer::SetCurrentCamera(m_MainCamera);
 		if (init)
 			Init();
 	}
@@ -58,6 +52,8 @@ namespace ptt
 	{
 		m_RootObj = std::make_unique<SceneObj>(nullptr, nullptr, "Root Obj");
 		m_SelectedObj = m_RootObj.get();
+		m_MainCamera = dynamic_cast<CameraObj*>(new PerspectiveCamera(m_RootObj.get(), nullptr, "Main Camera"));
+		Renderer::SetCurrentCamera(m_MainCamera);
 		Init();
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
@@ -91,13 +87,12 @@ namespace ptt
 	void DemoSceneA::RenderImGui()
 	{
 		ImGui::Text("FPS: %.2f", Application::GetFPS());
-		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
-		if (camera)
+		if (m_MainCamera)
 		{
-			const glm::vec3& cameraPos = camera->GetPosition();
-			const glm::vec3& cameraAhead = camera->GetAhead();
+			const glm::vec3& cameraPos = m_MainCamera->GetPosition();
+			const glm::vec3& cameraHead = m_MainCamera->GetHeadTo();
 			ImGui::Text("CameraPos: %.2f  %.2f  %.2f", cameraPos.x, cameraPos.y, cameraPos.z);
-			ImGui::Text("CameraAhead: %.2f  %.2f  %.2f", cameraAhead.x, cameraAhead.y, cameraAhead.z);
+			ImGui::Text("CamearHeadTo: %.2f %.2f %.2f", cameraHead.x, cameraHead.y, cameraHead.z);
 		}
 		ImGui::SeparatorText("Obj Tree");
 		DrawObjTree(*m_RootObj);
@@ -105,7 +100,6 @@ namespace ptt
 	}
 	void DemoSceneA::Update(float deltaTime)
 	{
-		m_Camera->Update(deltaTime);
 		m_RootObj->Update(deltaTime);
 	}
 
@@ -137,10 +131,9 @@ namespace ptt
 				//双击将镜头对准目标
 				if (io.MouseDoubleClicked[0])
 				{
-					if (Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera()))
+					if (CameraObj* camera = const_cast<CameraObj*>(Renderer::GetCurrentCamera()))
 					{
 						camera->HeadTo(glm::vec3(m_SelectedObj->GetModelTrans()[3]));
-						
 					}
 				}
 			}

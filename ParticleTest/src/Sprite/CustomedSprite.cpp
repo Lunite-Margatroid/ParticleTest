@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CustomedSprite.h"
 #include "Renderer/Renderer.h"
+#include "SceneObj/Camera3DObj.h"
 
 namespace ptt
 {
@@ -48,7 +49,7 @@ namespace ptt
 	}
 	void CustomedSprite::Render(const glm::mat4& modelTrans)
 	{
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		const Camera3DObj* camera = dynamic_cast<const Camera3DObj*>(Renderer::GetCurrentCamera());
 		if (camera == nullptr)
 			return;
 

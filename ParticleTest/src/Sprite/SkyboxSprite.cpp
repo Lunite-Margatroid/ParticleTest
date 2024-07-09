@@ -32,7 +32,7 @@ namespace ptt
 	}
 	void SkyboxSprite::RenderSkybox()
 	{
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		const CameraObj* camera = Renderer::GetCurrentCamera();
 		if (camera == nullptr)
 			return;
 		const glm::mat4 &viewTrans = camera->GetViewTrans();

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "FireWork.h"
+#include "SceneObj/Camera3DObj.h"
 
 namespace ptt
 {
@@ -96,7 +97,7 @@ namespace ptt
 	{
 		tfbShader *shader = dynamic_cast<tfbShader*>(Renderer::GetShader(LM::Shaders::FireWork));
 		ASSERT(shader!=nullptr);
-		Camera* camera = Renderer::GetCurrentCamera();
+		const Camera3DObj* camera = dynamic_cast<const Camera3DObj*>(Renderer::GetCurrentCamera());
 		ASSERT(camera);
 		glm::mat4& mvTrans = Renderer::GetMVTrans();
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();

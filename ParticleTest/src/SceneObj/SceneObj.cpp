@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SceneObj.h"
+#include "Renderer/Renderer.h"
 
 namespace ptt
 {

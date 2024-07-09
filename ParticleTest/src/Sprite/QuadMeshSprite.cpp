@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "QuadMeshSprite.h"
+#include "Renderer/Renderer.h"
+#include "SceneObj/Camera3DObj.h"
 
 
 namespace ptt
@@ -43,7 +45,7 @@ namespace ptt
 		if(m_Shader == nullptr)
 			return;
 
-		Camera* camera = Renderer::GetCurrentCamera();
+		const CameraObj* camera = Renderer::GetCurrentCamera();
 
 		if (camera == nullptr)
 			return;

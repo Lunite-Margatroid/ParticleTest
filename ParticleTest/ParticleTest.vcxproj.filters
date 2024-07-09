@@ -186,31 +186,13 @@
     <ClInclude Include="src\demoscene\DemoSceneA.h">
       <Filter>src\demoscene</Filter>
     </ClInclude>
-    <ClInclude Include="src\demoscene\DemoSceneB.h">
-      <Filter>src\demoscene</Filter>
-    </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneModel.h">
       <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\demoscene\DemoSceneUI.h">
       <Filter>src\demoscene</Filter>
     </ClInclude>
-    <ClInclude Include="src\demoscene\FireworkScene.h">
-      <Filter>src\demoscene</Filter>
-    </ClInclude>
     <ClInclude Include="src\demoscene\LightedDemoScene.h">
-      <Filter>src\demoscene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\demoscene\QuadMeshScene.h">
-      <Filter>src\demoscene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\demoscene\SceneFireLoop.h">
-      <Filter>src\demoscene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\demoscene\SinWave.h">
-      <Filter>src\demoscene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\demoscene\SpriteTest.h">
       <Filter>src\demoscene</Filter>
     </ClInclude>
     <ClInclude Include="src\glObj\FrameBuffer.h">
@@ -254,6 +236,10 @@
     <ClInclude Include="src\Sprite\TestTetrahedron.h" />
     <ClInclude Include="src\Animation\FrameNode.h" />
     <ClInclude Include="src\SceneObj\AnimatedObj.h" />
+    <ClInclude Include="src\SceneObj\CameraObj.h" />
+    <ClInclude Include="src\SceneObj\OrthoCamera.h" />
+    <ClInclude Include="src\SceneObj\Camera3DObj.h" />
+    <ClInclude Include="src\SceneObj\PerspectiveCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -397,31 +383,13 @@
     <ClCompile Include="src\demoscene\DemoSceneA.cpp">
       <Filter>src\demoscene</Filter>
     </ClCompile>
-    <ClCompile Include="src\demoscene\DemoSceneB.cpp">
-      <Filter>src\demoscene</Filter>
-    </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneModel.cpp">
       <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\demoscene\DemoSceneUI.cpp">
       <Filter>src\demoscene</Filter>
     </ClCompile>
-    <ClCompile Include="src\demoscene\FireworkScene.cpp">
-      <Filter>src\demoscene</Filter>
-    </ClCompile>
     <ClCompile Include="src\demoscene\LIghtedDemoScene.cpp">
-      <Filter>src\demoscene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\demoscene\QuadMeshScene.cpp">
-      <Filter>src\demoscene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\demoscene\SceneFireLoop.cpp">
-      <Filter>src\demoscene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\demoscene\SinWave.cpp">
-      <Filter>src\demoscene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\demoscene\SpriteTest.cpp">
       <Filter>src\demoscene</Filter>
     </ClCompile>
     <ClCompile Include="src\glObj\FrameBuffer.cpp">
@@ -465,5 +433,9 @@
     <ClCompile Include="src\Sprite\TestTetrahedron.cpp" />
     <ClCompile Include="src\Animation\FrameNode.cpp" />
     <ClCompile Include="src\SceneObj\AnimatedObj.cpp" />
+    <ClCompile Include="src\SceneObj\CameraObj.cpp" />
+    <ClCompile Include="src\SceneObj\OrthoCamera.cpp" />
+    <ClCompile Include="src\SceneObj\Camera3DObj.cpp" />
+    <ClCompile Include="src\SceneObj\PerspectiveCamera.cpp" />
   </ItemGroup>
 </Project>

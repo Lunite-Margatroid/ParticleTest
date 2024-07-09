@@ -16,7 +16,7 @@ namespace ptt
 	{
 		if (m_Meshes.size() == 0)
 			return;
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		const CameraObj* camera = Renderer::GetCurrentCamera();
 		if (camera == nullptr)
 			return;
 		SelectShader();

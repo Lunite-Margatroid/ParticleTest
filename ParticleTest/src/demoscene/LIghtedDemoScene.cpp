@@ -10,12 +10,7 @@ namespace ptt
 		m_DirLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "DirLights");
 		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
 		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
-		// Ïà»ú
-		m_Camera = Renderer::GetCamera(Renderer::Cameras::Camera3D_Alpha);
-		Renderer::SetCurrentCamera(m_Camera);
-		Camera3D* camera = dynamic_cast<Camera3D*>(m_Camera);
-		if (camera)
-			camera->SetPos(glm::vec3(0.0f, 4.0f, 10.0f));
+
 		// µØ°å
 		SceneObj* obj;
 		Material* material;

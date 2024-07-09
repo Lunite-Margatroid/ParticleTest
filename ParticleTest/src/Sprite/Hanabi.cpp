@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Hanabi.h"
-
+#include "SceneObj/Camera3DObj.h"
 namespace ptt
 {
     void Hanabi::Init()
@@ -134,7 +134,7 @@ namespace ptt
 		// ------------- Render Hanabi ----------------
 		tfbShader* shader = dynamic_cast<tfbShader*>(Renderer::GetShader(LM::Shaders::Hanabi));
 		ASSERT(shader);
-		Camera* camera = Renderer::GetCurrentCamera();
+		const Camera3DObj* camera = dynamic_cast<const Camera3DObj*>(Renderer::GetCurrentCamera());
 		ASSERT(camera);
 		glm::mat4& mvTrans = Renderer::GetMVTrans();
 		glm::mat4& mvpTrans = Renderer::GetMVPTrans();

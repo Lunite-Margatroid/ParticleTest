@@ -2,7 +2,7 @@
 #include "Sprite/Sprite.h"
 #include "Sprite/udSprite.h"
 #include "Interface/ImGuiInterface.h"
-#include "Renderer/Renderer.h"
+
 namespace ptt
 {
 	class SceneObj : public ImGuiInterface

@@ -336,12 +336,19 @@ namespace ptt
 	}
 	void Renderer::SetViewTrans(const glm::mat4& viewTrans)
 	{
+		m_ViewTrans = viewTrans;
 	}
 	void Renderer::SetModelTrans(const glm::mat4& modelTrans)
 	{
+		m_ModelTrans = modelTrans;
 	}
 	void Renderer::SetProjectionTrans(const glm::mat4& projectionTrans)
 	{
+		m_ProjectionTrans = projectionTrans;
+	}
+	void Renderer::SetVPTrans(const glm::mat4& vpTrans)
+	{
+		m_VPTrans = vpTrans;
 	}
 	void Renderer::OitRenderBegin()
 	{
@@ -525,7 +532,7 @@ namespace ptt
 		GetInstance()->m_CurrentShader = shader;
 		shader->Bind();
 	}
-	void Renderer::SetCurrentCamera(Camera* camera)
+	void Renderer::SetCurrentCamera(CameraObj* camera)
 	{
 		GetInstance()->m_CurrentCamera = camera;
 	}
@@ -542,7 +549,7 @@ namespace ptt
 	{
 		return GetInstance()->m_CurrentShader;
 	}
-	Camera* Renderer::GetCurrentCamera()
+	const CameraObj* Renderer::GetCurrentCamera()
 	{
 		return GetInstance()->m_CurrentCamera;
 	}
@@ -561,6 +568,11 @@ namespace ptt
 	{
 		// TODO: insert return statement here
 		return GetInstance()->m_ProjectionTrans;
+	}
+	glm::mat4& Renderer::GetVPTrans()
+	{
+		// TODO: insert return statement here
+		return GetInstance()->m_VPTrans;
 	}
 	glm::mat4& Renderer::GetMVPTrans()
 	{

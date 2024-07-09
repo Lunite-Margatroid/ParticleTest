@@ -5,13 +5,16 @@
 #include "Sprite/Hanabi.h"
 #include "Sprite/QuadSprite.h"
 #include "Sprite/CubeSprite.h"
+#include "SceneObj/PerspectiveCamera.h"
+#include "SceneObj/OrthoCamera.h"
+
 namespace ptt
 {
 	class DemoSceneA :public DemoScene
 	{
 	protected:
 		std::unique_ptr<SceneObj> m_RootObj;
-		Camera* m_Camera;
+		CameraObj* m_MainCamera;
 		SceneObj* m_SelectedObj;
 
 		virtual void Init();

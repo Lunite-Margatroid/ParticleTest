@@ -97,7 +97,7 @@ namespace ptt
 		LM::Shader* shader = Renderer::GetShader(LM::Shaders::UI_ObjAxis);
 		if (shader == nullptr)
 			return;
-		Camera* camera = Renderer::GetCurrentCamera();
+		const CameraObj* camera = Renderer::GetCurrentCamera();
 		if (camera == nullptr)
 			return;
 		shader->Bind();

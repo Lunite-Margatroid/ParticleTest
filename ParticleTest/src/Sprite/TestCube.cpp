@@ -46,7 +46,7 @@ namespace ptt
 	}
 	void TestCube::Render(const glm::mat4& modelTrans)
 	{
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		const CameraObj* camera = Renderer::GetCurrentCamera();
 		if (camera == nullptr)
 			return;
 		SelectShader();

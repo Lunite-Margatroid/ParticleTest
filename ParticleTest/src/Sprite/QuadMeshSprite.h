@@ -2,7 +2,6 @@
 #include "Sprite.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
-#include "Renderer/Renderer.h"
 #include "Interface/ImGuiInterface.h"
 
 namespace ptt

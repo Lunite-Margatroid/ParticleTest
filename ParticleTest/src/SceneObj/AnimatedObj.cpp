@@ -5,7 +5,7 @@
 namespace ptt
 {
 	AnimatedObj::AnimatedObj(SceneObj* parent, Sprite* sprite, const std::string& objName)
-		:SceneObj(parent, sprite, objName)
+		:SceneObj(parent, sprite, objName), m_bAnimated(false)
 	{
 	}
 	void AnimatedObj::Update(float deltaTime)
@@ -14,10 +14,17 @@ namespace ptt
 		{
 			child->Update(deltaTime);
 		}
-		m_FrameNode.Update(deltaTime);
-		m_Position = m_FrameNode.GetPosFrame();
-		m_Scale = m_FrameNode.GetScaleFrame();
-		m_Qua = m_FrameNode.GetRotationFrame();
+		if (m_bAnimated)
+		{
+			m_FrameNode.Update(deltaTime);
+			m_Position = m_FrameNode.GetPosFrame();
+			m_Scale = m_FrameNode.GetScaleFrame();
+			m_Qua = m_FrameNode.GetRotationFrame();
+		}
+		else
+		{
+			UpdateQuaternion();
+		}
 
 		if (m_Sprite)
 			m_Sprite->Update(deltaTime);
@@ -52,6 +59,7 @@ namespace ptt
 		ImGui::DragFloat3("##col3", staggeringTransPtr + 8, 0.01f, -10.f, 10.f);
 
 		ImGui::Separator();
+		ImGui::Checkbox("Aniamted", &m_bAnimated);
 		if (ImGui::Button("Reload Animation Script"))
 		{
 			IGFD::FileDialogConfig config;
@@ -84,5 +92,13 @@ namespace ptt
 			}
 			m_Sprite->RenderImGui();
 		}
+	}
+	void AnimatedObj::EnableAnimation(bool enableAnimation)
+	{
+		m_bAnimated = enableAnimation;
+	}
+	bool AnimatedObj::IsAnimated() const
+	{
+		return m_bAnimated;
 	}
 }

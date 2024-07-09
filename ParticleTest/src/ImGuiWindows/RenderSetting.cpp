@@ -293,12 +293,6 @@ namespace ptt
 
 		glGetBooleanv(GL_DEPTH_TEST, &m_IfDepthTest);
 
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
-		if (camera)
-		{
-			m_Projection = camera->GetProjectionType();
-		}
-
 	}
 	void RenderSetting::Apply()
 	{
@@ -333,14 +327,6 @@ namespace ptt
 		glBlendFuncSeparate(m_SrcFactor_RGB, m_DstFactor_RGB, m_SrcFactor_Alpha, m_DstFactor_Alpha);
 		glBlendEquationSeparate(m_BlendEquation_RGB, m_BlendEquation_Alpha);
 
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
-		if (camera)
-		{
-			if (m_Projection == Camera3D::Perspective)
-				camera->SetPerspectiveProjection();
-			else if (m_Projection == Camera3D::Ortho)
-				camera->SetOrthoProjection();
-		}
 
 		glLineWidth(m_LineWidth);
 		glPolygonMode(GL_FRONT_AND_BACK, m_PolygonMode);

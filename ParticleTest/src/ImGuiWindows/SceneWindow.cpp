@@ -40,7 +40,7 @@ namespace ptt
 	}
 	bool SceneWindow::IsMultisample() const
 	{
-		return (void*)(m_Current )== (void*)(&m_FramebufferMS);
+		return (void*)(m_Current) == (void*)(&m_FramebufferMS);
 	}
 	void SceneWindow::ShowWindow()
 	{
@@ -108,13 +108,16 @@ namespace ptt
 
 		//std::cout << "window pos: " << windowPos.x << ',' << windowPos.y << std::endl;
 
+		/*********************************** Camera Contral **************************************************/
+		// Mouse
 		ImVec2 mouseDrag = ImGui::GetMouseDragDelta();
 		//std::cout << "Mouse Drag: " << "x = " << mouseDrag.x << " y = " << mouseDrag.y << std::endl;
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		static ImVec2 sLastCursor;
 		static ImVec2 sDeltaPos;
-		if (io.MouseDown[0])	// 左键按下
+		Camera3DObj* camera = const_cast<Camera3DObj*>(dynamic_cast<const Camera3DObj*>(Renderer::GetCurrentCamera()));
+		if (io.MouseDown[0] && camera)	// 左键按下
 		{
 			// 这里windowPos 是scene绘制区域的左上角
 			if (io.MouseClickedPos[0].x >= windowPos.x &&
@@ -125,15 +128,31 @@ namespace ptt
 				sDeltaPos.x = io.MousePos.x - sLastCursor.x;
 				sDeltaPos.y = io.MousePos.y - sLastCursor.y;
 				// std::cout << "Mouse Drag dleta Pos: " << sDeltaPos.x << ", " << sDeltaPos.y << std::endl;
-				if (Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera()))
-				{
-					camera->RotateYaw(-sDeltaPos.x / 500.0f);
-					camera->RotatePitch(-sDeltaPos.y / 500.0f);
-				}
 
+				camera->RotateYaw(-sDeltaPos.x / 500.0f);
+				camera->RotatePitch(-sDeltaPos.y / 500.0f);
 			}
 		}
 		sLastCursor = ImGui::GetMousePos();
+
+		// keyboard move Camera
+		if (ImGui::IsWindowFocused() && camera)
+		{
+			if (io.KeysDown[ImGuiKey_W])
+				camera->Move(CameraObj::Direction::front, m_DeltaTime);
+			if (io.KeysDown[ImGuiKey_A])
+				camera->Move(CameraObj::Direction::left, m_DeltaTime);
+			if (io.KeysDown[ImGuiKey_S])
+				camera->Move(CameraObj::Direction::back, m_DeltaTime);
+			if (io.KeysDown[ImGuiKey_D])
+				camera->Move(CameraObj::Direction::right, m_DeltaTime);
+			if (io.KeysDown[ImGuiKey_LeftShift])
+				camera->Move(CameraObj::Direction::down, m_DeltaTime);
+			if (io.KeysDown[ImGuiKey_Space])
+				camera->Move(CameraObj::Direction::up, m_DeltaTime);
+		}
+
+
 
 		/*if(ImGui::IsMouseHoveringRect(windowPos, ImVec2(drawWidth + windowPos.x, drawHeight + windowPos.y)))
 			std:: cout << "Cursor is hovering on Scene ViewPort.\n";
@@ -152,8 +171,9 @@ namespace ptt
 	}
 	void SceneWindow::Update(float deltaTime)
 	{
-		if(m_Scene)
+		if (m_Scene)
 			m_Scene->Update(deltaTime);
+		m_DeltaTime = deltaTime;
 	}
 	LM::FrameBuffer* SceneWindow::GetFrameBuffer()
 	{

@@ -19,7 +19,7 @@ namespace ptt
 
 	void CubeSprite::Render(const glm::mat4& modelTrans)
 	{
-		Camera3D* camera = dynamic_cast<Camera3D*>(Renderer::GetCurrentCamera());
+		const CameraObj* camera = dynamic_cast<const CameraObj*>(Renderer::GetCurrentCamera());
 		if (camera == nullptr)
 			return;
 		SelectShader();
