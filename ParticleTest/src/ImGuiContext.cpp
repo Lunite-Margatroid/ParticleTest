@@ -4,6 +4,7 @@
 #include "ImGuiWindows/TextureSelector.h"
 #include "ImGuiWindows/AddObjectDialog.h"
 #include "ImGuiWindows/RenderSetting.h"
+#include "ImGuiWindows/AddCameraDialog.h"
 
 namespace ptt
 {
@@ -52,7 +53,7 @@ namespace ptt
         m_DialogManager.GenDialog<TextureSelector>("Texture Selector");
         m_DialogManager.GenDialog<AddObjectDialog>("Add Object");
         m_DialogManager.GenDialog<RenderSetting>("Rendering Setting");
-        
+        m_DialogManager.GenDialog<AddCameraDialog>("Add Camera");
 	}
     void ImGuiContext::Terminate()
     {

@@ -45,7 +45,6 @@ namespace ptt
 		m_SrcFactor_RGB = m_SrcFactor_Alpha = GL_SRC_ALPHA;
 		m_DstFactor_RGB = m_DstFactor_Alpha = GL_ONE_MINUS_SRC_ALPHA;
 		m_BlendEquation_RGB = m_BlendEquation_Alpha = GL_FUNC_ADD;
-		m_Projection = Camera3D::Perspective;
 		m_PolygonMode = GL_FILL;
 		m_LineWidth = 1.0f;
 	}
@@ -212,32 +211,7 @@ namespace ptt
 				}
 				ImGui::EndCombo();
 			}
-			// -------------------- projection -----------------
-			ImGui::Separator();
-			if (ImGui::BeginCombo("Projection", m_NameMap[m_Projection + 8].c_str()))
-			{
-				bool isSelected = m_Projection == Camera3D::Perspective;
-				if (ImGui::Selectable(m_NameMap[Camera3D::Perspective + 8].c_str(), &isSelected))
-				{
-					m_Projection = Camera3D::Perspective;
-				}
-				if (isSelected)
-				{
-					ImGui::SetItemDefaultFocus();
-				}
-
-				isSelected = m_Projection == Camera3D::Ortho;
-				if (ImGui::Selectable(m_NameMap[Camera3D::Ortho + 8].c_str(), &isSelected))
-				{
-					m_Projection = Camera3D::Ortho;
-				}
-				if (isSelected)
-				{
-					ImGui::SetItemDefaultFocus();
-				}
-
-				ImGui::EndCombo();
-			}
+			
 			ImGui::Separator();
 			if (ImGui::BeginCombo("Polygon Mode", m_NameMap[m_PolygonMode].c_str()))
 			{
@@ -340,7 +314,6 @@ namespace ptt
 		m_SrcFactor_RGB = m_SrcFactor_Alpha = GL_SRC_ALPHA;
 		m_DstFactor_RGB = m_DstFactor_Alpha = GL_ONE_MINUS_SRC_ALPHA; 
 		m_BlendEquation_RGB = m_BlendEquation_Alpha = GL_FUNC_ADD;
-		m_Projection = Camera3D::Perspective;
 		m_PolygonMode = GL_FILL;
 		m_LineWidth = 1.f;
 		Apply();

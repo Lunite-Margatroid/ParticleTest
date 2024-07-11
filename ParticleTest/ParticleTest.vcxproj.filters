@@ -240,6 +240,7 @@
     <ClInclude Include="src\SceneObj\OrthoCamera.h" />
     <ClInclude Include="src\SceneObj\Camera3DObj.h" />
     <ClInclude Include="src\SceneObj\PerspectiveCamera.h" />
+    <ClInclude Include="src\ImGuiWindows\AddCameraDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -437,5 +438,6 @@
     <ClCompile Include="src\SceneObj\OrthoCamera.cpp" />
     <ClCompile Include="src\SceneObj\Camera3DObj.cpp" />
     <ClCompile Include="src\SceneObj\PerspectiveCamera.cpp" />
+    <ClCompile Include="src\ImGuiWindows\AddCameraDialog.cpp" />
   </ItemGroup>
 </Project>

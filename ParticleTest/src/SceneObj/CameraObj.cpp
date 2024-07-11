@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CameraObj.h"
+#include "Application.h"
+#include "demoscene/DemoSceneA.h"
 
 namespace ptt
 {
@@ -61,6 +63,21 @@ namespace ptt
 			m_Pitch = m_Pitch < 1.5f ? m_Pitch : 1.5f;
 			m_Pitch = m_Pitch > -1.5f ? m_Pitch : -1.5f;
 		}
+	}
+
+	void CameraObj::RenderImGui()
+	{
+		AnimatedObj::RenderImGui();
+		ImGui::Separator();
+		if (ImGui::Button("SetMainCamera"))
+		{
+			DemoSceneA* scene = dynamic_cast<DemoSceneA*>(Application::GetCurrentScene());
+			if (scene)
+			{
+				scene->SetMainCamera(this);
+			}
+		}
+		
 	}
 
 	void CameraObj::UpdateDirectionVec()

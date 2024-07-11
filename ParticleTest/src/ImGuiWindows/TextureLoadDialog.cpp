@@ -126,6 +126,7 @@ namespace ptt
 					if (ImGui::Selectable(m_NameMap[m_TexTypes[i]].c_str(), &isSelected))
 					{
 						m_tTexType = m_TexTypes[i];
+						
 					}
 					if (isSelected)
 					{
@@ -220,6 +221,7 @@ namespace ptt
 			if (ImGui::Button("Load"))
 			{
 				m_tTexture->SetTextureName(m_tTextureName);
+				m_tTexture->SetTextureType(m_tTexType);
 				Renderer::SaveTexture(m_tTexture);
 				m_tTexture = new LM::Texture();
 				ImGui::CloseCurrentPopup();

@@ -5,6 +5,7 @@ namespace ptt
 {
 	void AddObjectDialog::Init()
 	{
+		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::None);
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::Quad);
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::Cube);
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::Sphere);
@@ -17,6 +18,7 @@ namespace ptt
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::PointLight);
 		m_SpriteTypes.push_back(DemoSceneModel::SpriteType::SpotLight);
 
+		m_NameMap[DemoSceneModel::SpriteType::None]				= std::string("None");
 		m_NameMap[DemoSceneModel::SpriteType::Quad]				= std::string("Quad");
 		m_NameMap[DemoSceneModel::SpriteType::Cube]				= std::string("Cube");
 		m_NameMap[DemoSceneModel::SpriteType::Sphere]			= std::string("Sphere");
@@ -32,6 +34,8 @@ namespace ptt
 		memset(m_InputText, 0, 128);
 
 		m_SelectedSprite = DemoSceneModel::SpriteType::Quad;
+
+		m_IsAnimatable = false;
 	}
 	AddObjectDialog::AddObjectDialog(const std::string& dialogName)
 		:ImGuiDialogModal(dialogName)
@@ -43,6 +47,7 @@ namespace ptt
 	{
 		if (WindowBegin())
 		{
+			ImGui::Checkbox("Animatable", &m_IsAnimatable);
 			ImGui::InputText("Object Name", m_InputText, 128);
 			if (ImGui::BeginCombo("Object Type", m_NameMap[m_SelectedSprite].c_str()))
 			{
@@ -65,7 +70,7 @@ namespace ptt
 			{
 				if (m_Scene)
 				{
-					m_Scene->AddSceneObject(m_SelectedSprite, std::string(m_InputText));
+					m_Scene->AddSceneObject(m_SelectedSprite, std::string(m_InputText), m_IsAnimatable);
 				}
 				ImGui::CloseCurrentPopup();
 			}

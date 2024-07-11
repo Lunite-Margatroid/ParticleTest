@@ -29,9 +29,6 @@ namespace ptt
 
 		std::map<GLenum, std::string> m_NameMap;
 
-
-		Camera3D::Projection m_Projection;
-
 		GLenum m_PolygonModes[3];
 		GLenum m_PolygonMode;
 

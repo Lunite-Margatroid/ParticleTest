@@ -3,6 +3,7 @@
 #include "SceneObj/illuminant.h"
 #include "demoscene/DemoSceneModel.h"
 #include "ImGuiWindows/AddObjectDialog.h"
+#include "ImGuiWindows/AddCameraDialog.h"
 
 namespace ptt
 {
@@ -151,9 +152,19 @@ namespace ptt
 				ImGui::Separator();
 				if(ImGui::BeginMenu("Add Scene Object"))
 				{
-					if (ImGui::MenuItem("Add Static Object"))
+					if (ImGui::MenuItem("Add Object"))
 					{
 						AddObjectDialog * dialog = dynamic_cast<AddObjectDialog*>(m_ImGuiCtx->GetDialog("Add Object"));
+						DemoSceneModel* scene = dynamic_cast<DemoSceneModel*>(GetCurrentScene());
+						if (dialog && scene)
+						{
+							dialog->InitWindow(scene);
+							dialog->Popup();
+						}
+					}
+					if (ImGui::MenuItem("Add Camera"))
+					{
+						AddCameraDialog* dialog = dynamic_cast<AddCameraDialog*>(m_ImGuiCtx->GetDialog("Add Camera"));
 						DemoSceneModel* scene = dynamic_cast<DemoSceneModel*>(GetCurrentScene());
 						if (dialog && scene)
 						{
@@ -241,6 +252,9 @@ namespace ptt
 		
 		// ------------------ render setting -----------
 		m_ImGuiCtx->ShowDialog("Rendering Setting");
+
+		// ------------------ adding Camera --------------
+		m_ImGuiCtx->ShowDialog("Add Camera");
 	}
 
 	Application* Application::GetInstance()

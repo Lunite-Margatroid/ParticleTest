@@ -6,6 +6,7 @@
 #include "Sprite/SkyboxSprite.h"
 #include "Sprite/CustomedSprite.h"
 #include "Sprite/FireWork.h"
+#include "SceneObj/AnimatedObj.h"
 // #include "Light/SpotLight.h"
 
 namespace ptt
@@ -15,7 +16,7 @@ namespace ptt
 	public:
 		enum class SpriteType
 		{
-			Quad, Cube, Sphere, Skybox, Custom, Firework, Hanabi, QuadMesh, 
+			None, Quad, Cube, Sphere, Skybox, Custom, Firework, Hanabi, QuadMesh, 
 			DirectionalLight, PointLight, SpotLight
 		};
 	protected:
@@ -43,12 +44,18 @@ namespace ptt
 		std::vector<Mesh*>& GetMeshes();
 
 
-		void AddSceneObject(SpriteType spriteType, const std::string& objName);
+		void AddSceneObject(SpriteType spriteType, const std::string& objName, bool isAnimated);
+		
+		template<typename TObject>
+		void AddSceneObjectWithoutSprite(const std::string& ObjectName)
+		{
+			SceneObj* obj = new TObject(m_SelectedObj, nullptr, ObjectName);
+		}
 
-		template<typename TOnject, typename TSprite>
+		template<typename TObject, typename TSprite>
 		void AddSceneObject(const std::string& ObjectName)
 		{
-			ASSERT(false);
+			SceneObj* obj = new TObject(m_SelectedObj, new TSprite(), ObjectName);
 		}
 
 		template<>
@@ -132,5 +139,12 @@ namespace ptt
 			AddIlluminant(obj);
 		}
 
+		void AddCamera(CameraObj::CameraType type, const std::string& name);
+
+		template<typename TCamera>
+		void AddCamera(const std::string& name)
+		{
+				CameraObj * camera = dynamic_cast<CameraObj*>( new TCamera(m_RootObj.get(), nullptr, name) );
+		}
 	};
 }

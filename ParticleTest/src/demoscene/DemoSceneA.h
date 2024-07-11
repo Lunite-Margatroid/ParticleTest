@@ -28,5 +28,7 @@ namespace ptt
 		void Render() override;
 		void RenderImGui() override;
 		void Update(float deltaTime) override;
+
+		void SetMainCamera(CameraObj* camera);
 	};
 }

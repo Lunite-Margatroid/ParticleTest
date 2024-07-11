@@ -32,5 +32,7 @@ namespace ptt
 
 		float GetNear() const;
 		float GetFar() const;
+
+		void RenderImGui() override;
 	};
 }

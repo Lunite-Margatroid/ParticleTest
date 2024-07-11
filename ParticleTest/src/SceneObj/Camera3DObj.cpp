@@ -78,4 +78,9 @@ namespace ptt
 	{
 		return m_Far;
 	}
+	void Camera3DObj::RenderImGui()
+	{
+		CameraObj::RenderImGui();
+		ImGui::DragFloat("View Range scale", &m_ViewRangeScale, 0.01f,0.1f, 2.0f);
+	}
 }

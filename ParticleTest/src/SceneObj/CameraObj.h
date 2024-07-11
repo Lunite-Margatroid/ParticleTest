@@ -10,6 +10,10 @@ namespace ptt
 		{
 			front, back, left, right, up, down
 		};
+		enum class CameraType
+		{
+			PerspectiveCamera3D, OrthographicCamera3D
+		};
 
 	protected:
 		mutable glm::mat4 m_ViewTrans;
@@ -37,6 +41,8 @@ namespace ptt
 
 		const glm::vec3& GetHeadTo() const;
 		void HeadTo(const glm::vec3& target);
+
+		void RenderImGui() override;
 
 	};
 }

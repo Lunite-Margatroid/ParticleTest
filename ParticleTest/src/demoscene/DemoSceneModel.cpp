@@ -31,8 +31,8 @@ namespace ptt
 
 		obj = new SceneObj(m_RootObj.get(), dynamic_cast<Sprite*>(new SkyboxSprite()), "Skybox");
 
-		
-		
+
+
 	}
 	ptt::DemoSceneModel::DemoSceneModel()
 		:DemoSceneUI(false)
@@ -63,7 +63,7 @@ namespace ptt
 		m_PointLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "PointLights");
 		m_SpotLightBuffer.BindToShaderStorage(Renderer::GetShader(LM::Shaders::LightedMesh_P_N_T_TG), "SpotLights");
 
-		if(init)
+		if (init)
 			Init();
 	}
 
@@ -219,8 +219,8 @@ namespace ptt
 
 	unsigned int DemoSceneModel::LoadMaterials(const aiScene* scene, const std::string& directionary)
 	{
-		aiTextureType texTypes[4] = {aiTextureType_DIFFUSE, aiTextureType_SPECULAR, aiTextureType_NORMALS, aiTextureType_HEIGHT};
-		LM::TextureType lmTypes[4] = {LM::texture_diffuse, LM::texture_specular, LM::texture_normal, LM::texture_parallax};
+		aiTextureType texTypes[4] = { aiTextureType_DIFFUSE, aiTextureType_SPECULAR, aiTextureType_NORMALS, aiTextureType_HEIGHT };
+		LM::TextureType lmTypes[4] = { LM::texture_diffuse, LM::texture_specular, LM::texture_normal, LM::texture_parallax };
 		unsigned int ret = m_Materials.size();
 		for (unsigned int i = 0; i < scene->mNumMaterials; i++)
 		{
@@ -232,7 +232,7 @@ namespace ptt
 				if (mtl->GetTextureCount(texTypes[j]) > 0)
 				{
 					aiString str;
-					if(mtl->GetTexture(texTypes[j], 0, &str) == aiReturn_FAILURE)
+					if (mtl->GetTexture(texTypes[j], 0, &str) == aiReturn_FAILURE)
 						std::cout << "Get Texture Failed.\n";
 
 					//// utf-8×ªÎª¿í×Ö·û
@@ -251,12 +251,12 @@ namespace ptt
 					//	}
 					//}
 					std::stringstream ss;
-					ss <<  directionary << '/'<< str.C_Str();
+					ss << directionary << '/' << str.C_Str();
 
-					material->SetTexture(lmTypes[j], 
+					material->SetTexture(lmTypes[j],
 						Renderer::LoadTexture(ss.str(), lmTypes[j], true,
-						GL_RGB, GL_RGBA, GL_LINEAR_MIPMAP_NEAREST,GL_LINEAR, GL_REPEAT,true
-					));
+							GL_RGB, GL_RGBA, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR, GL_REPEAT, true
+						));
 				}
 			}
 		}
@@ -269,33 +269,63 @@ namespace ptt
 		return m_Meshes;
 	}
 
-	void DemoSceneModel::AddSceneObject(SpriteType spriteType, const std::string& objName)
+	void DemoSceneModel::AddSceneObject(SpriteType spriteType, const std::string& objName, bool isAnimated)
 	{
 		switch (spriteType)
 		{
+		case SpriteType::None:
+			if (isAnimated)
+				AddSceneObjectWithoutSprite<AnimatedObj>(objName);
+			else
+				AddSceneObjectWithoutSprite<SceneObj>(objName);
+			break;
 		case SpriteType::Quad:
-			AddSceneObject<SceneObj, QuadSprite>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, QuadSprite>(objName);
+			else
+				AddSceneObject<SceneObj, QuadSprite>(objName);
 			break;
 		case SpriteType::Cube:
-			AddSceneObject<SceneObj, CubeSprite>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, CubeSprite>(objName);
+			else
+				AddSceneObject<SceneObj, CubeSprite>(objName);
 			break;
 		case SpriteType::Sphere:
-			AddSceneObject<SceneObj, SphereSprite>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, SphereSprite>(objName);
+			else
+				AddSceneObject<SceneObj, SphereSprite>(objName);
 			break;
 		case SpriteType::Skybox:
-			AddSceneObject<SceneObj, SkyboxSprite>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, SkyboxSprite>(objName);
+			else
+				AddSceneObject<SceneObj, SkyboxSprite>(objName);
 			break;
 		case SpriteType::Custom:
-			AddSceneObject<SceneObj, CustomedSprite>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, CustomedSprite>(objName);
+			else
+				AddSceneObject<SceneObj, CustomedSprite>(objName);
 			break;
 		case SpriteType::Firework:
-			AddSceneObject<SceneObj, FireWork>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, FireWork>(objName);
+			else
+				AddSceneObject<SceneObj, FireWork>(objName);
 			break;
 		case SpriteType::Hanabi:
-			AddSceneObject<SceneObj, Hanabi>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, Hanabi>(objName);
+			else
+				AddSceneObject<SceneObj, Hanabi>(objName);
 			break;
 		case SpriteType::QuadMesh:
-			AddSceneObject<SceneObj, QuadMeshSprite>(objName);
+			if (isAnimated)
+				AddSceneObject<AnimatedObj, QuadMeshSprite>(objName);
+			else
+				AddSceneObject<SceneObj, QuadMeshSprite>(objName);
 			break;
 		case SpriteType::DirectionalLight:
 			AddSceneObject<Illuminant, LM::DirLight>(objName);
@@ -307,6 +337,19 @@ namespace ptt
 			AddSceneObject<Illuminant, LM::SpotLight>(objName);
 			break;
 		default:break;
+		};
+	}
+
+	void DemoSceneModel::AddCamera(CameraObj::CameraType type, const std::string& name)
+	{
+		switch (type)
+		{
+		case CameraObj::CameraType::OrthographicCamera3D:
+			AddCamera<OrthoCamera>(name);
+			break;
+		case CameraObj::CameraType::PerspectiveCamera3D:
+			AddCamera<PerspectiveCamera>(name);
+			break;
 		};
 	}
 
