@@ -22,7 +22,7 @@ premake:https://premake.github.io/
 
 ## 摄像机操作
 
-<img src="https://github.com/Lunite-Margatroid/ParticleTest/blob/master/img/camera_rotation.png" alt="camera_rotation" style="zoom:50%;" />
+<img src="img/camera_rotation.png" alt="camera_rotation" style="zoom:50%;" />
 
 **按下左键滑动**，旋转摄像头。
 
