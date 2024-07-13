@@ -22,7 +22,10 @@ namespace ptt
 	void PerspectiveCamera::Update(float deltaTime)
 	{
 		AnimatedObj::Update(deltaTime);
-		UpdateDirectionVec();
+		if (m_ParentObj)
+			UpdateDirectionVec(glm::mat3(m_ParentObj->GetModelTrans()));
+		else
+			UpdateDirectionVec(glm::mat3(1.0f));
 		UpdateVPTrans();
 	}
 	float PerspectiveCamera::GetWidth() const

@@ -59,7 +59,10 @@ namespace ptt
 	void Camera3DObj::Update(float deltaTime)
 	{
 		AnimatedObj::Update(deltaTime);
-		UpdateDirectionVec();
+		if (m_ParentObj)
+			UpdateDirectionVec(glm::mat3(m_ParentObj->GetModelTrans()));
+		else
+			UpdateDirectionVec(glm::mat3(1.0f));
 		UpdateVPTrans();
 	}
 	void Camera3DObj::SetNear(float near)

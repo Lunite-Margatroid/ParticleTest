@@ -25,7 +25,10 @@ namespace ptt
 	void OrthoCamera::Update(float deltaTime)
 	{
 		AnimatedObj::Update(deltaTime);
-		UpdateDirectionVec();
+		if (m_ParentObj)
+			UpdateDirectionVec(glm::mat3(m_ParentObj->GetModelTrans()));
+		else
+			UpdateDirectionVec(glm::mat3(1.0f));
 		UpdateVPTrans();
 	}
 	void OrthoCamera::SetViewCube(float left, float right, float top, float bottom, float near, float far)

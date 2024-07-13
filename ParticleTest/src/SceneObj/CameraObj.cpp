@@ -24,7 +24,10 @@ namespace ptt
 	void CameraObj::Update(float deltaTime)
 	{
 		AnimatedObj::Update(deltaTime);
-		UpdateDirectionVec();
+		if (m_ParentObj)
+			UpdateDirectionVec(glm::mat3(m_ParentObj->GetModelTrans()));
+		else
+			UpdateDirectionVec(glm::mat3(1.0f));
 		UpdateVPTrans();
 	}
 	const glm::mat4& CameraObj::GetViewTrans() const
@@ -48,7 +51,7 @@ namespace ptt
 
 	void CameraObj::HeadTo(const glm::vec3& target)
 	{
-		glm::vec3 dir = target - m_Position;
+		glm::vec3 dir = target - glm::vec3(m_ModelTrans[3]);
 		float xz = sqrtf(dir.x * dir.x + dir.z * dir.z);
 		if (xz > 0.0f)
 		{
@@ -80,22 +83,20 @@ namespace ptt
 		
 	}
 
-	void CameraObj::UpdateDirectionVec()
+	void CameraObj::UpdateDirectionVec(const glm::mat3& parentRotation)
 	{
-		m_Right.x = cosf(m_Yaw);
-		m_Right.y = 0.f;
-		m_Right.z = -sinf(m_Yaw);
+		m_HeadTo = glm::mat3(m_ModelTrans) * glm::vec3(0.0f, 0.0f, -1.0f);
+		m_Right = parentRotation * glm::vec3(1.0f, 0.0f, 0.0f);
+		m_Front = parentRotation * glm::vec3(0.0f, 0.0f, -1.0f);
+		m_Up = parentRotation * glm::vec3(0.0f, 1.0f, 0.0f);
 
-		m_Front.x = m_Right.z;
-		m_Front.y = 0.0f;
-		m_Front.z = -m_Right.x;
-
-		glm::mat4 rotationMat(1.f);
-		QuaternionRotate(rotationMat, m_Qua);
-		m_HeadTo = rotationMat * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);
+		glm::mat3 m = glm::mat3(glm::rotate(glm::mat4(1.0f), m_Yaw, m_Up));
+		m_Front = m * m_Front;
+		m_Right = m * m_Right;
 	}
 	void CameraObj::UpdateViewTrans()
 	{
-		m_ViewTrans = glm::lookAt(m_Position, m_Position + m_HeadTo, glm::vec3(0.0f, 1.0f, 0.f));
+		glm::vec3 pos = glm::vec3(m_ModelTrans[3]);
+		m_ViewTrans = glm::lookAt(pos, pos + m_HeadTo, m_Up);
 	}
 }

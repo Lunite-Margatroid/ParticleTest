@@ -24,8 +24,9 @@ namespace ptt
 
 		glm::vec3 m_Right;
 		glm::vec3 m_Front;
+		glm::vec3 m_Up;
 
-		void UpdateDirectionVec();
+		void UpdateDirectionVec(const glm::mat3& parentRotation);
 
 		virtual void UpdateViewTrans();
 		virtual void UpdateProjectionTrans() = 0 ;
